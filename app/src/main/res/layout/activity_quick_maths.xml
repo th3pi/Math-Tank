@@ -44,10 +44,11 @@
 
     <android.support.v7.widget.GridLayout
         android:layout_width="match_parent"
-        android:layout_height="660dp"
+        android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
+        android:layout_marginTop="80dp"
         app:columnCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
@@ -59,54 +60,48 @@
             android:id="@+id/button0"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            android:textSize="30sp"
+            android:onClick="choose"
             android:text="2+2"
-            android:onClick="choose"/>
+            android:textSize="30sp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/button1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="30sp"
+            android:onClick="choose"
             android:text="5x2"
             android:textAllCaps="false"
+            android:textSize="30sp"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_row="0"
-            app:layout_rowWeight="1"
-            android:onClick="choose"/>
+            app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/button2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="choose"
             android:text="10"
             android:textSize="30sp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
             app:layout_column="0"
+            app:layout_columnWeight="1"
             app:layout_row="1"
-            android:onClick="choose"/>
+            app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/button3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="choose"
             android:text="300"
             android:textSize="30sp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
             app:layout_column="1"
+            app:layout_columnWeight="1"
             app:layout_row="1"
-            android:onClick="choose"/>
-    </android.support.v7.widget.GridLayout>
-
-    <android.support.v7.widget.GridLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
+            app:layout_rowWeight="1" />
     </android.support.v7.widget.GridLayout>
 
 </android.support.constraint.ConstraintLayout>
