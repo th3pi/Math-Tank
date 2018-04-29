@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/animation"
+    android:id="@+id/mainMenu"
+    tools:context=".MainMenu">
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="153dp" />
+
+    <Button
+        android:id="@+id/quickMathsButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:background="#79b700"
+        android:fontFamily="@font/indieflower"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:text="Quick Maths Shark"
+
+        android:textSize="20sp"
+        android:typeface="sans"
+        app:layout_constraintBottom_toTopOf="@+id/timeTrialsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <Button
+        android:id="@+id/timeTrialsButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#ff6d00"
+        android:text="Time Trials Shark"
+        android:textSize="20sp"
+        android:typeface="sans"
+        android:fontFamily="@font/indieflower"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+
+        app:layout_constraintBottom_toTopOf="@+id/complexSharkButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quickMathsButton" />
+
+    <Button
+        android:id="@+id/complexSharkButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="20dp"
+        android:background="#c62828"
+        android:fontFamily="@font/indieflower"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:text="Advanced Shark"
+        android:textSize="20sp"
+
+        android:typeface="sans"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/timeTrialsButton"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="What type of shark are you today?"
+        android:textColor="#0069c0"
+        android:textSize="19sp"
+        android:fontFamily="@font/indieflower"
+        android:shadowColor="@color/colorPrimaryDark"
+        android:shadowRadius="2"
+        app:layout_constraintBottom_toTopOf="@+id/quickMathsButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline"
+        app:layout_constraintVertical_bias="0.849" />
+</android.support.constraint.ConstraintLayout>
