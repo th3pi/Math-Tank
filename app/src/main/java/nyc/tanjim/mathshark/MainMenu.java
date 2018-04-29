@@ -25,6 +25,5 @@ public class MainMenu extends AppCompatActivity {
             animationDrawable.setEnterFadeDuration(5000);
             animationDrawable.setExitFadeDuration(6000);
             animationDrawable.start();
-
     }
 }
