@@ -1,10 +1,12 @@
 package nyc.tanjim.mathshark;
 
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.RelativeLayout;
 
 public class MainMenu extends AppCompatActivity {
@@ -16,6 +18,11 @@ public class MainMenu extends AppCompatActivity {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             backgroundAnimation();
         }
+    }
+
+    public void openQuickMaths(View view){
+        Intent intent = new Intent(getApplicationContext(), QuickMaths.class);
+        startActivity(intent);
     }
 
     public void backgroundAnimation(){

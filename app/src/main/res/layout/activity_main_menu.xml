@@ -29,6 +29,7 @@
         android:textSize="30sp"
         android:padding="15dp"
         android:typeface="sans"
+        android:onClick="openQuickMaths"
         app:layout_constraintBottom_toTopOf="@+id/timeTrialsButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
