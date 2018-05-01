@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Advanced">
@@ -58,24 +59,28 @@
 
         <Button
             android:id="@+id/button0"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="choose"
-            android:text="2+2"
             android:tag="0"
+            android:text="2+2"
             android:textSize="30sp"
+            android:theme="@style/button_one"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
 
         <Button
             android:id="@+id/button1"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="choose"
-            android:text="5x2"
             android:tag="1"
+            android:text="5x2"
             android:textAllCaps="false"
             android:textSize="30sp"
+            android:theme="@style/button_two"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_row="0"
@@ -83,12 +88,14 @@
 
         <Button
             android:id="@+id/button2"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="choose"
-            android:text="10"
             android:tag="2"
+            android:text="10"
             android:textSize="30sp"
+            android:theme="@style/button_three"
             app:layout_column="0"
             app:layout_columnWeight="1"
             app:layout_row="1"
@@ -96,12 +103,14 @@
 
         <Button
             android:id="@+id/button3"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="choose"
-            android:text="300"
             android:tag="3"
+            android:text="300"
             android:textSize="30sp"
+            android:theme="@style/button_four"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_row="1"
@@ -117,11 +126,37 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
-        android:text="21/29"
+        android:text="0/0"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
         app:layout_constraintStart_toEndOf="@+id/quiestionsView"
         app:layout_constraintTop_toTopOf="parent" />
+
+
+    <LinearLayout
+        android:id="@+id/container"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="12dp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        app:layout_constraintEnd_toStartOf="@+id/quiestionsView"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.7">
+
+        <ImageButton
+            android:id="@+id/menuButton"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/ic_menu" />
+    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

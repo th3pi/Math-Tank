@@ -10,5 +10,17 @@
     <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
         <item name="android:fontFamily">@font/indieflower</item>
     </style>
+    <style name="button_one" parent="AppTheme">
+        <item name="colorAccent">@color/buttonone</item>
+    </style>
+    <style name="button_two" parent="AppTheme">
+    <item name="colorAccent">@color/buttontwo</item>
+    </style>
+    <style name="button_three" parent="AppTheme">
+        <item name="colorAccent">@color/buttonthree</item>
+    </style>
+    <style name="button_four" parent="AppTheme">
+        <item name="colorAccent">@color/buttonfour</item>
+    </style>
 
 </resources>
