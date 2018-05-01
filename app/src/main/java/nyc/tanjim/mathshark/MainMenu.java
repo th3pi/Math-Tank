@@ -7,7 +7,6 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.RelativeLayout;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -21,7 +20,7 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void openQuickMaths(View view){
-        Intent intent = new Intent(getApplicationContext(), QuickMaths.class);
+        Intent intent = new Intent(getApplicationContext(), Advanced.class);
         startActivity(intent);
     }
 

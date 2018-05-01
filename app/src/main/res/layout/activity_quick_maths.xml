@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".QuickMaths">
+    tools:context=".Advanced">
 
     <TextView
         android:id="@+id/quiestionsView"
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.12" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -62,6 +62,7 @@
             android:layout_height="wrap_content"
             android:onClick="choose"
             android:text="2+2"
+            android:tag="0"
             android:textSize="30sp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1" />
@@ -72,6 +73,7 @@
             android:layout_height="wrap_content"
             android:onClick="choose"
             android:text="5x2"
+            android:tag="1"
             android:textAllCaps="false"
             android:textSize="30sp"
             app:layout_column="1"
@@ -85,6 +87,7 @@
             android:layout_height="wrap_content"
             android:onClick="choose"
             android:text="10"
+            android:tag="2"
             android:textSize="30sp"
             app:layout_column="0"
             app:layout_columnWeight="1"
@@ -97,11 +100,28 @@
             android:layout_height="wrap_content"
             android:onClick="choose"
             android:text="300"
+            android:tag="3"
             android:textSize="30sp"
             app:layout_column="1"
             app:layout_columnWeight="1"
             app:layout_row="1"
             app:layout_rowWeight="1" />
     </android.support.v7.widget.GridLayout>
+
+    <TextView
+        android:id="@+id/scoreView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:text="21/29"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.9"
+        app:layout_constraintStart_toEndOf="@+id/quiestionsView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </android.support.constraint.ConstraintLayout>
