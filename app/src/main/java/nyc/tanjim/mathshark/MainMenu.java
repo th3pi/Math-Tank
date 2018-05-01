@@ -14,6 +14,7 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
+
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             backgroundAnimation();
         }
@@ -32,4 +33,5 @@ public class MainMenu extends AppCompatActivity {
             animationDrawable.setExitFadeDuration(6000);
             animationDrawable.start();
     }
+
 }
