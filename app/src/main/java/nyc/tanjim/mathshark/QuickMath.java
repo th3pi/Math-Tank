@@ -1,9 +1,13 @@
 package nyc.tanjim.mathshark;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
+import android.os.CountDownTimer;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -14,15 +18,16 @@ import android.widget.Toast;
 import java.util.Random;
 
 public class QuickMath extends AppCompatActivity {
-    TextView stopWatchText, quickMathQuestion, quickMathScore;
+    TextView timerText, quickMathQuestion, quickMathScore;
     Button correctButton, wrongButton;
     int correctAnswer, score, wrongOrCorrect, numberOfQuestions;
+    AnimationDrawable animationDrawable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_math);
-        stopWatchText = findViewById(R.id.stopwatchText);
+        timerText = findViewById(R.id.stopwatchText);
         quickMathQuestion = findViewById(R.id.quickMathQuestion);
         quickMathScore = findViewById(R.id.quickMathsScore);
         correctButton = findViewById(R.id.correctButton);
@@ -31,11 +36,12 @@ public class QuickMath extends AppCompatActivity {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             backgroundAnimation();
         }
+        timer();
     }
     public void backgroundAnimation(){
         ConstraintLayout constraintLayout = (findViewById(R.id.quickMathBg));
         constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.animation));
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(5000);
         animationDrawable.setExitFadeDuration(6000);
         animationDrawable.start();
@@ -45,9 +51,7 @@ public class QuickMath extends AppCompatActivity {
             score++;
             generateQuestion();
             quickMathScore.setText("SCORE: " + Integer.toString(score));
-            Toast.makeText(this,"CORRECT",Toast.LENGTH_SHORT);
         }else{
-            Toast.makeText(this,"WRONG",Toast.LENGTH_SHORT);
             generateQuestion();
         }
 
@@ -61,6 +65,7 @@ public class QuickMath extends AppCompatActivity {
         else{
             wrongQuestion();
         }
+        numberOfQuestions++;
     }
     public void correctQuestion(){
         Random rd = new Random();
@@ -116,7 +121,7 @@ public class QuickMath extends AppCompatActivity {
             b = rd.nextInt(10)+1;
             correctAnswer = a * b;
             randomAnswer = rd.nextInt(100)+1;
-            while(randomAnswer == correctAnswer || randomAnswer < correctAnswer){
+            while(randomAnswer == correctAnswer){
                 randomAnswer = rd.nextInt(24)+1;
             }
             quickMathQuestion.setText(Integer.toString(a) + "x" + Integer.toString(b) + "=" + Integer.toString(randomAnswer));
@@ -127,10 +132,46 @@ public class QuickMath extends AppCompatActivity {
             }
             correctAnswer = b / a;
             randomAnswer = rd.nextInt(24)+1;
-            while(randomAnswer == correctAnswer || randomAnswer > correctAnswer){
+            while(randomAnswer == correctAnswer){
                 randomAnswer = rd.nextInt(24)+1;
             }
             quickMathQuestion.setText(Integer.toString(b) + "/" + Integer.toString(a) + "=" + Integer.toString(randomAnswer));
         }
+    }
+    public void timer(){
+        new CountDownTimer(30000,1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if(millisUntilFinished > 10000)
+                    timerText.setText("0" + ":" + Integer.toString((int) millisUntilFinished / 1000));
+                else
+                    timerText.setText("0" + ":0" + Integer.toString((int) millisUntilFinished / 1000));
+
+            }
+
+            @Override
+            public void onFinish() {
+                message();
+            }
+        }.start();
+    }
+    public void message(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Your answered " + Integer.toString(score) + " correctly out of" +
+                " " + Integer.toString(numberOfQuestions)).setTitle("Congratulations!");
+        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(getApplicationContext(),MainMenu.class));
+            }
+        });
+        builder.setNegativeButton("Reset", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                startActivity(new Intent(getApplicationContext(), QuickMath.class));
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
