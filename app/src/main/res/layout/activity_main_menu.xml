@@ -68,6 +68,7 @@
         android:fontFamily="@font/quicksand_regular"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="Advanced Shark"
+        android:onClick="openAdvanced"
         android:textSize="20sp"
         android:typeface="sans"
         app:layout_constraintBottom_toBottomOf="parent"

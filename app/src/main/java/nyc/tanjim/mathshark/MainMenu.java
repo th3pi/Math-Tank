@@ -21,9 +21,12 @@ public class MainMenu extends AppCompatActivity {
         }
     }
 
-    public void openQuickMaths(View view){
+    public void openAdvanced(View view){
         Intent intent = new Intent(getApplicationContext(), Advanced.class);
         startActivity(intent);
+    }
+    public void openQuickMaths(View view){
+        startActivity(new Intent(this,QuickMath.class));
     }
 
     public void backgroundAnimation(){
