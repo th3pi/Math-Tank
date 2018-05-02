@@ -138,6 +138,8 @@ public class QuickMath extends AppCompatActivity {
             quickMathQuestion.setText(Integer.toString(b) + "/" + Integer.toString(a) + "=" + Integer.toString(randomAnswer));
         }
     }
+
+    //Timer that keeps track of time
     public void timer(){
         new CountDownTimer(30000,1000) {
             @Override
@@ -155,6 +157,15 @@ public class QuickMath extends AppCompatActivity {
             }
         }.start();
     }
+
+    //Resets everything to zero
+    public void reset(){
+        numberOfQuestions = 0;
+        score = 0;
+        timer();
+        generateQuestion();
+    }
+    //This method creates an alert box once the timer hits zero
     public void message(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage("Your answered " + Integer.toString(score) + " correctly out of" +
@@ -162,13 +173,13 @@ public class QuickMath extends AppCompatActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(),MainMenu.class));
+                startActivity(new Intent(getApplicationContext(), MainMenu.class));
             }
         });
         builder.setNegativeButton("Reset", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(), QuickMath.class));
+                reset();
             }
         });
         AlertDialog dialog = builder.create();
