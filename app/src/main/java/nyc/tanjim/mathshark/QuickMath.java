@@ -1,5 +1,9 @@
 package nyc.tanjim.mathshark;
 
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +16,7 @@ import java.util.Random;
 public class QuickMath extends AppCompatActivity {
     TextView stopWatchText, quickMathQuestion, quickMathScore;
     Button correctButton, wrongButton;
-    int correctAnswer, score, wrongOrCorrect;
+    int correctAnswer, score, wrongOrCorrect, numberOfQuestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +28,17 @@ public class QuickMath extends AppCompatActivity {
         correctButton = findViewById(R.id.correctButton);
         wrongButton = findViewById(R.id.wrongButton);
         generateQuestion();
+        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
+            backgroundAnimation();
+        }
+    }
+    public void backgroundAnimation(){
+        ConstraintLayout constraintLayout = (findViewById(R.id.quickMathBg));
+        constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.animation));
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(6000);
+        animationDrawable.start();
     }
     public void choose(View view){
         if(view.getTag().toString().equals(Integer.toString(wrongOrCorrect))){
@@ -56,9 +71,13 @@ public class QuickMath extends AppCompatActivity {
             correctAnswer = a + b;
             quickMathQuestion.setText(Integer.toString(a) + "+" + Integer.toString(b) + "=" + Integer.toString(correctAnswer));
         }else if(questionType == 1){
-            correctAnswer = a - b;
-            quickMathQuestion.setText(Integer.toString(a) + "-" + Integer.toString(b) + "=" + Integer.toString(correctAnswer));
+            a = rd.nextInt(10)+1;
+            b = rd.nextInt(10)+a;
+            correctAnswer = b - a;
+            quickMathQuestion.setText(Integer.toString(b) + "-" + Integer.toString(a) + "=" + Integer.toString(correctAnswer));
         }else if(questionType == 2){
+            a = rd.nextInt(10)+1;
+            b = rd.nextInt(10)+1;
             correctAnswer = a * b;
             quickMathQuestion.setText(Integer.toString(a) + "x" + Integer.toString(b) + "=" + Integer.toString(correctAnswer));
         }else if(questionType == 3){
@@ -84,16 +103,20 @@ public class QuickMath extends AppCompatActivity {
             }
             quickMathQuestion.setText(Integer.toString(a) + "+" + Integer.toString(b) + "=" + Integer.toString(randomAnswer));
         }else if(questionType == 1){
-            correctAnswer = a - b;
+            a = rd.nextInt(10)+1;
+            b = rd.nextInt(10)+a;
+            correctAnswer = b - a;
             randomAnswer = rd.nextInt(24)+1;
             while(randomAnswer == correctAnswer){
                 randomAnswer = rd.nextInt(24)+1;
             }
-            quickMathQuestion.setText(Integer.toString(a) + "-" + Integer.toString(b) + "=" + Integer.toString(randomAnswer));
+            quickMathQuestion.setText(Integer.toString(b) + "-" + Integer.toString(a) + "=" + Integer.toString(randomAnswer));
         }else if(questionType == 2){
+            a = rd.nextInt(10)+1;
+            b = rd.nextInt(10)+1;
             correctAnswer = a * b;
-            randomAnswer = rd.nextInt(24)+1;
-            while(randomAnswer == correctAnswer){
+            randomAnswer = rd.nextInt(100)+1;
+            while(randomAnswer == correctAnswer || randomAnswer < correctAnswer){
                 randomAnswer = rd.nextInt(24)+1;
             }
             quickMathQuestion.setText(Integer.toString(a) + "x" + Integer.toString(b) + "=" + Integer.toString(randomAnswer));
@@ -104,7 +127,7 @@ public class QuickMath extends AppCompatActivity {
             }
             correctAnswer = b / a;
             randomAnswer = rd.nextInt(24)+1;
-            while(randomAnswer == correctAnswer){
+            while(randomAnswer == correctAnswer || randomAnswer > correctAnswer){
                 randomAnswer = rd.nextInt(24)+1;
             }
             quickMathQuestion.setText(Integer.toString(b) + "/" + Integer.toString(a) + "=" + Integer.toString(randomAnswer));
