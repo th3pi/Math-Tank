@@ -183,6 +183,8 @@ public class QuickMath extends AppCompatActivity {
             }
         });
         AlertDialog dialog = builder.create();
-        dialog.show();
+        if(!QuickMath.this.isFinishing()) {
+            dialog.show();
+        }
     }
 }
