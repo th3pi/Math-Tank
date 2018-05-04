@@ -1,7 +1,6 @@
 package nyc.tanjim.mathshark;
 
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.Random;
 
@@ -173,16 +171,17 @@ public class QuickMath extends AppCompatActivity {
         builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                startActivity(new Intent(getApplicationContext(), MainMenu.class));
+                finish();
             }
         });
-        builder.setNegativeButton("Reset", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton("Restart", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 reset();
             }
         });
         AlertDialog dialog = builder.create();
+        dialog.setCanceledOnTouchOutside(false);
         if(!QuickMath.this.isFinishing()) {
             dialog.show();
         }
