@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:textSize="20sp"
+        android:text="Congratulations!"
+        android:gravity="center"
+        android:background="@color/colorPrimary"/>
+    <TextView
+        android:id="@+id/scorespread"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:textSize="15sp"
+        android:text="You answered 15 out of 20 questions correctly! You are a genius!"
+        />
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OK"
+        android:id="@+id/okButton"/>
+
+</LinearLayout>

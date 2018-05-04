@@ -8,6 +8,24 @@
     android:id="@+id/quickMathBg"
     tools:context=".QuickMath">
 
+    <Button
+        android:id="@+id/correctButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="12dp"
+        android:background="#79b700"
+        android:fontFamily="@font/quicksand_regular"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:onClick="choose"
+        android:tag="0"
+        android:text="CORRECT"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/wrongButton"
+        app:layout_constraintEnd_toEndOf="@+id/wrongButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/wrongButton" />
+
     <TextView
         android:id="@+id/quickMathQuestion"
         android:layout_width="wrap_content"
@@ -46,24 +64,6 @@
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
-        android:id="@+id/correctButton"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="8dp"
-        android:onClick="choose"
-        android:text="CORRECT"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:fontFamily="@font/quicksand_regular"
-        android:background="#79b700"
-        android:tag="0"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/wrongButton"
-        app:layout_constraintEnd_toEndOf="@+id/wrongButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/wrongButton" />
-
     <TextView
         android:id="@+id/stopwatchText"
         android:layout_width="wrap_content"
@@ -97,4 +97,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quickMathQuestion" />
+
 </android.support.constraint.ConstraintLayout>

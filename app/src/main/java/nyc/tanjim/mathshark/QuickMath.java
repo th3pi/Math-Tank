@@ -1,5 +1,6 @@
 package nyc.tanjim.mathshark;
 
+import android.app.Dialog;
 import android.content.DialogInterface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
@@ -16,10 +17,10 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class QuickMath extends AppCompatActivity {
-    TextView timerText, quickMathQuestion, quickMathScore;
+    TextView timerText, quickMathQuestion, quickMathScore, scoreSpread;
     Button correctButton, wrongButton;
     int correctAnswer, score, wrongOrCorrect, numberOfQuestions;
-    AnimationDrawable animationDrawable;
+    CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +31,16 @@ public class QuickMath extends AppCompatActivity {
         quickMathScore = findViewById(R.id.quickMathsScore);
         correctButton = findViewById(R.id.correctButton);
         wrongButton = findViewById(R.id.wrongButton);
+        scoreSpread = findViewById(R.id.scorespread);
         generateQuestion();
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
-            backgroundAnimation();
-        }
+        backgroundAnimation();
         timer();
     }
     public void backgroundAnimation(){
         ConstraintLayout constraintLayout = (findViewById(R.id.quickMathBg));
         constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.animation));
-        animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(5000);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(6000);
         animationDrawable.setExitFadeDuration(6000);
         animationDrawable.start();
     }
@@ -139,9 +139,11 @@ public class QuickMath extends AppCompatActivity {
 
     //Timer that keeps track of time
     public void timer(){
-        new CountDownTimer(30000,1000) {
+        countDownTimer = new CountDownTimer(2000,1000) {
+
             @Override
             public void onTick(long millisUntilFinished) {
+
                 if(millisUntilFinished > 10000)
                     timerText.setText("0" + ":" + Integer.toString((int) millisUntilFinished / 1000));
                 else
@@ -186,4 +188,5 @@ public class QuickMath extends AppCompatActivity {
             dialog.show();
         }
     }
+
 }

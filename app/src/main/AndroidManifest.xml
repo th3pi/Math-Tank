@@ -20,7 +20,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".Advanced" />
-        <activity android:name=".QuickMath"></activity>
+        <activity android:name=".QuickMath" />
+        <activity android:name=".QuickMathLoadingScreen"></activity>
     </application>
 
 </manifest>
