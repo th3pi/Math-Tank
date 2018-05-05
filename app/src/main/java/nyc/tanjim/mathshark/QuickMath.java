@@ -1,7 +1,9 @@
 package nyc.tanjim.mathshark;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
@@ -17,10 +19,11 @@ import android.widget.TextView;
 import java.util.Random;
 
 public class QuickMath extends AppCompatActivity {
-    TextView timerText, quickMathQuestion, quickMathScore, scoreSpread;
+    TextView timerText, quickMathQuestion, quickMathScore, scoreSpread, lastScoreText;
     Button correctButton, wrongButton;
     int correctAnswer, score, wrongOrCorrect, numberOfQuestions;
-    CountDownTimer countDownTimer;
+    SharedPreferences lastScore;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,8 @@ public class QuickMath extends AppCompatActivity {
         correctButton = findViewById(R.id.correctButton);
         wrongButton = findViewById(R.id.wrongButton);
         scoreSpread = findViewById(R.id.scorespread);
+        lastScoreText = findViewById(R.id.lastScoreText);
+        lastScore = this.getSharedPreferences("nyc.tanjim.mathshark", Context.MODE_PRIVATE);
         generateQuestion();
         backgroundAnimation();
         timer();
@@ -139,7 +144,7 @@ public class QuickMath extends AppCompatActivity {
 
     //Timer that keeps track of time
     public void timer(){
-        countDownTimer = new CountDownTimer(2000,1000) {
+        new CountDownTimer(2000,1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {

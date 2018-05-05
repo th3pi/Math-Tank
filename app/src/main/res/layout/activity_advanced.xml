@@ -5,6 +5,7 @@
     android:id="@+id/bg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/main_menu_gradient_1"
     tools:context=".Advanced">
 
     <TextView
@@ -18,6 +19,7 @@
         android:layout_marginTop="20dp"
         android:text="420+69"
         android:textSize="40dp"
+        android:textColor="#fff"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -127,6 +129,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:text="0/0"
+        android:textColor="#fff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.9"
@@ -156,7 +159,7 @@
             style="@style/Widget.AppCompat.Button.Borderless"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_menu" />
+            app:srcCompat="@drawable/ic_menu_white" />
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

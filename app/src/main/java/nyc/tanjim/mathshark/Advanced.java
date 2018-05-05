@@ -58,8 +58,7 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()){
             case R.id.home:
-                Intent intent = new Intent(getApplicationContext(), MainMenu.class);
-                startActivity(intent);
+                finish();
                 return true;
             case R.id.settings:
                 return true;
@@ -88,17 +87,19 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
             score++;
             numberOfQuestions++;
             generateQuestion();
+            /*
             bg.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.correct_gradient_1));
             scoreView.setTextColor(Color.WHITE);
             questionText.setTextColor(Color.WHITE);
-            menuButton.setImageResource(R.drawable.ic_menu_white);
+            menuButton.setImageResource(R.drawable.ic_menu_white);*/
         }else {
             numberOfQuestions++;
             generateQuestion();
+            /*
             bg.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.wrong_gradient_1));
             scoreView.setTextColor(Color.WHITE);
             questionText.setTextColor(Color.WHITE);
-            menuButton.setImageResource(R.drawable.ic_menu_white);
+            menuButton.setImageResource(R.drawable.ic_menu_white);*/
         }
         scoreView.setText(Integer.toString(score) + "/" + Integer.toString(numberOfQuestions));
 
