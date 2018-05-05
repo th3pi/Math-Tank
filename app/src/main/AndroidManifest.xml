@@ -21,7 +21,8 @@
         </activity>
         <activity android:name=".Advanced" />
         <activity android:name=".QuickMath" />
-        <activity android:name=".QuickMathLoadingScreen"></activity>
+        <activity android:name=".QuickMathLoadingScreen" />
+        <activity android:name=".TimeTrials"></activity>
     </application>
 
 </manifest>

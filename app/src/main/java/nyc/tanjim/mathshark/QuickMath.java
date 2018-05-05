@@ -35,7 +35,6 @@ public class QuickMath extends AppCompatActivity {
         correctButton = findViewById(R.id.correctButton);
         wrongButton = findViewById(R.id.wrongButton);
         scoreSpread = findViewById(R.id.scorespread);
-        lastScoreText = findViewById(R.id.lastScoreText);
         lastScore = this.getSharedPreferences("nyc.tanjim.mathshark", Context.MODE_PRIVATE);
         generateQuestion();
         backgroundAnimation();

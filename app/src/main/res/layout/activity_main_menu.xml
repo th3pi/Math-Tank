@@ -46,6 +46,7 @@
         android:layout_marginTop="20dp"
         android:background="#ff6d00"
         android:text="Time Trials Shark"
+        android:onClick="openTimeTrials"
         android:textSize="22sp"
         android:typeface="sans"
         android:fontFamily="@font/quicksand_regular"

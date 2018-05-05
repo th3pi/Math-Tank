@@ -28,6 +28,9 @@ public class MainMenu extends AppCompatActivity {
     public void openQuickMaths(View view){
         startActivity(new Intent(this,QuickMathLoadingScreen.class));
     }
+    public void openTimeTrials(View view){
+        startActivity(new Intent(this, TimeTrials.class));
+    }
 
     public void backgroundAnimation(){
             ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
