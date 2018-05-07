@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
@@ -57,16 +58,19 @@ public class QuickMath extends AppCompatActivity {
             winningMessage.setText("Hello there genius!");
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
             winningMessage.setText("Unbelievable!");
+        }else if(numberOfQuestions < 10){
+            winningMessage.setText("Are we even trying?");
         }else {
             winningMessage.setText("Need more practice!");
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
+        //TODO fix this line
+        iqMessage.setText(getString(R.string.shark_points, 50));
         scorePopUp.setCanceledOnTouchOutside(false);
         scorePopUp.show();
     }
-
     public void playAgain(View view){
-        recreate();
+        startActivity(new Intent(getApplicationContext(), QuickMathLoadingScreen.class));
     }
     public  void quit(View view){
         finish();
@@ -182,9 +186,9 @@ public class QuickMath extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
 
                 if(millisUntilFinished > 10000)
-                    timerText.setText("0" + ":" + Integer.toString((int) millisUntilFinished / 1000));
+                    timerText.setText("Time left: " + Integer.toString((int) millisUntilFinished / 1000) + "s");
                 else
-                    timerText.setText("0" + ":0" + Integer.toString((int) millisUntilFinished / 1000));
+                    timerText.setText("Time left : 0" + Integer.toString((int) millisUntilFinished / 1000) +"s");
 
             }
 

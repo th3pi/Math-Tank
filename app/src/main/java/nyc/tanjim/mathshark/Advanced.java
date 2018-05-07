@@ -1,13 +1,20 @@
 package nyc.tanjim.mathshark;
 
+import android.animation.Animator;
+import android.animation.AnimatorInflater;
+import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
@@ -37,6 +44,9 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
         scoreView = findViewById(R.id.scoreView);
         bg = findViewById(R.id.bg);
         menuButton = findViewById(R.id.menuButton);
+        AnimationDrawable drawable = new AnimationDrawable();
+        Handler handler = new Handler();
+
 
         //Creates and inflates the top left pop up menu
         menuButton.setOnClickListener(new View.OnClickListener() {

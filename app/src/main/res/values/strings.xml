@@ -76,4 +76,5 @@
 
     <!-- Score Pop up String -->
     <string name="score_pop_score">You got %1$d right out of %2$d</string>
+    <string name="shark_points">You scored %1$d shark points</string>
 </resources>
