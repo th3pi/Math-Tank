@@ -73,4 +73,7 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
+    <!-- Score Pop up String -->
+    <string name="score_pop_score">You got %1$d right out of %2$d</string>
 </resources>

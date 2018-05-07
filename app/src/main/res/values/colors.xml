@@ -7,4 +7,6 @@
     <color name="buttontwo">#ab47bc</color>
     <color name="buttonthree">#8bc34a</color>
     <color name="buttonfour">#2196f3</color>
+    <color name="green">#4caf50</color>
+    <color name="red">#ba000d</color>
 </resources>
