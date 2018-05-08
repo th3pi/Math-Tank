@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.KeyEvent;
 import android.widget.TextView;
 
 import java.util.Random;
@@ -54,8 +55,8 @@ public class AdvancedLoadingScreen extends AppCompatActivity {
         }.start();
     }
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        this.finish();
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
     }
 }

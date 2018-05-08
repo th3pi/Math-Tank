@@ -14,7 +14,7 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_quick_math_loading_screen);
+        setContentView(R.layout.activity_time_trials_loading_screen);
         timer = findViewById(R.id.timeText);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -34,5 +34,9 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
 
             }
         }.start();
+    }
+    @Override
+    public void onBackPressed() {
+
     }
 }

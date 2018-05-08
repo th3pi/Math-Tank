@@ -38,11 +38,13 @@ public class TimeTrials extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
         userFeedback = findViewById(R.id.userFeedback);
-        menuButtonTimeTrials = findViewById(R.id.menuButtonTimeTrials);
         correctAnimation = AnimationUtils.loadAnimation(this,R.anim.correct_animation);
         feedBackAnimation = AnimationUtils.loadAnimation(this,R.anim.userfeedback_animation);
         generateQuestions();
-
+        button0.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_0));
+        button1.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_1));
+        button2.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_2));
+        button3.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_3));
         countDownTimer = new CountDownTimer(120000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {

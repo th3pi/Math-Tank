@@ -54,7 +54,7 @@
         android:fontFamily="@font/passion_one_regular"
         android:text="@string/default_time_trials"
         android:textColor="#fff"
-        android:textSize="50sp"
+        android:textSize="80sp"
         app:layout_constraintBottom_toTopOf="@+id/gridLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -89,16 +89,17 @@
         android:id="@+id/gridLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="76dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         app:columnCount="1"
-        app:layout_constraintBottom_toTopOf="@+id/container"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userFeedback"
         app:rowCount="4">
 
         <Button
@@ -174,25 +175,5 @@
             app:layout_rowWeight="1" />
     </android.support.v7.widget.GridLayout>
 
-    <LinearLayout
-        android:id="@+id/container"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
 
-        <ImageButton
-            android:id="@+id/menuButtonTimeTrials"
-            android:contentDescription="Menu image"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:srcCompat="@drawable/ic_menu_white" />
-    </LinearLayout>
 </android.support.constraint.ConstraintLayout>

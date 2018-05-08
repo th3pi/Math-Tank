@@ -23,7 +23,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
+public class Advanced extends AppCompatActivity {
     Button button0, button1, button2, button3;
     TextView questionText, scoreView;
     ImageButton menuButton;
@@ -44,49 +44,15 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
         questionText = findViewById(R.id.quiestionsView);
         scoreView = findViewById(R.id.scoreView);
         bg = findViewById(R.id.bg);
-        menuButton = findViewById(R.id.menuButton);
+//        menuButton = findViewById(R.id.menuButton);
         AnimationDrawable drawable = new AnimationDrawable();
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
 
         Handler handler = new Handler();
-
-
-        //Creates and inflates the top left pop up menu
-        menuButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                PopupMenu popup = new PopupMenu(Advanced.this, v);
-                popup.setOnMenuItemClickListener(Advanced.this);
-                popup.inflate(R.menu.popup);
-                popup.show();
-            }
-        });
-
         //Generate the starting question
         generateQuestion();
     }
 
-    //Adds functionality to the pop up menu
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.home:
-                finish();
-                return true;
-            case R.id.settings:
-                return true;
-            case R.id.reset:
-                reset();
-                return true;
-            case R.id.exit:
-                moveTaskToBack(true);
-                android.os.Process.killProcess(android.os.Process.myPid());
-                System.exit(1);
-                return true;
-            default:
-                return false;
-        }
-    }
 
     //Answer button's functionality
     public void choose(View view){
@@ -107,7 +73,22 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
             menuButton.setImageResource(R.drawable.ic_menu_white);*/
         }else {
             numberOfQuestions++;
-            generateQuestion();
+            if(locationOfCorrectAnswer == 0){
+                button0.startAnimation(AnimationUtils.loadAnimation(this,R.anim.correct_animation));
+            } else if (locationOfCorrectAnswer == 1){
+                button1.startAnimation(AnimationUtils.loadAnimation(this, R.anim.correct_animation));
+            } else if (locationOfCorrectAnswer == 2){
+                button2.startAnimation(AnimationUtils.loadAnimation(this, R.anim.correct_animation));
+            } else if (locationOfCorrectAnswer == 3){
+                button3.startAnimation(AnimationUtils.loadAnimation(this, R.anim.correct_animation));
+            }
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    generateQuestion();
+                }
+            }, 1000);
             /*
             bg.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.wrong_gradient_1));
             scoreView.setTextColor(Color.WHITE);

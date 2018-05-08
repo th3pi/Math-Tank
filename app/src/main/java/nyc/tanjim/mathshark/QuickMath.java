@@ -75,7 +75,9 @@ public class QuickMath extends AppCompatActivity {
         }
 
         scorePopUp.setCanceledOnTouchOutside(false);
-        scorePopUp.show();
+        if(!QuickMath.this.isFinishing()) {
+            scorePopUp.show();
+        }
     }
     public void playAgain(View view){
         finish();
