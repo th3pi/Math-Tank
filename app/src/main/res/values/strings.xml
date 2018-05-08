@@ -77,4 +77,23 @@
     <!-- Score Pop up String -->
     <string name="score_pop_score">You got %1$d right out of %2$d</string>
     <string name="shark_points">You scored %1$d shark points</string>
+    <string name="afk_text">Hey ya there buddy?</string>
+
+    <!--User feedback strings for Time Trials-->
+    <string name="good_job">GOOD JOB!</string>
+    <string name="amazing">AMAZING!</string>
+    <string name="fantastic">FANTASTIC!</string>
+    <string name="damn">DAMN!</string>
+    <string name="genius">GENIUS!</string>
+    <string name="brilliant">YOU GENIUS!</string>
+    <string name="crazy">THAT\'S CRAZY MAN!</string>
+    <string name="keep">KEEP IT GOING BUD!</string>
+    <string name="unbelievable">UNBELIEVABLE!</string>
+    <string name="on_a_roll">YOU\'RE ON A ROLL!</string>
+    <string name="next">Oh no! Maybe next one</string>
+    <string name="tough">Keep it calm!</string>
+    <string name="brain">Let\'s not melt our brains!</string>
+
+    <!--score-->
+    <string name="score">SCORE: %1$d</string>
 </resources>

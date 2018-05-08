@@ -1,9 +1,13 @@
 package nyc.tanjim.mathshark;
 
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -13,12 +17,14 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TimeTrials extends AppCompatActivity {
-    TextView whichOneIsCorrect, timeLeftText, scoreText;
+    TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback;
     Button button0, button1, button2, button3;
     ImageButton menuButtonTimeTrials;
     ArrayList<String> questions = new ArrayList<String>();
-    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0;
+    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum;
     CountDownTimer countDownTimer;
+    Animation correctAnimation, feedBackAnimation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,7 +37,10 @@ public class TimeTrials extends AppCompatActivity {
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
+        userFeedback = findViewById(R.id.userFeedback);
         menuButtonTimeTrials = findViewById(R.id.menuButtonTimeTrials);
+        correctAnimation = AnimationUtils.loadAnimation(this,R.anim.correct_animation);
+        feedBackAnimation = AnimationUtils.loadAnimation(this,R.anim.userfeedback_animation);
         generateQuestions();
 
         countDownTimer = new CountDownTimer(120000, 1000) {
@@ -112,7 +121,9 @@ public class TimeTrials extends AppCompatActivity {
             }
 
         }
-        scoreText.setText(Integer.toString(score));
+        Random feedbackRd = new Random();
+        feedBackNum = feedbackRd.nextInt(8);
+        scoreText.setText(getString(R.string.score, score));
         button0.setText(questions.get(0));
         button1.setText(questions.get(1));
         button2.setText(questions.get(2));
@@ -122,14 +133,70 @@ public class TimeTrials extends AppCompatActivity {
     }
 
     public void choose(View view){
+
         if(view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))){
             score++;
             numberOfQuestions++;
             generateQuestions();
             countDownTimer.start();
+            onARoll++;
+            userFeedback.startAnimation(feedBackAnimation);
+            if(feedBackNum == 0){
+                userFeedback.setText(getString(R.string.good_job));
+            }else if(feedBackNum == 1){
+                userFeedback.setText(getString(R.string.amazing));
+            }else if(feedBackNum == 2){
+                userFeedback.setText(getString(R.string.fantastic));
+            }else if(feedBackNum == 3){
+                userFeedback.setText(getString(R.string.damn));
+            }else if(feedBackNum == 4){
+                userFeedback.setText(getString(R.string.genius));
+            }else if(feedBackNum == 5){
+                userFeedback.setText(getString(R.string.brilliant));
+            }else if(feedBackNum == 6){
+                userFeedback.setText(getString(R.string.crazy));
+            }else if(feedBackNum == 7){
+                userFeedback.setText(getString(R.string.keep));
+            }else if(feedBackNum == 8){
+                userFeedback.setText(getString(R.string.unbelievable));
+            }
         }else {
+            onARoll = 0;
             numberOfQuestions++;
-            generateQuestions();
+            if(locationOfCorrectAnswer == 0){
+                button0.startAnimation(correctAnimation);
+            }else if(locationOfCorrectAnswer == 1){
+                button1.startAnimation(correctAnimation);
+            }else if(locationOfCorrectAnswer == 2){
+                button2.startAnimation(correctAnimation);
+            }else if(locationOfCorrectAnswer == 3){
+                button3.startAnimation(correctAnimation);
+            }
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    generateQuestions();
+                }
+            }, 1000);
+
+
+            /*
+            switch (locationOfCorrectAnswer){
+                case 0:
+                    button0.startAnimation(correctAnimation);
+                    break;
+                case 1:
+                    button1.startAnimation(correctAnimation);
+                    break;
+                case 2:
+                    button2.startAnimation(correctAnimation);
+                    break;
+                case 3:
+                    button3.startAnimation(correctAnimation);
+                default:
+                    Log.i("Error","Something went wrong");
+            }*/
         }
     }
 

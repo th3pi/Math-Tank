@@ -16,6 +16,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -28,6 +30,7 @@ public class QuickMath extends AppCompatActivity {
     int correctAnswer, score, wrongOrCorrect, numberOfQuestions;
     Dialog scorePopUp;
     Vibrator vibrator;
+    Animation correctAnimation;
 
 
     @Override
@@ -48,11 +51,11 @@ public class QuickMath extends AppCompatActivity {
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+        correctAnimation = AnimationUtils.loadAnimation(this, R.anim.correct_animation);
         generateQuestion();
         backgroundAnimation();
         timer();
     }
-    //TODO create an algorithm to calibrate IQ
     public void showPopUp(){
         if(numberOfQuestions - score == 0 && numberOfQuestions > 10){
             winningMessage.setText("Hello there genius!");
@@ -65,11 +68,17 @@ public class QuickMath extends AppCompatActivity {
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
         //TODO fix this line
-        iqMessage.setText(getString(R.string.shark_points, 50));
+        if(numberOfQuestions != 0 || score != 0) {
+            iqMessage.setText(getString(R.string.shark_points, Math.round((numberOfQuestions / score) * 4)));
+        }else {
+            iqMessage.setText(getString(R.string.afk_text));
+        }
+
         scorePopUp.setCanceledOnTouchOutside(false);
         scorePopUp.show();
     }
     public void playAgain(View view){
+        finish();
         startActivity(new Intent(getApplicationContext(), QuickMathLoadingScreen.class));
     }
     public  void quit(View view){
@@ -92,7 +101,14 @@ public class QuickMath extends AppCompatActivity {
         }else{
             generateQuestion();
             vibrator.vibrate(500);
+            if(view.getTag().toString().equals(Integer.toString(1))){
+                correctButton.startAnimation(correctAnimation);
+            }else if(Integer.toString(wrongOrCorrect).equals(Integer.toString(0))){
+                wrongButton.startAnimation(correctAnimation);
+            }
         }
+
+
 
     }
     public void generateQuestion(){
