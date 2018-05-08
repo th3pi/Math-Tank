@@ -36,14 +36,13 @@ public class MainMenu extends AppCompatActivity {
     }
 
     public void openAdvanced(View view){
-        Intent intent = new Intent(getApplicationContext(), Advanced.class);
-        startActivity(intent);
+        startActivity(new Intent(this, AdvancedLoadingScreen.class));
     }
     public void openQuickMaths(View view){
         startActivity(new Intent(this,QuickMathLoadingScreen.class));
     }
     public void openTimeTrials(View view){
-        startActivity(new Intent(this, TimeTrials.class));
+        startActivity(new Intent(this, TimeTrialsLoadingScreen.class));
     }
 
     public void backgroundAnimation(){

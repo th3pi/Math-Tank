@@ -26,7 +26,7 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
         new CountDownTimer(loadingScreenTime, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timer.setText(Integer.toString((int) millisUntilFinished / 1000));
+                timer.setText(getString(R.string.loading_screen_timer, (int) millisUntilFinished / 1000));
             }
 
             @Override

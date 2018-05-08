@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nyc.tanjim.mathshark">
-    <uses-permission android:name="android.permission.VIBRATE"/>
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,7 +24,9 @@
         <activity android:name=".Advanced" />
         <activity android:name=".QuickMath" />
         <activity android:name=".QuickMathLoadingScreen" />
-        <activity android:name=".TimeTrials"></activity>
+        <activity android:name=".TimeTrials" />
+        <activity android:name=".TimeTrialsLoadingScreen"/>
+        <activity android:name=".AdvancedLoadingScreen"/>
     </application>
 
 </manifest>

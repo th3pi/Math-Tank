@@ -46,7 +46,10 @@ public class TimeTrials extends AppCompatActivity {
         countDownTimer = new CountDownTimer(120000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                timeLeftText.setText(timeLeft((int)millisUntilFinished/1000));
+                if(millisUntilFinished > 10000)
+                    timeLeftText.setText(getString(R.string.time_left, (int)millisUntilFinished/1000));
+                else
+                    timeLeftText.setText(getString(R.string.time_left_ten_less,(int) millisUntilFinished/1000));
             }
 
             @Override
@@ -54,9 +57,6 @@ public class TimeTrials extends AppCompatActivity {
 
             }
         }.start();
-    }
-    public String timeLeft(int millisUntilFinished){
-        return String.format("Time left: %ds", millisUntilFinished);
     }
 
     public String correctEquation(){
@@ -133,14 +133,13 @@ public class TimeTrials extends AppCompatActivity {
     }
 
     public void choose(View view){
-
+        userFeedback.startAnimation(feedBackAnimation);
         if(view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))){
             score++;
             numberOfQuestions++;
             generateQuestions();
             countDownTimer.start();
             onARoll++;
-            userFeedback.startAnimation(feedBackAnimation);
             if(feedBackNum == 0){
                 userFeedback.setText(getString(R.string.good_job));
             }else if(feedBackNum == 1){
@@ -171,6 +170,18 @@ public class TimeTrials extends AppCompatActivity {
                 button2.startAnimation(correctAnimation);
             }else if(locationOfCorrectAnswer == 3){
                 button3.startAnimation(correctAnimation);
+            }
+            Random rd = new Random();
+            switch (rd.nextInt(3)){
+                case 0:
+                    userFeedback.setText(getString(R.string.ohno));
+                    break;
+                case 1:
+                    userFeedback.setText(getString(R.string.next));
+                    break;
+                case 2:
+                    userFeedback.setText(getString(R.string.sad));
+                    break;
             }
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {

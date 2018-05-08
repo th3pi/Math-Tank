@@ -68,7 +68,7 @@ public class QuickMath extends AppCompatActivity {
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
         //TODO fix this line
-        if(numberOfQuestions != 0 || score != 0) {
+        if(numberOfQuestions != 0 && score != 0) {
             iqMessage.setText(getString(R.string.shark_points, Math.round((numberOfQuestions / score) * 4)));
         }else {
             iqMessage.setText(getString(R.string.afk_text));

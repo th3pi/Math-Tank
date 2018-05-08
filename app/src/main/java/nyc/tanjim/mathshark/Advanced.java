@@ -30,6 +30,7 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
     int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0;
     ArrayList<Integer> answers = new ArrayList<Integer>();
     ConstraintLayout bg;
+    Animation buttonsInit;
 
 
     @Override
@@ -45,6 +46,8 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
         bg = findViewById(R.id.bg);
         menuButton = findViewById(R.id.menuButton);
         AnimationDrawable drawable = new AnimationDrawable();
+        buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
+
         Handler handler = new Handler();
 
 
@@ -131,6 +134,10 @@ public class Advanced extends AppCompatActivity implements PopupMenu.OnMenuItemC
             sumQuestions();
         }
         answers.clear();
+        button0.startAnimation(buttonsInit);
+        button1.startAnimation(AnimationUtils.loadAnimation(this, R.anim.advanced_init_1));
+        button2.startAnimation(AnimationUtils.loadAnimation(this,R.anim.advanced_init_2));
+        button3.startAnimation(AnimationUtils.loadAnimation(this,R.anim.advanced_init_3));
     }
 
     public void sumQuestions(){
