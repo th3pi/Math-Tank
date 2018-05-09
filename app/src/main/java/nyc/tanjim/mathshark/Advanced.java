@@ -103,16 +103,14 @@ public class Advanced extends AppCompatActivity {
     public void generateQuestion(){
         Random rd = new Random();
         int a = rd.nextInt(4);
-        if(a == 0){
-            sumQuestions();
+        if(a == 0) {
+            squareQuestions();
         }else if(a == 1){
-            subtractQuestion();
+            cubeQuestions();
         }else if(a == 2){
-            multiplyQuestions();
+            sqrtQuestions();
         }else if(a == 3){
-            divisionQuestion();
-        }else{
-            sumQuestions();
+            cbrtQuestions();
         }
         answers.clear();
         button0.startAnimation(buttonsInit);
@@ -120,134 +118,101 @@ public class Advanced extends AppCompatActivity {
         button2.startAnimation(AnimationUtils.loadAnimation(this,R.anim.advanced_init_2));
         button3.startAnimation(AnimationUtils.loadAnimation(this,R.anim.advanced_init_3));
     }
-
-    public void sumQuestions(){
+    public void squareQuestions(){
         Random rd = new Random();
-        int a = rd.nextInt(20)+1;
-        int b = rd.nextInt(20)+1;
+        int a = rd.nextInt(10)+1;
         int incorrectAnswer;
         locationOfCorrectAnswer = rd.nextInt(4);
-
-        //Updates QuestionBoard
-        questionText.setText(Integer.toString(a) + "+" + Integer.toString(b));
+        questionText.setText(getString(R.string.square,a));
         for(int i = 0; i < 4; i++){
-        //Selects where the right answer will be
-        if(i == locationOfCorrectAnswer){
-            answers.add(a + b);
-        }else {
-            incorrectAnswer = rd.nextInt(40)+1;
-
-            //incorrectAnswer will be reevaluated if there's already an integer equal to it there
-            //also checks whether there's already an incorrectAnswer with same value
-            while(incorrectAnswer == a + b || answers.contains(incorrectAnswer)){
-                  incorrectAnswer = rd.nextInt(40)+1;
-            }
-            answers.add(incorrectAnswer);
-          }
-        }
-
-        //Updates the button text with incorrectAnswers
-        button0.setText(Integer.toString(answers.get(0)));
-        button1.setText(Integer.toString(answers.get(1)));
-        button2.setText(Integer.toString(answers.get(2)));
-        button3.setText(Integer.toString(answers.get(3)));
-    }
-
-    public void multiplyQuestions(){
-        Random rd = new Random();
-        int a = rd.nextInt(12)+1;
-        int b = rd.nextInt(12)+1;
-        int incorrectAnswer;
-        locationOfCorrectAnswer = rd.nextInt(4);
-
-        //Updates QuestionBoard
-        questionText.setText(Integer.toString(a) + "x" + Integer.toString(b));
-        for(int i = 0; i < 4; i++){
-            //Selects where the right answer will be
             if(i == locationOfCorrectAnswer){
-                answers.add(a * b);
-            }else {
-                incorrectAnswer = rd.nextInt(144)+1;
 
-                //incorrectAnswer will be reevaluated if there's already an integer equal to it there
-                //also checks whether there's already an incorrectAnswer with same value
-                while(incorrectAnswer == a * b || answers.contains(incorrectAnswer)){
-                    incorrectAnswer = rd.nextInt(144)+1;
-                }
-                answers.add(incorrectAnswer);
-            }
-        }
-
-        //Updates the button text with incorrectAnswers
-        button0.setText(Integer.toString(answers.get(0)));
-        button1.setText(Integer.toString(answers.get(1)));
-        button2.setText(Integer.toString(answers.get(2)));
-        button3.setText(Integer.toString(answers.get(3)));
-    }
-    public void divisionQuestion(){
-        Random rd = new Random();
-        int a = rd.nextInt(20)+1;
-        int b = rd.nextInt(60)+a;
-        int incorrectAnswer;
-        locationOfCorrectAnswer = rd.nextInt(4);
-        while(b % a != 0 || b == a){
-            a = rd.nextInt(10)+1;
-            b = rd.nextInt(60)+a;
-        }
-        //Updates QuestionBoard
-        questionText.setText(Integer.toString(b) + "/" + Integer.toString(a));
-        for(int i = 0; i < 4; i++){
-            //Selects where the right answer will be
-            if(i == locationOfCorrectAnswer){
-                answers.add(b / a);
-            }else {
-                incorrectAnswer = rd.nextInt(20)+1;
-
-                //incorrectAnswer will be reevaluated if there's already an integer equal to it there
-                //also checks whether there's already an incorrectAnswer with same value
-                while(incorrectAnswer == b / a || answers.contains(incorrectAnswer)){
-                    incorrectAnswer = rd.nextInt(20)+1;
-                }
-                answers.add(incorrectAnswer);
-            }
-        }
-
-        //Updates the button text with incorrectAnswers
-        button0.setText(Integer.toString(answers.get(0)));
-        button1.setText(Integer.toString(answers.get(1)));
-        button2.setText(Integer.toString(answers.get(2)));
-        button3.setText(Integer.toString(answers.get(3)));
-    }
-    public void subtractQuestion(){
-        Random rd = new Random();
-        int a = rd.nextInt(50)+1;
-        int b = rd.nextInt(50)+a;
-        int incorrectAnswer;
-        locationOfCorrectAnswer = rd.nextInt(4);
-
-        //Updates QuestionBoard
-        questionText.setText(Integer.toString(b) + "-" + Integer.toString(a));
-        for(int i = 0; i < 4; i++){
-            //Selects where the right answer will be
-            if(i == locationOfCorrectAnswer){
-                answers.add(b - a);
-            }else {
-                incorrectAnswer = rd.nextInt(20)+1;
-
-                //incorrectAnswer will be reevaluated if there's already an integer equal to it there
-                //also checks whether there's already an incorrectAnswer with same value
-                while(incorrectAnswer == b - a || answers.contains(incorrectAnswer)){
+                answers.add((int)Math.pow(a,2));
+            }else{
+                incorrectAnswer = rd.nextInt(50)+1;
+                while(incorrectAnswer == (int)Math.pow(a,2)){
                     incorrectAnswer = rd.nextInt(50)+1;
                 }
                 answers.add(incorrectAnswer);
             }
         }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+    public void cubeQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt(4)+1;
+        int incorrectAnswer;
+        locationOfCorrectAnswer = rd.nextInt(4);
+        questionText.setText(getString(R.string.cube,a));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
 
-        //Updates the button text with incorrectAnswers
-        button0.setText(Integer.toString(answers.get(0)));
-        button1.setText(Integer.toString(answers.get(1)));
-        button2.setText(Integer.toString(answers.get(2)));
-        button3.setText(Integer.toString(answers.get(3)));
+                answers.add((int)Math.pow(a,3));
+            }else{
+                incorrectAnswer = rd.nextInt(50)+1;
+                while(incorrectAnswer == (int)Math.pow(a,3)){
+                    incorrectAnswer = rd.nextInt(50)+1;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+    public void sqrtQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt(100)+1;
+        int incorrectAnswer;
+        locationOfCorrectAnswer = rd.nextInt(4);
+        while(Math.sqrt(a) % 1 != 0){
+            a = rd.nextInt(100)+1;
+        }
+        questionText.setText(getString(R.string.sqrt,a));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add((int)Math.sqrt(a));
+            }else{
+                incorrectAnswer = rd.nextInt(50)+1;
+                while(incorrectAnswer == (int)Math.sqrt(a)){
+                    incorrectAnswer = rd.nextInt(50)+1;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+    public void cbrtQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt(100)+1;
+        int incorrectAnswer;
+        locationOfCorrectAnswer = rd.nextInt(4);
+        while(Math.cbrt(a) % 1 != 0){
+            a = rd.nextInt(100)+1;
+        }
+        questionText.setText(getString(R.string.cbrt,a));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add((int)Math.cbrt(a));
+            }else{
+                incorrectAnswer = rd.nextInt(50)+1;
+                while(incorrectAnswer == (int)Math.cbrt(a)){
+                    incorrectAnswer = rd.nextInt(50)+1;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
     }
 
     //Resets current session

@@ -4,12 +4,10 @@ import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -19,6 +17,7 @@ import java.util.Random;
 public class TimeTrials extends AppCompatActivity {
     TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback;
     Button button0, button1, button2, button3;
+    int a, b;
     ImageButton menuButtonTimeTrials;
     ArrayList<String> questions = new ArrayList<String>();
     int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum;
@@ -39,7 +38,7 @@ public class TimeTrials extends AppCompatActivity {
         button3 = findViewById(R.id.button3);
         userFeedback = findViewById(R.id.userFeedback);
         correctAnimation = AnimationUtils.loadAnimation(this,R.anim.correct_animation);
-        feedBackAnimation = AnimationUtils.loadAnimation(this,R.anim.userfeedback_animation);
+        feedBackAnimation = AnimationUtils.loadAnimation(this,R.anim.flicker_animation);
         generateQuestions();
         button0.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_0));
         button1.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_1));
@@ -63,8 +62,8 @@ public class TimeTrials extends AppCompatActivity {
 
     public String correctEquation(){
         Random rd = new Random();
-        int a = rd.nextInt(10)+1;
-        int b = rd.nextInt(10)+1;
+        a = rd.nextInt(10)+1;
+        b = rd.nextInt(10)+1;
         switch (rd.nextInt(4)) {
             case 0:
                 return String.format(Integer.toString(a) + " + " + Integer.toString(b) + " = " + Integer.toString(a + b));
@@ -88,24 +87,38 @@ public class TimeTrials extends AppCompatActivity {
     }
     public String wrongEquation(){
         Random rd = new Random();
-        int a = rd.nextInt(10)+1;
-        int b = rd.nextInt(10)+1;
-
+        int c = rd.nextInt(10)+1;
+        int d = rd.nextInt(10)+1;
+        int e = rd.nextInt(20)+1;
+        while(c == a || d == a || c == b || d == b)
+        {
+            c = rd.nextInt(10)+1;
+            d = rd.nextInt(10)+1;
+        }
         switch (rd.nextInt(4)) {
             case 0:
-                return String.format(Integer.toString(rd.nextInt(10)+1) + " + " + Integer.toString(rd.nextInt(10)+1) + " = " + Integer.toString(rd.nextInt(20)+1));
-            case 1:
-                a = rd.nextInt(10)+1;
-                b = rd.nextInt(10)+a;
-                return String.format(Integer.toString(b) + " - " + Integer.toString(rd.nextInt(10)+1) + " = " + Integer.toString(rd.nextInt(10)+1));
-            case 2:
-                while(b % a != 0){
-                    a = rd.nextInt(10)+1;
-                    b = rd.nextInt(10)+a;
+                while(e == c + d){
+                    e = rd.nextInt(20)+1;
                 }
-                return String.format(Integer.toString(b) + " / " + Integer.toString(a) + " = " + Integer.toString(rd.nextInt(10)+1));
+                return String.format(Integer.toString(c) + " + " + Integer.toString(d) + " = " + Integer.toString(e));
+            case 1:
+                while(e == d - c){
+                    e = rd.nextInt(10)+1;
+                }
+                return String.format(Integer.toString(d) + " - " + Integer.toString(c) + " = " + Integer.toString(e));
+            case 2:
+                while(d < c){
+                    d = rd.nextInt(10)+1;
+                }
+                while(e == d/c){
+                    e = rd.nextInt(12)+1;
+                }
+                return String.format(Integer.toString(d) + " / " + Integer.toString(c) + " = " + Integer.toString(e));
             case 3:
-                return String.format(Integer.toString(a) + " x " + Integer.toString(b) + " = " + Integer.toString(rd.nextInt(10)+1));
+                while(e == c * d){
+                    e = rd.nextInt(20)+1;
+                }
+                return String.format(Integer.toString(c) + " x " + Integer.toString(d) + " = " + Integer.toString(e));
 
             default:
                 return "Oops something broke";
@@ -124,7 +137,7 @@ public class TimeTrials extends AppCompatActivity {
 
         }
         Random feedbackRd = new Random();
-        feedBackNum = feedbackRd.nextInt(8);
+        feedBackNum = feedbackRd.nextInt(12);
         scoreText.setText(getString(R.string.score, score));
         button0.setText(questions.get(0));
         button1.setText(questions.get(1));
@@ -142,7 +155,7 @@ public class TimeTrials extends AppCompatActivity {
             generateQuestions();
             countDownTimer.start();
             onARoll++;
-            if(feedBackNum == 0){
+            if(feedBackNum == 0 || numberOfQuestions == 1){
                 userFeedback.setText(getString(R.string.good_job));
             }else if(feedBackNum == 1){
                 userFeedback.setText(getString(R.string.amazing));
@@ -153,13 +166,19 @@ public class TimeTrials extends AppCompatActivity {
             }else if(feedBackNum == 4){
                 userFeedback.setText(getString(R.string.genius));
             }else if(feedBackNum == 5){
-                userFeedback.setText(getString(R.string.brilliant));
+                userFeedback.setText(getString(R.string.sweet));
             }else if(feedBackNum == 6){
                 userFeedback.setText(getString(R.string.crazy));
             }else if(feedBackNum == 7){
                 userFeedback.setText(getString(R.string.keep));
             }else if(feedBackNum == 8){
                 userFeedback.setText(getString(R.string.unbelievable));
+            }else if(feedBackNum == 9){
+                userFeedback.setText(getString(R.string.surprised));
+            }else if(feedBackNum == 10){
+                userFeedback.setText(getString(R.string.brilliant));
+            }else if(feedBackNum == 11){
+                userFeedback.setText(getString(R.string.bananas));
             }
         }else {
             onARoll = 0;

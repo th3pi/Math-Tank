@@ -57,7 +57,7 @@ public class QuickMath extends AppCompatActivity {
         timer();
     }
     public void showPopUp(){
-        if(numberOfQuestions - score == 04 && numberOfQuestions > 10){
+        if(numberOfQuestions - score == 4 && numberOfQuestions > 10){
             winningMessage.setText("Hello there genius!");
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
             winningMessage.setText("Unbelievable!");
@@ -206,18 +206,24 @@ public class QuickMath extends AppCompatActivity {
 
     //Timer that keeps track of time
     public void timer(){
-        new CountDownTimer(120000,1000) {
+        new CountDownTimer(10000,1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
 
                 if(millisUntilFinished > 10000)
                     timerText.setText("Time left: " + Integer.toString((int) millisUntilFinished / 1000) + "s");
-                else
-                    timerText.setText("Time left : 0" + Integer.toString((int) millisUntilFinished / 1000) +"s");
-
+                else if(millisUntilFinished < 10000 && millisUntilFinished > 5000){
+                    timerText.setText("Time left : 0" + Integer.toString((int) millisUntilFinished / 1000) + "s");
+                    timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_2));
+                }else if(millisUntilFinished < 5000 && millisUntilFinished > 3000){
+                    timerText.setText("Time left : 0" + Integer.toString((int) millisUntilFinished / 1000) + "s");
+                    timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_1));
+                }else {
+                    timerText.setText("Time left : 0" + Integer.toString((int) millisUntilFinished / 1000) + "s");
+                    timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation));
+                }
             }
-
             @Override
             public void onFinish() {
                showPopUp();

@@ -86,10 +86,13 @@
     <string name="fantastic">FANTASTIC!</string>
     <string name="damn">DAMN!</string>
     <string name="genius">GENIUS!</string>
-    <string name="brilliant">YOU GENIUS!</string>
-    <string name="crazy">THAT\'S CRAZY MAN!</string>
-    <string name="keep">KEEP IT GOING BUD!</string>
+    <string name="sweet">SWEET!</string>
+    <string name="crazy">WOW!</string>
+    <string name="keep">NICE!</string>
     <string name="unbelievable">UNBELIEVABLE!</string>
+    <string name="brilliant">BRILLIANT!</string>
+    <string name="surprised">O_O</string>
+    <string name="bananas">BANANAS!</string>
     <string name="on_a_roll">YOU\'RE ON A ROLL!</string>
     <string name="ohno">Oh no!</string>
     <string name="next">NEXT!</string>
@@ -113,4 +116,13 @@
     <!--timer-->
     <string name="time_left">Time left: %1$ds</string>
     <string name="time_left_ten_less">Time left: 0%1$ds</string>
+
+    <!--advanced-->
+    <string name="square">%1$d\u00B2</string>
+    <string name="cube">%1$d\u00B3</string>
+    <string name="box">%1$d</string>
+    <string name="sqrt">\u221A%1$d</string>
+    <string name="cbrt">\u221B%1$d</string>
+
 </resources>
+
