@@ -44,34 +44,18 @@ public class Advanced extends AppCompatActivity {
         questionText = findViewById(R.id.quiestionsView);
         scoreView = findViewById(R.id.scoreView);
         bg = findViewById(R.id.bg);
-//        menuButton = findViewById(R.id.menuButton);
-        AnimationDrawable drawable = new AnimationDrawable();
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
-
-        Handler handler = new Handler();
         //Generate the starting question
         generateQuestion();
     }
-
-
-    //Answer button's functionality
     public void choose(View view){
-
-        //gets the difference between number of questions answered and score
-        double difference;
-        difference = numberOfQuestions - score;
-
         //if statement connects the tapped answer to the correct answer
         if(view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))) {
             score++;
             numberOfQuestions++;
             generateQuestion();
-            /*
-            bg.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.correct_gradient_1));
-            scoreView.setTextColor(Color.WHITE);
-            questionText.setTextColor(Color.WHITE);
-            menuButton.setImageResource(R.drawable.ic_menu_white);*/
         }else {
+            scoreView.startAnimation(AnimationUtils.loadAnimation(this,R.anim.correct_animation));
             numberOfQuestions++;
             if(locationOfCorrectAnswer == 0){
                 button0.startAnimation(AnimationUtils.loadAnimation(this,R.anim.correct_animation));
@@ -89,20 +73,14 @@ public class Advanced extends AppCompatActivity {
                     generateQuestion();
                 }
             }, 1000);
-            /*
-            bg.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.wrong_gradient_1));
-            scoreView.setTextColor(Color.WHITE);
-            questionText.setTextColor(Color.WHITE);
-            menuButton.setImageResource(R.drawable.ic_menu_white);*/
         }
-        scoreView.setText(Integer.toString(score) + "/" + Integer.toString(numberOfQuestions));
-
-
+        scoreView.setText(getString(R.string.advanced_score,score,numberOfQuestions));
+        questionText.startAnimation(AnimationUtils.loadAnimation(this,R.anim.question_flicker));
         answers.clear();
     }
     public void generateQuestion(){
         Random rd = new Random();
-        int a = rd.nextInt(4);
+        int a = rd.nextInt(10);
         if(a == 0) {
             squareQuestions();
         }else if(a == 1){
@@ -111,6 +89,18 @@ public class Advanced extends AppCompatActivity {
             sqrtQuestions();
         }else if(a == 3){
             cbrtQuestions();
+        }else if(a == 4){
+            tripleSumQuestions();
+        }else if(a == 5){
+            tripleSubtractQuestions();
+        }else if(a == 6){
+            tripleSubMultiplyQuestions();
+        }else if(a == 7){
+            tripleSumMultiplyQuestions();
+        }else if(a == 8){
+            tripleSubDivisionQuestions();
+        }else if(a == 9){
+            tripleSumDivisionQuestions();
         }
         answers.clear();
         button0.startAnimation(buttonsInit);
@@ -120,18 +110,18 @@ public class Advanced extends AppCompatActivity {
     }
     public void squareQuestions(){
         Random rd = new Random();
-        int a = rd.nextInt(10)+1;
+        int[] arr = {2,3,4,5,6,7,8,9,10,11,12};
+        int a = arr[rd.nextInt(11)];
         int incorrectAnswer;
         locationOfCorrectAnswer = rd.nextInt(4);
         questionText.setText(getString(R.string.square,a));
         for(int i = 0; i < 4; i++){
             if(i == locationOfCorrectAnswer){
-
                 answers.add((int)Math.pow(a,2));
             }else{
-                incorrectAnswer = rd.nextInt(50)+1;
+                incorrectAnswer = rd.nextInt(80)+4;
                 while(incorrectAnswer == (int)Math.pow(a,2)){
-                    incorrectAnswer = rd.nextInt(50)+1;
+                    incorrectAnswer = rd.nextInt(80)+4;
                 }
                 answers.add(incorrectAnswer);
             }
@@ -143,18 +133,18 @@ public class Advanced extends AppCompatActivity {
     }
     public void cubeQuestions(){
         Random rd = new Random();
-        int a = rd.nextInt(4)+1;
+        int[] arr = {2,3,4,5};
+        int a = arr[rd.nextInt(4)];
         int incorrectAnswer;
         locationOfCorrectAnswer = rd.nextInt(4);
         questionText.setText(getString(R.string.cube,a));
         for(int i = 0; i < 4; i++){
             if(i == locationOfCorrectAnswer){
-
                 answers.add((int)Math.pow(a,3));
             }else{
-                incorrectAnswer = rd.nextInt(50)+1;
+                incorrectAnswer = rd.nextInt(90)+30;
                 while(incorrectAnswer == (int)Math.pow(a,3)){
-                    incorrectAnswer = rd.nextInt(50)+1;
+                    incorrectAnswer = rd.nextInt(90)+30;
                 }
                 answers.add(incorrectAnswer);
             }
@@ -177,9 +167,9 @@ public class Advanced extends AppCompatActivity {
             if(i == locationOfCorrectAnswer){
                 answers.add((int)Math.sqrt(a));
             }else{
-                incorrectAnswer = rd.nextInt(50)+1;
+                incorrectAnswer = rd.nextInt(14)+2;
                 while(incorrectAnswer == (int)Math.sqrt(a)){
-                    incorrectAnswer = rd.nextInt(50)+1;
+                    incorrectAnswer = rd.nextInt(14)+2;
                 }
                 answers.add(incorrectAnswer);
             }
@@ -202,9 +192,9 @@ public class Advanced extends AppCompatActivity {
             if(i == locationOfCorrectAnswer){
                 answers.add((int)Math.cbrt(a));
             }else{
-                incorrectAnswer = rd.nextInt(50)+1;
+                incorrectAnswer = rd.nextInt(10)+2;
                 while(incorrectAnswer == (int)Math.cbrt(a)){
-                    incorrectAnswer = rd.nextInt(50)+1;
+                    incorrectAnswer = rd.nextInt(10)+2;
                 }
                 answers.add(incorrectAnswer);
             }
@@ -214,6 +204,163 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+    public void tripleSumQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt(25)+20;
+        int b = rd.nextInt(15)+10;
+        int c = rd.nextInt(10)+5;
+        int incorrectAnswer;
+        locationOfCorrectAnswer = rd.nextInt(4);
+        questionText.setText(getString(R.string.triple_sum,a,b,c));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add(a+b+c);
+            }else{
+                incorrectAnswer = rd.nextInt(50)+35;
+                while(incorrectAnswer == a+b+c){
+                    incorrectAnswer = rd.nextInt(50)+35;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+    public void tripleSubtractQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt((50-25)+1)+25;
+        int b = rd.nextInt((15-10)+1)+10;
+        int c = rd.nextInt((10-5)+1)+5;
+        int incorrectAnswer;
+        locationOfCorrectAnswer = rd.nextInt(4);
+        questionText.setText(getString(R.string.triple_sub,a,b,c));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add(a-b-c);
+            }else{
+                incorrectAnswer = rd.nextInt(25)+10;
+                while(incorrectAnswer == a-b-c){
+                    incorrectAnswer = rd.nextInt(25)+10;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+    public void tripleSubMultiplyQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt((50-25)+1)+25;
+        int b = rd.nextInt((15-10)+1)+10;
+        int c = rd.nextInt((5-1)+1)+1;
+        int incorrectAnswer;
+        locationOfCorrectAnswer = rd.nextInt(4);
+        questionText.setText(getString(R.string.triple_sub_multiply,a,b,c));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add((a-b)*c);
+            }else{
+                incorrectAnswer = rd.nextInt((80-20)+1)+20;
+                while(incorrectAnswer == (a-b)*c){
+                    incorrectAnswer = rd.nextInt((80-20)+1)+20;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+    public void tripleSumMultiplyQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt((25-20)+1)+20;
+        int b = rd.nextInt((15-10)+1)+10;
+        int c = rd.nextInt((5-1)+1)+1;
+        int incorrectAnswer;
+        locationOfCorrectAnswer = rd.nextInt(4);
+        questionText.setText(getString(R.string.triple_sum_multiply,a,b,c));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add((a+b)*c);
+            }else{
+                incorrectAnswer = rd.nextInt((150-80)+1)+80;
+                while(incorrectAnswer == (a+b)*c){
+                    incorrectAnswer = rd.nextInt((150-80)+1)+80;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+
+    public void tripleSubDivisionQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt((50-25)+1)+25;
+        int b = rd.nextInt((15-10)+1)+10;
+        int c = rd.nextInt((10-1)+1)+1;
+        int incorrectAnswer;
+        while((a-b) % c != 0){
+             a = rd.nextInt((50-25)+1)+25;
+             b = rd.nextInt((15-10)+1)+10;
+             c = rd.nextInt((10-1)+1)+1;
+        }
+        locationOfCorrectAnswer = rd.nextInt(4);
+        questionText.setText(getString(R.string.triple_sub_div,a,b,c));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add((a-b)/c);
+            }else{
+                incorrectAnswer = rd.nextInt((40-15)+1)+15;
+                while(incorrectAnswer == (a-b)/c){
+                    incorrectAnswer = rd.nextInt((40-15)+1)+15;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+    public void tripleSumDivisionQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt((25-20)+1)+20;
+        int b = rd.nextInt((15-10)+1)+10;
+        int c = rd.nextInt((10-1)+1)+1;
+        int incorrectAnswer;
+        while((a+b) % c != 0){
+            a = rd.nextInt((50-25)+1)+25;
+            b = rd.nextInt((15-10)+1)+10;
+            c = rd.nextInt((10-1)+1)+1;
+        }
+        locationOfCorrectAnswer = rd.nextInt(4);
+        questionText.setText(getString(R.string.triple_sum_div,a,b,c));
+        for(int i = 0; i < 4; i++){
+            if(i == locationOfCorrectAnswer){
+                answers.add((a+b)/c);
+            }else{
+                incorrectAnswer = rd.nextInt((40-10)+1)+10;
+                while(incorrectAnswer == (a+b)/c){
+                    incorrectAnswer = rd.nextInt((40-10)+1)+10;
+                }
+                answers.add(incorrectAnswer);
+            }
+        }
+        button0.setText(getString(R.string.box,answers.get(0)));
+        button1.setText(getString(R.string.box,answers.get(1)));
+        button2.setText(getString(R.string.box,answers.get(2)));
+        button3.setText(getString(R.string.box,answers.get(3)));
+    }
+
+
 
     //Resets current session
     public void reset(){

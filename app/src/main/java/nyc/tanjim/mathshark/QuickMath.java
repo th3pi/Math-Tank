@@ -103,6 +103,7 @@ public class QuickMath extends AppCompatActivity {
             quickMathScore.setText("SCORE: " + Integer.toString(score));
             numberOfQuestions++;
         }else{
+            quickMathScore.startAnimation(AnimationUtils.loadAnimation(this,R.anim.correct_animation));
             vibrator.vibrate(500);
             if(wrongOrCorrect == 1){
                 wrongButton.startAnimation(correctAnimation);
