@@ -2,29 +2,11 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/quickMathBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
-    android:id="@+id/quickMathBg"
+    android:background="@drawable/transit"
     tools:context=".QuickMath">
-
-    <Button
-        android:id="@+id/correctButton"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="12dp"
-        android:background="#79b700"
-        android:fontFamily="@font/quicksand_bold"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:onClick="choose"
-        android:tag="0"
-        android:text="CORRECT"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/wrongButton"
-        app:layout_constraintEnd_toEndOf="@+id/wrongButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/wrongButton" />
 
     <TextView
         android:id="@+id/quickMathQuestion"
@@ -34,56 +16,17 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="96dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/permanentmarker_regular"
         android:text="2+2=5"
         android:textColor="#fff"
-        android:fontFamily="@font/quicksand_bold"
         android:textSize="80sp"
-        app:layout_constraintEnd_toEndOf="@+id/correctButton"
-        app:layout_constraintStart_toStartOf="@+id/correctButton"
-        app:layout_constraintTop_toBottomOf="@+id/stopwatchText" />
-
-    <Button
-        android:id="@+id/wrongButton"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="172dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:onClick="choose"
-        android:tag="1"
-        android:text="WRONG"
-        style="@style/Widget.AppCompat.Button.Colored"
-        android:foreground="?attr/selectableItemBackgroundBorderless"
-        android:fontFamily="@font/quicksand_bold"
-        android:background="#c62828"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline9" />
 
     <TextView
         android:id="@+id/stopwatchText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="40dp"
-        android:textColor="#fff"
-        android:textSize="30sp"
-        android:text="0:00"
-        android:fontFamily="@font/passion_one_regular"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/quickMathsScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
@@ -92,13 +35,119 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/amaticsc_bold"
+        android:text="0:00"
         android:textColor="#fff"
-        android:text="SCORE: 0"
-        android:fontFamily="@font/quicksand_medium"
         android:textSize="40sp"
-        app:layout_constraintBottom_toTopOf="@+id/correctButton"
+        app:layout_constraintBottom_toTopOf="@+id/guideline9"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/quickMathsScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/amaticsc_bold"
+        android:text="SCORE: 0"
+        android:textColor="#fff"
+        android:textSize="50sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/quickMathQuestion" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_begin="205dp" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="79dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="234dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="horizontal"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintDimensionRatio="w,1:1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline10">
+
+        <Button
+            android:id="@+id/correctButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#79b700"
+            android:fontFamily="@font/permanentmarker_regular"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="choose"
+            android:tag="0"
+            android:text="CORRECT"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="16dp"
+            tools:layout_editor_absoluteY="405dp" />
+
+        <Button
+            android:id="@+id/wrongButton"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="300dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#c62828"
+            android:fontFamily="@font/permanentmarker_regular"
+            android:foreground="?attr/selectableItemBackgroundBorderless"
+            android:onClick="choose"
+            android:tag="1"
+            android:text="WRONG"
+            android:textSize="20sp"
+            tools:layout_editor_absoluteX="95dp"
+            tools:layout_editor_absoluteY="345dp" />
+    </LinearLayout>
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_begin="400dp" />
+
+    <TextView
+        android:id="@+id/plusOne"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="44dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/amaticsc_bold"
+        android:text="+1"
+        android:textColor="#fff"
+        android:textSize="40sp"
+        app:layout_constraintBottom_toTopOf="@+id/guideline10"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/quickMathsScore"
+        app:layout_constraintVertical_bias="0.49" />
 
 </android.support.constraint.ConstraintLayout>

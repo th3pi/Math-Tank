@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="16dp"
     android:paddingTop="16dp"
-    android:background="@color/popup_blue"
+    android:background="#fc4a1a"
     android:layout_gravity="center">
 
     <TextView

@@ -7,30 +7,35 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.TransitionDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.os.Vibrator;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.Random;
 
 public class QuickMath extends AppCompatActivity {
     TextView timerText, quickMathQuestion, quickMathScore, scoreSpread, lastScoreText, winningMessage;
-    TextView scoreMessage, iqMessage;
+    TextView scoreMessage, iqMessage, plusOne;
     Button correctButton, wrongButton, playAgainButton, quitButton;
     int correctAnswer, score, wrongOrCorrect, numberOfQuestions;
     Dialog scorePopUp;
     Vibrator vibrator;
     Animation correctAnimation;
+    ProgressBar progressBar;
 
 
     @Override
@@ -50,20 +55,30 @@ public class QuickMath extends AppCompatActivity {
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
+        plusOne = findViewById(R.id.plusOne);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         correctAnimation = AnimationUtils.loadAnimation(this, R.anim.correct_animation);
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            ConstraintLayout constraintLayout = findViewById(R.id.quickMathBg);
+            TransitionDrawable transitionDrawable = (TransitionDrawable) constraintLayout.getBackground();
+            @Override
+            public void run() {
+                transitionDrawable.startTransition(10000);
+
+            }
+        },15000);
         generateQuestion();
-        backgroundAnimation();
         timer();
     }
     public void showPopUp(){
-        if(numberOfQuestions - score == 4 && numberOfQuestions > 10){
+        if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText("Hello there genius!");
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
             winningMessage.setText("Unbelievable!");
         }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
             winningMessage.setText("Are we even trying?");
-        }else if(numberOfQuestions == 1){
+        }else if(numberOfQuestions == 0){
             winningMessage.setText(getString(R.string.afk_text));
         }else {
             winningMessage.setText("Need more practice!");
@@ -79,6 +94,12 @@ public class QuickMath extends AppCompatActivity {
         if(!QuickMath.this.isFinishing()) {
             scorePopUp.show();
         }
+        scorePopUp.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
     }
     public void playAgain(View view){
         finish();
@@ -102,6 +123,7 @@ public class QuickMath extends AppCompatActivity {
             generateQuestion();
             quickMathScore.setText("SCORE: " + Integer.toString(score));
             numberOfQuestions++;
+            plusOne.startAnimation(AnimationUtils.loadAnimation(this,R.anim.plus_one_animation));
         }else{
             quickMathScore.startAnimation(AnimationUtils.loadAnimation(this,R.anim.correct_animation));
             vibrator.vibrate(500);
@@ -207,7 +229,7 @@ public class QuickMath extends AppCompatActivity {
 
     //Timer that keeps track of time
     public void timer(){
-        new CountDownTimer(10000,1000) {
+        new CountDownTimer(30000,1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
@@ -228,7 +250,6 @@ public class QuickMath extends AppCompatActivity {
             @Override
             public void onFinish() {
                showPopUp();
-
             }
         }.start();
     }
