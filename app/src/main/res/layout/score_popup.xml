@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingBottom="16dp"
     android:paddingTop="16dp"
-    android:background="#fc4a1a"
+    android:background="@drawable/popup_background"
     android:layout_gravity="center">
 
     <TextView
@@ -16,7 +16,7 @@
         android:textColor="#fff"
         android:layout_gravity="center"
         android:textSize="35sp"
-        android:fontFamily="@font/passion_one_regular"
+        android:fontFamily="@font/permanentmarker_regular"
         />
     <LinearLayout
         android:layout_width="wrap_content"
@@ -32,7 +32,7 @@
             android:textColor="#fff"
             android:layout_gravity="center"
             android:textSize="30sp"
-            android:fontFamily="@font/passion_one_regular"/>
+            android:fontFamily="@font/amaticsc_bold"/>
         <TextView
             android:id="@+id/iqMessage"
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
             android:textColor="#fff"
             android:layout_gravity="center"
             android:textSize="30sp"
-            android:fontFamily="@font/passion_one_regular"/>
+            android:fontFamily="@font/amaticsc_bold"/>
     </LinearLayout>
     <LinearLayout
         android:layout_width="wrap_content"
@@ -52,7 +52,7 @@
         android:layout_marginTop="30dp">
         <Button
             android:id="@+id/playAgainButton"
-            android:fontFamily="@font/passion_one_regular"
+            android:fontFamily="@font/permanentmarker_regular"
             android:textSize="20sp"
             android:textColor="#fff"
             android:text="Play Again"
@@ -67,7 +67,7 @@
             android:onClick="quit"
             android:textColor="#fff"
             android:textSize="20sp"
-            android:fontFamily="@font/passion_one_regular"
+            android:fontFamily="@font/permanentmarker_regular"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/red_popup_button_style"/>

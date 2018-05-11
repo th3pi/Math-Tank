@@ -114,6 +114,7 @@
     <string name="loading_screen_timer">%1$d</string>
 
     <!--timer-->
+    <string name="time_left_five">Time left: 10s</string>
     <string name="time_left">Time left: %1$ds</string>
     <string name="time_left_ten_less">Time left: 0%1$ds</string>
 
@@ -131,6 +132,17 @@
     <string name="triple_sum_div">(%1$d + %2$d) / %3$d</string>
     <string name="triple_sub_div">(%1$d - %2$d) / %3$d</string>
     <string name="triple_sub">%1$d - %2$d - %3$d</string>
+    <string name="go">GO!</string>
 
+    <!--quick math-->
+    <string name="sum">%1$d + %2$d = %3$d</string>
+    <string name="sub">%1$d - %1$d = %3$d</string>
+    <string name="mult">%1$d x %2$d = %3$d</string>
+    <string name="div">%1$d / %2$d = %3$d</string>
+
+    <!--quick math score pop up text-->
+    <string name="hey_there_genius">"Hello there genius!"</string>
+    <string name="are_you_even">Are you even trying?</string>
+    <string name="need_more_practice">Need more practice!</string>
 </resources>
 

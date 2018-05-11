@@ -6,6 +6,7 @@ import android.animation.AnimatorSet;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -45,6 +46,7 @@ public class Advanced extends AppCompatActivity {
         scoreView = findViewById(R.id.scoreView);
         bg = findViewById(R.id.bg);
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
+
         //Generate the starting question
         generateQuestion();
     }

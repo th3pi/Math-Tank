@@ -44,20 +44,27 @@ public class TimeTrials extends AppCompatActivity {
         button1.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_1));
         button2.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_2));
         button3.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_3));
-        countDownTimer = new CountDownTimer(120000, 1000) {
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
             @Override
-            public void onTick(long millisUntilFinished) {
-                if(millisUntilFinished > 10000)
-                    timeLeftText.setText(getString(R.string.time_left, (int)millisUntilFinished/1000));
-                else
-                    timeLeftText.setText(getString(R.string.time_left_ten_less,(int) millisUntilFinished/1000));
-            }
+            public void run() {
+                countDownTimer = new CountDownTimer(9000, 1000) {
+                    @Override
+                    public void onTick(long millisUntilFinished) {
+                        if(millisUntilFinished > 10000)
+                            timeLeftText.setText(getString(R.string.time_left, (int)millisUntilFinished/1000));
+                        else
+                            timeLeftText.setText(getString(R.string.time_left_ten_less,(int) millisUntilFinished/1000));
+                    }
 
-            @Override
-            public void onFinish() {
+                    @Override
+                    public void onFinish() {
 
+                    }
+                }.start();
             }
-        }.start();
+        }, 1500);
+
     }
 
     public String correctEquation(){
