@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:background="@drawable/question_board"
-        android:elevation="5dp"
+        android:elevation="20dp"
         android:fontFamily="@font/permanentmarker_regular"
         android:gravity="center"
         android:text="2+2=5"
@@ -62,7 +62,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/quickMathQuestion" />
+        app:layout_constraintTop_toTopOf="@+id/guideline15" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline8"
@@ -76,7 +76,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="79dp" />
+        app:layout_constraintGuide_percent="0.1" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -139,34 +139,41 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="400dp" />
+        app:layout_constraintGuide_percent="0.6" />
 
     <TextView
         android:id="@+id/plusOne"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="76dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:fontFamily="@font/passion_one_bold"
+        android:fontFamily="@font/reeniebeanie"
         android:text="@string/go"
         android:textColor="#fff"
         android:textSize="60sp"
         app:layout_constraintBottom_toTopOf="@+id/guideline10"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline11"
-        app:layout_constraintVertical_bias="0.49" />
+        app:layout_constraintVertical_bias="0.213" />
+
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_begin="283dp" />
+        app:layout_constraintGuide_percent="0.4" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.31" />
 
 </android.support.constraint.ConstraintLayout>

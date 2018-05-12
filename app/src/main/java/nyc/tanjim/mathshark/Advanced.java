@@ -3,9 +3,12 @@ package nyc.tanjim.mathshark;
 import android.animation.Animator;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
@@ -17,6 +20,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.PopupMenu;
 import android.widget.TextView;
@@ -26,12 +30,16 @@ import java.util.Random;
 
 public class Advanced extends AppCompatActivity {
     Button button0, button1, button2, button3;
-    TextView questionText, scoreView;
+    TextView questionText, scoreView, winningMessage, scoreMessage, iqMessage;
     ImageButton menuButton;
     int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0;
     ArrayList<Integer> answers = new ArrayList<Integer>();
     ConstraintLayout bg;
     Animation buttonsInit;
+    Dialog scorePopUp;
+    Button playAgainButton, quitButton;
+    Chronometer chronometer;
+
 
 
     @Override
@@ -44,11 +52,58 @@ public class Advanced extends AppCompatActivity {
         button3 = findViewById(R.id.button3);
         questionText = findViewById(R.id.quiestionsView);
         scoreView = findViewById(R.id.scoreView);
+        scorePopUp = new Dialog(this);
+        scorePopUp.setContentView(R.layout.score_popup);
+        playAgainButton = scorePopUp.findViewById(R.id.playAgainButton);
+        quitButton = scorePopUp.findViewById(R.id.quitButton);
+        winningMessage = scorePopUp.findViewById(R.id.winningMessage);
+        scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
+        iqMessage = scorePopUp.findViewById(R.id.iqMessage);
+        chronometer = findViewById(R.id.simpleChronometer);
+        chronometer.start();
         bg = findViewById(R.id.bg);
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
 
         //Generate the starting question
         generateQuestion();
+    }
+    public void showPopUp(View view){
+        if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
+            winningMessage.setText(getString(R.string.hey_there_genius));
+        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
+            winningMessage.setText(getString(R.string.unbelievable));
+        }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
+            winningMessage.setText(getString(R.string.are_you_even));
+        }else if(numberOfQuestions == 0){
+            winningMessage.setText(getString(R.string.afk_text));
+        }else {
+            winningMessage.setText(getString(R.string.need_more_practice));
+        }
+        scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
+        if(numberOfQuestions != 0 && score != 0) {
+            iqMessage.setText(getString(R.string.shark_points, Math.round((numberOfQuestions + score) * 4)));
+        }else {
+            iqMessage.setText("");
+        }
+        scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        scorePopUp.setCanceledOnTouchOutside(false);
+        scorePopUp.show();
+        chronometer.stop();
+        scorePopUp.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
+    }
+    public void playAgain(View view){
+        finish();
+        startActivity(new Intent(getApplicationContext(), AdvancedLoadingScreen.class));
+    }
+
+    //Pop up quit button
+    public  void quit(View view){
+        finish();
     }
     public void choose(View view){
         //if statement connects the tapped answer to the correct answer

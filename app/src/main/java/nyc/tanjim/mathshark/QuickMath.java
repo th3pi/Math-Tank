@@ -298,17 +298,17 @@ public class QuickMath extends AppCompatActivity {
             public void onTick(long millisUntilFinished) {
 
                 if(millisUntilFinished > 10000)
-                    timerText.setText(getString(R.string.time_left,(int) millisUntilFinished / 1000));
+                    timerText.setText(getString(R.string.timer_quick_math,(int) millisUntilFinished / 1000));
                 else if(millisUntilFinished < 10000 && millisUntilFinished > 5000){
                     //Timer flickering gets faster as time runs out
                     //Adds a 0 before last digit
-                    timerText.setText(getString(R.string.time_left_ten_less,(int) millisUntilFinished / 1000));
+                    timerText.setText(getString(R.string.timer_quick_math_ten_less,(int) millisUntilFinished / 1000));
                     timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_2));
                 }else if(millisUntilFinished < 5000 && millisUntilFinished > 3000){
-                    timerText.setText(getString(R.string.time_left_ten_less,(int) millisUntilFinished / 1000));
+                    timerText.setText(getString(R.string.timer_quick_math_ten_less,(int) millisUntilFinished / 1000));
                     timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_1));
                 }else {
-                    timerText.setText(getString(R.string.time_left_ten_less,(int) millisUntilFinished / 1000));
+                    timerText.setText(getString(R.string.timer_quick_math_ten_less,(int) millisUntilFinished / 1000));
                     timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation));
                 }
             }

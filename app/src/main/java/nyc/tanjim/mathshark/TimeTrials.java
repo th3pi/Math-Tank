@@ -5,6 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -18,6 +19,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+import static android.graphics.Color.GRAY;
 
 public class TimeTrials extends AppCompatActivity {
     TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback, scoreMessage, iqMessage;
@@ -58,6 +61,9 @@ public class TimeTrials extends AppCompatActivity {
         button1.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_1));
         button2.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_2));
         button3.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_3));
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setStatusBarColor(GRAY);
+        }
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
@@ -271,7 +277,7 @@ public class TimeTrials extends AppCompatActivity {
                 public void run() {
                     generateQuestions();
                 }
-            }, 1000);
+            }, 400);
 
 
             /*

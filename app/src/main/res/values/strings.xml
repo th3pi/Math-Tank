@@ -114,10 +114,24 @@
     <string name="loading_screen_timer">%1$d</string>
 
     <!--timer-->
-    <string name="time_left_five">Time left: 10s</string>
-    <string name="time_left">Time left: %1$ds</string>
-    <string name="time_left_ten_less">Time left: 0%1$ds</string>
+    <string name="time_left_five">10s</string>
+    <string name="time_left">%1$ds</string>
+    <string name="time_left_ten_less">0%1$ds</string>
+    <string name="ten">TEN</string>
+    <string name="nine">NINE</string>
+    <string name="eight">EIGHT</string>
+    <string name="seven">SEVEN</string>
+    <string name="six">SIX</string>
+    <string name="five">FIVE</string>
+    <string name="four">FOUR</string>
+    <string name="three">THREE</string>
+    <string name="two">TWO</string>
+    <string name="one">ONE</string>
+    <string name="zero">zero</string>
 
+    <!--quickmath timer-->
+    <string name="timer_quick_math">Time Left: %1$ds</string>
+    <string name="timer_quick_math_ten_less">Time Left: 0%1$ds</string>
     <!--advanced-->
     <string name="square">%1$d\u00B2</string>
     <string name="cube">%1$d\u00B3</string>
