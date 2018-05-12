@@ -89,7 +89,7 @@
     <string name="sweet">SWEET!</string>
     <string name="crazy">WOW!</string>
     <string name="keep">NICE!</string>
-    <string name="unbelievable">UNBELIEVABLE!</string>
+    <string name="unbelievable">NICE!</string>
     <string name="brilliant">BRILLIANT!</string>
     <string name="surprised">O_O</string>
     <string name="bananas">BANANAS!</string>
@@ -142,7 +142,7 @@
 
     <!--quick math score pop up text-->
     <string name="hey_there_genius">"Hello there genius!"</string>
-    <string name="are_you_even">Are you even trying?</string>
+    <string name="are_you_even">You can do better!</string>
     <string name="need_more_practice">Need more practice!</string>
 </resources>
 

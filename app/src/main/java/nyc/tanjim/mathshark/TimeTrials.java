@@ -1,5 +1,10 @@
 package nyc.tanjim.mathshark;
 
+import android.app.Dialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -15,14 +20,16 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class TimeTrials extends AppCompatActivity {
-    TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback;
+    TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback, scoreMessage, iqMessage;
+    TextView winningMessage;
+    Button playAgainButton, quitButton;
     Button button0, button1, button2, button3;
     int a, b;
-    ImageButton menuButtonTimeTrials;
     ArrayList<String> questions = new ArrayList<String>();
     int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum;
     CountDownTimer countDownTimer;
     Animation correctAnimation, feedBackAnimation;
+    Dialog scorePopUp;
 
 
     @Override
@@ -37,6 +44,13 @@ public class TimeTrials extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
         userFeedback = findViewById(R.id.userFeedback);
+        scorePopUp = new Dialog(this);
+        scorePopUp.setContentView(R.layout.score_popup);
+        playAgainButton = scorePopUp.findViewById(R.id.playAgainButton);
+        quitButton = scorePopUp.findViewById(R.id.quitButton);
+        winningMessage = scorePopUp.findViewById(R.id.winningMessage);
+        scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
+        iqMessage = scorePopUp.findViewById(R.id.iqMessage);
         correctAnimation = AnimationUtils.loadAnimation(this,R.anim.correct_animation);
         feedBackAnimation = AnimationUtils.loadAnimation(this,R.anim.flicker_animation);
         generateQuestions();
@@ -51,6 +65,8 @@ public class TimeTrials extends AppCompatActivity {
                 countDownTimer = new CountDownTimer(9000, 1000) {
                     @Override
                     public void onTick(long millisUntilFinished) {
+                        if(millisUntilFinished < 3000)
+                            timeLeftText.startAnimation(AnimationUtils.loadAnimation(TimeTrials.this,R.anim.timer_flicker));
                         if(millisUntilFinished > 10000)
                             timeLeftText.setText(getString(R.string.time_left, (int)millisUntilFinished/1000));
                         else
@@ -59,14 +75,52 @@ public class TimeTrials extends AppCompatActivity {
 
                     @Override
                     public void onFinish() {
-
+                        showPopUp();
                     }
                 }.start();
             }
         }, 1500);
 
     }
+    public void showPopUp(){
+        if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
+            winningMessage.setText(getString(R.string.hey_there_genius));
+        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
+            winningMessage.setText(getString(R.string.unbelievable));
+        }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
+            winningMessage.setText(getString(R.string.are_you_even));
+        }else if(numberOfQuestions == 0){
+            winningMessage.setText(getString(R.string.afk_text));
+        }else {
+            winningMessage.setText(getString(R.string.need_more_practice));
+        }
+        scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
+        if(numberOfQuestions != 0 && score != 0) {
+            iqMessage.setText(getString(R.string.shark_points, Math.round((numberOfQuestions + score) * 4)));
+        }else {
+            iqMessage.setText("");
+        }
+        scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        scorePopUp.setCanceledOnTouchOutside(false);
+        if(!TimeTrials.this.isFinishing()) {
+            scorePopUp.show();
+        }
+        scorePopUp.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
+    }
+    public void playAgain(View view){
+        finish();
+        startActivity(new Intent(getApplicationContext(), TimeTrialsLoadingScreen.class));
+    }
 
+    //Pop up quit button
+    public  void quit(View view){
+        finish();
+    }
     public String correctEquation(){
         Random rd = new Random();
         a = rd.nextInt(10)+1;

@@ -88,9 +88,13 @@ public class Advanced extends AppCompatActivity {
         }else if(a == 1){
             cubeQuestions();
         }else if(a == 2){
-            sqrtQuestions();
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                sqrtQuestions();
+            }else{
+                tripleSumQuestions();
+            }
         }else if(a == 3){
-            cbrtQuestions();
+            tripleSubtractQuestions();
         }else if(a == 4){
             tripleSumQuestions();
         }else if(a == 5){
