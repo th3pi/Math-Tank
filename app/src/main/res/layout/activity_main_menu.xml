@@ -5,8 +5,10 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimary"
+    android:animateLayoutChanges="true"
     android:id="@+id/mainMenu"
     tools:context=".MainMenu">
+
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline"
@@ -23,10 +25,11 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"
-        android:background="#79b700"
+        android:background="@drawable/main_menu_button_bg"
         android:fontFamily="@font/quicksand_regular"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="Quick Maths Shark"
+        android:elevation="10dp"
         android:textSize="25sp"
         android:padding="15dp"
         android:onClick="openQuickMaths"
@@ -44,7 +47,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginTop="20dp"
-        android:background="#ff6d00"
+        android:background="@drawable/main_menu_button_og"
         android:text="Time Trials Shark"
         android:onClick="openTimeTrials"
         android:textSize="22sp"
@@ -65,7 +68,7 @@
         android:layout_marginEnd="10dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
-        android:background="#ff3d00"
+        android:background="@drawable/main_menu_button_rd"
         android:fontFamily="@font/quicksand_regular"
         android:foreground="?attr/selectableItemBackgroundBorderless"
         android:text="Advanced Shark"
