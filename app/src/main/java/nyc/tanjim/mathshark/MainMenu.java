@@ -1,8 +1,10 @@
 package nyc.tanjim.mathshark;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class MainMenu extends AppCompatActivity {
     Button quickMathButton, timeTrialsButton, advancedMathButton;
@@ -33,6 +36,15 @@ public class MainMenu extends AppCompatActivity {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             backgroundAnimation();
         }
+
+        PreferenceManager.setDefaultValues(this,R.xml.preference,false);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        Toast.makeText(this,darkModePref.toString(), Toast.LENGTH_LONG).show();
+        if(darkModePref){
+            ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
+            constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.question_board));
+        }
     }
 
     public void openAdvanced(View view){
@@ -43,6 +55,9 @@ public class MainMenu extends AppCompatActivity {
     }
     public void openTimeTrials(View view){
         startActivity(new Intent(this, TimeTrialsLoadingScreen.class));
+    }
+    public void openSettings(View view){
+        startActivity(new Intent(this,SettingsActivity.class));
     }
 
     public void backgroundAnimation(){

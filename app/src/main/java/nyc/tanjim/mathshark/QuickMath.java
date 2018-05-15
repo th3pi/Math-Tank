@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
@@ -11,6 +12,7 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -31,6 +33,8 @@ public class QuickMath extends AppCompatActivity {
     Dialog scorePopUp;
     Vibrator vibrator;
     Animation correctAnimation;
+    Boolean addition,subtraction,multiplication,division, timer;
+    String timerDuration;
 
 
     @Override
@@ -53,23 +57,37 @@ public class QuickMath extends AppCompatActivity {
         userFeedback = findViewById(R.id.plusOne);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         correctAnimation = AnimationUtils.loadAnimation(this, R.anim.correct_animation);
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+
+        //Gets user preferences
+        addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ONLY_QUICKMATH,false);
+        subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_QUICKMATH,false);
+        multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_QUICKMATH,false);
+        division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_QUICKMATH,false);
+        timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER,false);
+//        timerDuration = sharedPref.getString(SettingsActivity.KEY_TIMER,"30");
+
 
         //Changes the background and status bar color when the timer hits 15 seconds
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            ConstraintLayout constraintLayout = findViewById(R.id.quickMathBg);
-            TransitionDrawable transitionDrawable = (TransitionDrawable) constraintLayout.getBackground();
-
-            @Override
-            public void run() {
-                transitionDrawable.startTransition(10000);
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getWindow().setStatusBarColor(Color.RED);
-                }
-            }
-        },15000);
         generateQuestion();
-        timer();
+        if(timer) {
+            timer();
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                ConstraintLayout constraintLayout = findViewById(R.id.quickMathBg);
+                TransitionDrawable transitionDrawable = (TransitionDrawable) constraintLayout.getBackground();
+
+                @Override
+                public void run() {
+                    transitionDrawable.startTransition(10000);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getWindow().setStatusBarColor(Color.RED);
+                    }
+                }
+            }, 15000);
+        }
+        else
+            timerText.setText("Timer Disabled");
     }
 
     /**
@@ -121,15 +139,7 @@ public class QuickMath extends AppCompatActivity {
     public  void quit(View view){
         finish();
     }
-    //Irrelevant might use later
-//    public void backgroundAnimation(){
-//        ConstraintLayout constraintLayout = (findViewById(R.id.quickMathBg));
-//        constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.animation));
-//        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-//        animationDrawable.setEnterFadeDuration(6000);
-//        animationDrawable.setExitFadeDuration(6000);
-//        animationDrawable.start();
-//    }
+
 
     /**The answer button
      * if user answers correct score increases by one
@@ -198,89 +208,137 @@ public class QuickMath extends AppCompatActivity {
     //Generates write or wrong question randomly
     public void generateQuestion(){
         Random rd = new Random();
-        wrongOrCorrect = rd.nextInt(2);
+        int questionType = rd.nextInt(4);
         feedBackNum = rd.nextInt(12);
-        if(wrongOrCorrect == 0){
-            correctQuestion();
-        }
-        else{
-            wrongQuestion();
+        if(questionType == 0){
+            if(addition) {
+                sumQuestion();
+            }else{
+                if(subtraction) {
+                    subtractQuestion();
+                }else{
+                    if(multiplication)
+                        multiplyQuestions();
+                    else{
+                        if(division)
+                            divisionQuestion();
+                    }
+            }
+            }
+        }else if(questionType == 1){
+            if(subtraction) {
+                subtractQuestion();
+            }else{
+                if(addition) {
+                    sumQuestion();
+                }else{
+                    if(multiplication)
+                        multiplyQuestions();
+                    else{
+                        if(division)
+                            divisionQuestion();
+                    }
+                }
+            }
+
+        }else if(questionType == 2){
+            if(multiplication) {
+                multiplyQuestions();
+            }else{
+                if(addition) {
+                    sumQuestion();
+                }else{
+                    if(subtraction)
+                        subtractQuestion();
+                    else{
+                        if(division)
+                            divisionQuestion();
+                    }
+                }
+            }
+        }else if(questionType == 3){
+            if(division) {
+                divisionQuestion();
+            }else{
+                if(addition) {
+                    sumQuestion();
+                }else{
+                    if(subtraction)
+                        subtractQuestion();
+                    else{
+                        if(multiplication)
+                            multiplyQuestions();
+                    }
+                }
+            }
         }
     }
 
-    /**
-     * Creates a correct question
-     * Sum maximum 50
-     * Subtract minimum 10 above c
-     * multiply maximum 12 x 12
-     * Division minimum 10 above a
-     */
-    public void correctQuestion(){
+    public void sumQuestion(){
         Random rd = new Random();
         int a = rd.nextInt((25-10)+1)+10;
         int b = rd.nextInt((25-10)+1)+10;
-        int questionType = rd.nextInt(4);
-        if(questionType == 0){
+        wrongOrCorrect = rd.nextInt(2);
+        int incorrectAnswer;
+        if(wrongOrCorrect == 0){
             correctAnswer = a + b;
             quickMathQuestion.setText(getString(R.string.sum,a,b,correctAnswer));
-        }else if(questionType == 1){
-            int c = rd.nextInt(25)+1;
-            int d = rd.nextInt(10)+c;
-            correctAnswer = b - a;
-            quickMathQuestion.setText(Integer.toString(d) + " - " + Integer.toString(c) + " = " + Integer.toString(d-c));
-        }else if(questionType == 2){
-            a = rd.nextInt((12-1)+1)+1;
-            b = rd.nextInt((12-1)+1)+1;
-            correctAnswer = a * b;
-            quickMathQuestion.setText(getString(R.string.mult,a,b,correctAnswer));
-        }else if(questionType == 3){
-            while(b % a != 0){
-                a = rd.nextInt(10)+1;
-                b = rd.nextInt(10)+a;
-            }
-            correctAnswer = b / a;
-            quickMathQuestion.setText(getString(R.string.div,b,a,correctAnswer));
-        }
-    }
-    /**
-     * Creates a wrong question
-     * Sum maximum 50
-     * Subtract minimum 10 above c
-     * multiply maximum 12 x 12
-     * Division minimum 10 above a
-     */
-    public void wrongQuestion(){
-        Random rd = new Random();
-        int a = rd.nextInt((25-10)+1)+10;
-        int b = rd.nextInt((25-10)+1)+10;
-        int incorrectAnswer;
-        int questionType = rd.nextInt(4);
-        if(questionType == 0){
-            correctAnswer = a + b;
+        }else{
             incorrectAnswer = rd.nextInt((50-12)+1)+12;
             while(incorrectAnswer == correctAnswer){
                 incorrectAnswer = rd.nextInt((50-12)+1)+12;
             }
             quickMathQuestion.setText(getString(R.string.sum,a,b,incorrectAnswer));
-        }else if(questionType == 1){
-            int c = rd.nextInt(25)+1;
-            int d = rd.nextInt(25)+a;
+        }
+    }
+    public void subtractQuestion(){
+        Random rd = new Random();
+        int c = rd.nextInt(25)+1;
+        int d = rd.nextInt(10)+c;
+        int incorrectAnswer;
+        wrongOrCorrect = rd.nextInt(2);
+        if(wrongOrCorrect == 0 ) {
+            quickMathQuestion.setText(Integer.toString(d) + " - " + Integer.toString(c) + " = " + Integer.toString(d - c));
+        }else{
             correctAnswer = d - c;
             incorrectAnswer = rd.nextInt(20)+1;
             while(incorrectAnswer == correctAnswer){
                 incorrectAnswer = rd.nextInt(20)+1;
             }
             quickMathQuestion.setText(Integer.toString(d) + " - " + Integer.toString(c) + " = " + Integer.toString(incorrectAnswer));
-        }else if(questionType == 2){
-            a = rd.nextInt((12-1)+1)+1;
-            b = rd.nextInt((12-1)+1)+1;
-            correctAnswer = a * b;
+        }
+    }
+    public void multiplyQuestions(){
+        Random rd = new Random();
+        int a = rd.nextInt((12-1)+1)+1;
+        int b = rd.nextInt((12-1)+1)+1;
+        correctAnswer = a * b;
+        wrongOrCorrect = rd.nextInt(2);
+        int incorrectAnswer;
+        if(wrongOrCorrect == 0){
+            quickMathQuestion.setText(getString(R.string.mult,a,b,correctAnswer));
+        }else{
             incorrectAnswer = rd.nextInt((100-20)+1)+20;
             while(incorrectAnswer == correctAnswer){
                 incorrectAnswer = rd.nextInt((100-20)+1)+20;
             }
             quickMathQuestion.setText(getString(R.string.mult,a,b,incorrectAnswer));
-        }else if(questionType == 3){
+        }
+    }
+    public void divisionQuestion(){
+        Random rd = new Random();
+        int a = rd.nextInt((25-10)+1)+10;
+        int b = rd.nextInt((25-10)+1)+10;
+        int incorrectAnswer;
+        wrongOrCorrect = rd.nextInt(2);
+        if(wrongOrCorrect == 0){
+            while(b % a != 0){
+                a = rd.nextInt(10)+1;
+                b = rd.nextInt(10)+a;
+            }
+            correctAnswer = b / a;
+            quickMathQuestion.setText(getString(R.string.div,b,a,correctAnswer));
+        }else{
             incorrectAnswer = rd.nextInt(24)+1;
             correctAnswer = b / a;
             while(b % a != 0 || incorrectAnswer == correctAnswer){
@@ -290,8 +348,10 @@ public class QuickMath extends AppCompatActivity {
             quickMathQuestion.setText(getString(R.string.div,b,a,incorrectAnswer));
         }
     }
+
     //Timer that keeps track of time
     public void timer(){
+//        int time = Integer.parseInt(timerDuration) * 1000;
         new CountDownTimer(30000,1000) {
 
             @Override

@@ -158,5 +158,8 @@
     <string name="hey_there_genius">"Hello there genius!"</string>
     <string name="are_you_even">You can do better!</string>
     <string name="need_more_practice">Need more practice!</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
 

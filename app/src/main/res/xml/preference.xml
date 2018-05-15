@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="App settings">
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="dark_mode_switch"
+            android:title="Dark Mode" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Quick Math Settings"
+        android:summary="Select the type of math you want to solve">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="addition_only_quickmath"
+            android:title="Addition" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="subtraction_only_quickmath"
+            android:title="Subtraction" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="multiplication_only_quickmath"
+            android:title="Multiplication" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="division_only_quickmath"
+            android:title="Division" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="timer_quick_math"
+            android:title="Timer"
+            android:summary="Turn on/off QuickMath timer"/>
+    </PreferenceCategory>
+</PreferenceScreen>
