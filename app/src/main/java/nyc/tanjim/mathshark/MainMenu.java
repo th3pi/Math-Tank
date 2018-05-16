@@ -44,6 +44,9 @@ public class MainMenu extends AppCompatActivity {
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
             constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.question_board));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+            }
         }
     }
 

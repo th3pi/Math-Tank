@@ -34,7 +34,6 @@ public class QuickMath extends AppCompatActivity {
     Vibrator vibrator;
     Animation correctAnimation;
     Boolean addition,subtraction,multiplication,division, timer;
-    String timerDuration;
 
 
     @Override
@@ -87,7 +86,7 @@ public class QuickMath extends AppCompatActivity {
             }, 15000);
         }
         else
-            timerText.setText("Timer Disabled");
+            timerText.setText(getString(R.string.timer_disabled));
     }
 
     /**

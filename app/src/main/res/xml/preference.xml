@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="App settings">
+        android:title="Game settings">
         <SwitchPreference
             android:defaultValue="false"
             android:key="dark_mode_switch"
@@ -31,5 +31,70 @@
             android:key="timer_quick_math"
             android:title="Timer"
             android:summary="Turn on/off QuickMath timer"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="TimeTrials Settings"
+        android:summary="Select the type of math you want to solve">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="addition_only_quickmath"
+            android:title="Addition" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="subtraction_only_quickmath"
+            android:title="Subtraction" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="multiplication_only_quickmath"
+            android:title="Multiplication" />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="division_only_quickmath"
+            android:title="Division" />
+        <SwitchPreference
+            android:defaultValue="true"
+            android:key="timer_quick_math"
+            android:title="Timer"
+            android:summary="Turn on/off TimeTrials timer"/>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Advanced Math">
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Addition"
+            android:key="addition_advanced"
+            />
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Subtraction"
+            android:key="subtraction_advanced"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Addition x Multiplication"
+            android:key="addition_x_multiplication"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Subtraction x Multiplication"
+            android:key="subtraction_x_multiplication"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Addition / Multiplication"
+            android:key="addition_by_division"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Subtraction / Multiplication"
+            android:key="subtraction_by_division"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Square root"
+            android:key="sqrt"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Square"
+            android:key="sqr"/>
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:title="Cube"
+            android:key="cube"/>
     </PreferenceCategory>
 </PreferenceScreen>

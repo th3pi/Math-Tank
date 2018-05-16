@@ -6,11 +6,13 @@ import android.animation.AnimatorSet;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -27,6 +29,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 public class Advanced extends AppCompatActivity {
     Button button0, button1, button2, button3;
@@ -39,6 +42,7 @@ public class Advanced extends AppCompatActivity {
     Dialog scorePopUp;
     Button playAgainButton, quitButton;
     Chronometer chronometer;
+    Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv;
 
 
 
@@ -63,6 +67,18 @@ public class Advanced extends AppCompatActivity {
         chronometer.start();
         bg = findViewById(R.id.bg);
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
+
+        //Gets user preferences
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sqr = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE,false);
+        sqrt = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE_ROOT,false);
+        cube = sharedPref.getBoolean(SettingsActivity.KEY_CUBE,false);
+        addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ADVANCED, false);
+        subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ADVANCED,false);
+        addmult = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_X_MULTIPLICATION,false);
+        adddiv = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_BY_DIVISION,false);
+        submult = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_X_MULTIPLICATION,false);
+        subdiv = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_BY_DIVISION,false);
 
         //Generate the starting question
         generateQuestion();
@@ -137,31 +153,322 @@ public class Advanced extends AppCompatActivity {
     }
     public void generateQuestion(){
         Random rd = new Random();
-        int a = rd.nextInt(10);
+        int a = rd.nextInt(9);
         if(a == 0) {
-            squareQuestions();
+            if(sqr)
+                squareQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(cube)
+                        cubeQuestions();
+                    else{
+                        if(subtraction)
+                            tripleSubtractQuestions();
+                        else{
+                            if(addition){
+                                tripleSumQuestions();
+                            }else{
+                                if(submult)
+                                    tripleSubMultiplyQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addmult)
+                                            tripleSumMultiplyQuestions();
+                                        else{
+                                            if(adddiv)
+                                                tripleSumDivisionQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else if(a == 1){
-            cubeQuestions();
+            if(cube)
+                cubeQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(subtraction)
+                            tripleSubtractQuestions();
+                        else{
+                            if(addition){
+                                tripleSumQuestions();
+                            }else{
+                                if(submult)
+                                    tripleSubMultiplyQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addmult)
+                                            tripleSumMultiplyQuestions();
+                                        else{
+                                            if(adddiv)
+                                                tripleSumDivisionQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else if(a == 2){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if(sqrt)
                 sqrtQuestions();
-            }else{
-                tripleSumQuestions();
+            else{
+                if(cube)
+                    cubeQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(subtraction)
+                            tripleSubtractQuestions();
+                        else{
+                            if(addition){
+                                tripleSumQuestions();
+                            }else{
+                                if(submult)
+                                    tripleSubMultiplyQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addmult)
+                                            tripleSumMultiplyQuestions();
+                                        else{
+                                            if(adddiv)
+                                                tripleSumDivisionQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
             }
         }else if(a == 3){
-            tripleSubtractQuestions();
+            if(subtraction)
+                tripleSubtractQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(cube)
+                            cubeQuestions();
+                        else{
+                            if(addition){
+                                tripleSumQuestions();
+                            }else{
+                                if(submult)
+                                    tripleSubMultiplyQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addmult)
+                                            tripleSumMultiplyQuestions();
+                                        else{
+                                            if(adddiv)
+                                                tripleSumDivisionQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else if(a == 4){
-            tripleSumQuestions();
+            if(addition)
+                tripleSumQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(cube)
+                            cubeQuestions();
+                        else{
+                            if(subtraction){
+                                tripleSubtractQuestions();
+                            }else{
+                                if(submult)
+                                    tripleSubMultiplyQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addmult)
+                                            tripleSumMultiplyQuestions();
+                                        else{
+                                            if(adddiv)
+                                                tripleSumDivisionQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else if(a == 5){
-            tripleSubtractQuestions();
+            if(addmult)
+                tripleSumMultiplyQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(cube)
+                            cubeQuestions();
+                        else{
+                            if(subtraction){
+                                tripleSubtractQuestions();
+                            }else{
+                                if(submult)
+                                    tripleSubMultiplyQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addition)
+                                            tripleSumQuestions();
+                                        else{
+                                            if(adddiv)
+                                                tripleSumDivisionQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else if(a == 6){
-            tripleSubMultiplyQuestions();
+            if(adddiv)
+                tripleSumDivisionQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(cube)
+                            cubeQuestions();
+                        else{
+                            if(subtraction){
+                                tripleSubtractQuestions();
+                            }else{
+                                if(submult)
+                                    tripleSubMultiplyQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addition)
+                                            tripleSumQuestions();
+                                        else{
+                                            if(addmult)
+                                                tripleSumMultiplyQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else if(a == 7){
-            tripleSumMultiplyQuestions();
+            if(submult)
+                tripleSubMultiplyQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(cube)
+                            cubeQuestions();
+                        else{
+                            if(subtraction){
+                                tripleSubtractQuestions();
+                            }else{
+                                if(adddiv)
+                                    tripleSumDivisionQuestions();
+                                else{
+                                    if(subdiv)
+                                        tripleSubDivisionQuestions();
+                                    else{
+                                        if(addition)
+                                            tripleSumQuestions();
+                                        else{
+                                            if(addmult)
+                                                tripleSumMultiplyQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }else if(a == 8){
-            tripleSubDivisionQuestions();
-        }else if(a == 9){
-            tripleSumDivisionQuestions();
+            if(subdiv)
+                tripleSubMultiplyQuestions();
+            else{
+                if(sqrt)
+                    sqrtQuestions();
+                else{
+                    if(sqr)
+                        squareQuestions();
+                    else{
+                        if(cube)
+                            cubeQuestions();
+                        else{
+                            if(subtraction){
+                                tripleSubtractQuestions();
+                            }else{
+                                if(adddiv)
+                                    tripleSumDivisionQuestions();
+                                else{
+                                    if(submult)
+                                        tripleSubMultiplyQuestions();
+                                    else{
+                                        if(addition)
+                                            tripleSumQuestions();
+                                        else{
+                                            if(addmult)
+                                                tripleSumMultiplyQuestions();
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
         answers.clear();
         button0.startAnimation(buttonsInit);
