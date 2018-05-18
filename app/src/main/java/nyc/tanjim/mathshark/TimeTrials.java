@@ -33,6 +33,7 @@ public class TimeTrials extends AppCompatActivity {
     CountDownTimer countDownTimer;
     Animation correctAnimation, feedBackAnimation;
     Dialog scorePopUp;
+    Boolean addition, subtraction, multiplication, division;
 
 
     @Override
