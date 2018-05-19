@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="DarkMode" parent="AppTheme">
+        <item name="colorPrimary">@color/qboard_black</item>
+        <item name="android:textColorPrimary">@android:color/background_light</item>
+        <item name="colorAccent">@android:color/darker_gray</item>
+        <item name="android:statusBarColor">@color/qboard_black</item>
+    </style>
+</resources>

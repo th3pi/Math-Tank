@@ -15,7 +15,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
-public class MainMenu extends AppCompatActivity {
+public class MainMenu extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     Button quickMathButton, timeTrialsButton, advancedMathButton;
     Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
     @Override
@@ -36,11 +36,10 @@ public class MainMenu extends AppCompatActivity {
         if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
             backgroundAnimation();
         }
-
         PreferenceManager.setDefaultValues(this,R.xml.preference,false);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref.registerOnSharedPreferenceChangeListener(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
-        Toast.makeText(this,darkModePref.toString(), Toast.LENGTH_LONG).show();
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
             constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.question_board));
@@ -72,4 +71,10 @@ public class MainMenu extends AppCompatActivity {
             animationDrawable.start();
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals(SettingsActivity.KEY_DARK_MODE_SWITCH)){
+            recreate();
+        }
+    }
 }

@@ -70,6 +70,14 @@ public class Advanced extends AppCompatActivity {
 
         //Gets user preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        if(darkModePref){
+            ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
+            constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+            }
+        }
         sqr = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE,false);
         sqrt = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE_ROOT,false);
         cube = sharedPref.getBoolean(SettingsActivity.KEY_CUBE,false);

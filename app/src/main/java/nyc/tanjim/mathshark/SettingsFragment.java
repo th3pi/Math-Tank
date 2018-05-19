@@ -21,4 +21,5 @@ public class SettingsFragment extends PreferenceFragmentCompat {
         setPreferencesFromResource(R.xml.preference, rootKey);
     }
 
+
 }
