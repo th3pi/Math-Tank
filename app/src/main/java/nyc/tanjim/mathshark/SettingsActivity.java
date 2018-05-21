@@ -2,10 +2,13 @@ package nyc.tanjim.mathshark;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.preference.Preference;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.widget.Toast;
 
-public class SettingsActivity extends AppCompatActivity {
+public class SettingsActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String KEY_DARK_MODE_SWITCH = "dark_mode_switch";
     public static final String KEY_ADDITION_ONLY_QUICKMATH = "addition_only_quickmath";
     public static final String KEY_SUBTRACTION_ONLY_QUICKMATH = "subtraction_only_quickmath";
@@ -30,6 +33,18 @@ public class SettingsActivity extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        prefs.registerOnSharedPreferenceChangeListener(this);
     }
 
+    @Override
+    public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(key.equals(KEY_DARK_MODE_SWITCH)){
+            if(sharedPreferences.getBoolean(KEY_DARK_MODE_SWITCH,false)){
+                Toast.makeText(SettingsActivity.this,"Dark mode Activated",Toast.LENGTH_SHORT).show();
+            }else{
+                Toast.makeText(SettingsActivity.this,"Dark mode Deactivated",Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }
