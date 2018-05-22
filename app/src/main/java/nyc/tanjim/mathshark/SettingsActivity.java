@@ -41,7 +41,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
         if(key.equals(KEY_DARK_MODE_SWITCH)){
             if(sharedPreferences.getBoolean(KEY_DARK_MODE_SWITCH,false)){
-                Toast.makeText(SettingsActivity.this,"Dark mode Activated",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SettingsActivity.this,"Dark mode Activated",Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(SettingsActivity.this,"Dark mode Deactivated",Toast.LENGTH_SHORT).show();
             }
