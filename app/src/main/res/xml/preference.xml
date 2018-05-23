@@ -37,23 +37,23 @@
         android:summary="Select the type of math you want to solve">
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="addition_only_quickmath"
+            android:key="addition_only_timetrials"
             android:title="Addition" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="subtraction_only_quickmath"
+            android:key="subtraction_only_timetrials"
             android:title="Subtraction" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="multiplication_only_quickmath"
+            android:key="multiplication_only_timetrials"
             android:title="Multiplication" />
         <CheckBoxPreference
             android:defaultValue="true"
-            android:key="division_only_quickmath"
+            android:key="division_only_timetrials"
             android:title="Division" />
         <SwitchPreference
             android:defaultValue="true"
-            android:key="timer_quick_math"
+            android:key="timer_quick_timetrials"
             android:title="Timer"
             android:summary="Turn on/off TimeTrials timer"/>
     </PreferenceCategory>

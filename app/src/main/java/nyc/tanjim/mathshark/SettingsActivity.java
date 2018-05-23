@@ -15,6 +15,11 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public static final String KEY_MULTIPLICATION_ONLY_QUICKMATH = "multiplication_only_quickmath";
     public static final String KEY_DIVISION_ONLY_QUICKMATH = "division_only_quickmath";
     public static final String KEY_TIMER = "timer_quick_math";
+    public static final String KEY_ADDITION_ONLY_TIMETRIALS = "addition_only_timetrials";
+    public static final String KEY_SUBTRACTION_ONLY_TIMETRIALS = "subtraction_only_timetrials";
+    public static final String KEY_MULTIPLICATION_ONLY_TIMETRIALS = "multiplication_only_timetrials";
+    public static final String KEY_DIVISION_ONLY_TIMETRIALS = "division_only_timetrials";
+    public static final String KEY_TIMER_TIMETRIALS = "timer_timetrials";
     public static final String KEY_ADDITION_ADVANCED ="addition_advanced";
     public static final String KEY_SUBTRACTION_ADVANCED ="subtraction_advanced";
     public static final String KEY_ADDITION_X_MULTIPLICATION ="addition_x_multiplication";
@@ -30,6 +35,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setTheme(R.style.AppThemeWActionBar);
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();

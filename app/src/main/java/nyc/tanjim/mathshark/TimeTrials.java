@@ -3,11 +3,13 @@ package nyc.tanjim.mathshark;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -29,11 +31,13 @@ public class TimeTrials extends AppCompatActivity {
     Button button0, button1, button2, button3;
     int a, b;
     ArrayList<String> questions = new ArrayList<String>();
-    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum;
+    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum, wrongOrCorrect;
     CountDownTimer countDownTimer;
     Animation correctAnimation, feedBackAnimation;
     Dialog scorePopUp;
-    Boolean addition, subtraction, multiplication, division;
+
+    //Boolean values to check user preference.
+    Boolean addition, subtraction, multiplication, division, timer;
 
 
     @Override
@@ -55,9 +59,15 @@ public class TimeTrials extends AppCompatActivity {
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
+
+        //Variables to hold animation values.
         correctAnimation = AnimationUtils.loadAnimation(this,R.anim.correct_animation);
         feedBackAnimation = AnimationUtils.loadAnimation(this,R.anim.flicker_animation);
+
+        //Required to generate the first question
         generateQuestions();
+
+        //Initial animation
         button0.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_0));
         button1.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_1));
         button2.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_2));
@@ -65,28 +75,44 @@ public class TimeTrials extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(GRAY);
         }
-        Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                countDownTimer = new CountDownTimer(9000, 1000) {
-                    @Override
-                    public void onTick(long millisUntilFinished) {
-                        if(millisUntilFinished < 3000)
-                            timeLeftText.startAnimation(AnimationUtils.loadAnimation(TimeTrials.this,R.anim.timer_flicker));
-                        if(millisUntilFinished > 10000)
-                            timeLeftText.setText(getString(R.string.time_left, (int)millisUntilFinished/1000));
-                        else
-                            timeLeftText.setText(getString(R.string.time_left_ten_less,(int) millisUntilFinished/1000));
-                    }
 
-                    @Override
-                    public void onFinish() {
-                        showPopUp();
-                    }
-                }.start();
-            }
-        }, 1500);
+        /**
+         * Required to get user's preferences
+         */
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        //Gets user preferences
+        addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ONLY_TIMETRIALS,false);
+        subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_TIMETRIALS,false);
+        multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_TIMETRIALS,false);
+        division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_TIMETRIALS,false);
+        timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER_TIMETRIALS,false);
+
+        if(timer) {
+            Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    countDownTimer = new CountDownTimer(9000, 1000) {
+                        @Override
+                        public void onTick(long millisUntilFinished) {
+                            if (millisUntilFinished < 3000)
+                                timeLeftText.startAnimation(AnimationUtils.loadAnimation(TimeTrials.this, R.anim.timer_flicker));
+                            if (millisUntilFinished > 10000)
+                                timeLeftText.setText(getString(R.string.time_left, (int) millisUntilFinished / 1000));
+                            else
+                                timeLeftText.setText(getString(R.string.time_left_ten_less, (int) millisUntilFinished / 1000));
+                        }
+
+                        @Override
+                        public void onFinish() {
+                            showPopUp();
+                        }
+                    }.start();
+                }
+            }, 1500);
+        }else{
+            timeLeftText.setText(getString(R.string.timer_disabled));
+        }
 
     }
     public void showPopUp(){
@@ -128,81 +154,78 @@ public class TimeTrials extends AppCompatActivity {
     public  void quit(View view){
         finish();
     }
-    public String correctEquation(){
+    public String sumQuestion(){
         Random rd = new Random();
-        a = rd.nextInt(10)+1;
-        b = rd.nextInt(10)+1;
-        switch (rd.nextInt(4)) {
-            case 0:
-                return String.format(Integer.toString(a) + " + " + Integer.toString(b) + " = " + Integer.toString(a + b));
-            case 1:
-                a = rd.nextInt(10)+1;
-                b = rd.nextInt(10)+a;
-                return String.format(Integer.toString(b) + " - " + Integer.toString(a) + " = " + Integer.toString(b - a));
-            case 2:
-                while(b % a != 0){
-                    a = rd.nextInt(10)+1;
-                    b = rd.nextInt(10)+a;
-                }
-                return String.format(Integer.toString(b) + " / " + Integer.toString(a) + " = " + Integer.toString(b / a));
-            case 3:
-                return String.format(Integer.toString(a) + " x " + Integer.toString(b) + " = " + Integer.toString(a * b));
-
-            default:
-                return "Oops something broke";
-        }
+        int a = rd.nextInt((15-4)+1)+4;
+        int b = rd.nextInt((15-4)+1)+4;
+        return getString(R.string.sum, a, b, a + b);
 
     }
-    public String wrongEquation(){
+    public String subtractQuestion(){
         Random rd = new Random();
-        int c = rd.nextInt(10)+1;
-        int d = rd.nextInt(10)+1;
-        int e = rd.nextInt(20)+1;
-        while(c == a || d == a || c == b || d == b)
-        {
-            c = rd.nextInt(10)+1;
-            d = rd.nextInt(10)+1;
-        }
-        switch (rd.nextInt(4)) {
+        int a = rd.nextInt((15-4)+1)+4;
+        int b = rd.nextInt((15-a)+1)+a;
+        return getString(R.string.sub,b,a,b-a);
+    }
+    public String multiplyQuestion(){
+        Random rd = new Random();
+        int a = rd.nextInt((12-1)+1)+1;
+        int b = rd.nextInt((12-1)+1)+1;
+        return getString(R.string.mult,a,b,a*b);
+
+    }
+    public String divisionQuestion(){
+        Random rd = new Random();
+        int a = rd.nextInt((50-25)+1)+25;
+        int b = rd.nextInt(12)+1;
+        while(b % a != 0) {
+                a = rd.nextInt((50 - 25) + 1) + 25;
+                b = rd.nextInt(12) + 1;
+            }
+        return getString(R.string.div,b,a,b/a);
+
+    }
+    public String wrongTypeOfQuestion(){
+        Random rd = new Random();
+        switch (rd.nextInt(4)){
             case 0:
-                while(e == c + d){
-                    e = rd.nextInt(20)+1;
-                }
-                return String.format(Integer.toString(c) + " + " + Integer.toString(d) + " = " + Integer.toString(e));
+                return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
             case 1:
-                while(e == d - c){
-                    e = rd.nextInt(10)+1;
-                }
-                return String.format(Integer.toString(d) + " - " + Integer.toString(c) + " = " + Integer.toString(e));
+                return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
             case 2:
-                while(d < c){
-                    d = rd.nextInt(10)+1;
-                }
-                while(e == d/c){
-                    e = rd.nextInt(12)+1;
-                }
-                return String.format(Integer.toString(d) + " / " + Integer.toString(c) + " = " + Integer.toString(e));
+                return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
             case 3:
-                while(e == c * d){
-                    e = rd.nextInt(20)+1;
-                }
-                return String.format(Integer.toString(c) + " x " + Integer.toString(d) + " = " + Integer.toString(e));
-
+                return getString(R.string.div,rd.nextInt(60)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
             default:
-                return "Oops something broke";
+                return "u got lucky - wrong answer";
         }
-
+    }
+    public String typeOfQuestion(){
+        Random rd = new Random();
+        switch (rd.nextInt(4)){
+            case 0:
+                return sumQuestion();
+            case 1:
+                return subtractQuestion();
+            case 2:
+                return multiplyQuestion();
+            case 3:
+                return divisionQuestion();
+            default:
+                return sumQuestion();
+        }
     }
     public void generateQuestions(){
         Random rd = new Random();
+        wrongOrCorrect = rd.nextInt(2);
         locationOfCorrectAnswer = rd.nextInt(4);
+        int typeOfQuestion = rd.nextInt(4);
         for(int i = 0; i < 4; i++){
             if(i == locationOfCorrectAnswer){
-                questions.add(correctEquation());
-            }else {
-                questions.add(wrongEquation());
+                questions.add(typeOfQuestion());
+            }else{
+                questions.add(wrongTypeOfQuestion());
             }
-
         }
         Random feedbackRd = new Random();
         feedBackNum = feedbackRd.nextInt(12);
@@ -221,7 +244,9 @@ public class TimeTrials extends AppCompatActivity {
             score++;
             numberOfQuestions++;
             generateQuestions();
-            countDownTimer.start();
+            if(timer) {
+                countDownTimer.start();
+            }
             onARoll++;
             if(feedBackNum == 0 || numberOfQuestions == 1){
                 userFeedback.setText(getString(R.string.good_job));

@@ -151,7 +151,7 @@
 
     <!--quick math-->
     <string name="sum">%1$d + %2$d = %3$d</string>
-    <string name="sub">%1$d - %1$d = %3$d</string>
+    <string name="sub">%1$d - %2$d = %3$d</string>
     <string name="mult">%1$d x %2$d = %3$d</string>
     <string name="div">%1$d / %2$d = %3$d</string>
 
