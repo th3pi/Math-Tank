@@ -9,13 +9,16 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 //App ID Admob: ca-app-pub-3697147059223741~6847967899
@@ -24,6 +27,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     Button quickMathButton, timeTrialsButton, advancedMathButton;
     Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
     AdView mAdView;
+    InterstitialAd interstitialAd;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +65,24 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         mAdView = findViewById(R.id.mainMenuAd);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
         mAdView.loadAd(adRequest);
+        //Advanced Math ad
+        interstitialAd = new InterstitialAd(this);
+        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
+        interstitialAd.setAdListener(new AdListener(){
+            @Override
+            public void onAdClosed(){
+                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
+                openAdv();
+            }
+        });
     }
 
     public void openAdvanced(View view){
+        interstitialAd.show();
+//        startActivity(new Intent(this, AdvancedLoadingScreen.class));
+    }
+    public void openAdv(){
         startActivity(new Intent(this, AdvancedLoadingScreen.class));
     }
     public void openQuickMaths(View view){

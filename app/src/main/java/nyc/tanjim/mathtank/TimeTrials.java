@@ -70,8 +70,6 @@ public class TimeTrials extends AppCompatActivity {
         feedBackAnimation = AnimationUtils.loadAnimation(this,R.anim.flicker_animation);
 
         //Required to generate the first question
-        generateQuestions();
-
         //Initial animation
         button0.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_0));
         button1.startAnimation(AnimationUtils.loadAnimation(this,R.anim.from_right_1));
@@ -98,7 +96,7 @@ public class TimeTrials extends AppCompatActivity {
         }
         //Initialize ads
         MobileAds.initialize(this,getString(R.string.testAd));
-
+        generateQuestions();
         //Ad load and requests
         mAdView = findViewById(R.id.ttAd);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
@@ -186,7 +184,7 @@ public class TimeTrials extends AppCompatActivity {
         Random rd = new Random();
         int a = rd.nextInt((10)+1);
         int b = rd.nextInt(10)+a;
-        while(b % a != 0) {
+        while(b % a != 0 || b == 0) {
                 a = rd.nextInt(10)+1;
                 b = rd.nextInt(10)+a;
             }
@@ -197,30 +195,142 @@ public class TimeTrials extends AppCompatActivity {
         Random rd = new Random();
         switch (rd.nextInt(4)){
             case 0:
-                return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                if(addition){
+                    return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                }else{
+                    if(subtraction){
+                        return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                    }else{
+                        if(multiplication){
+                            return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                        }else{
+                            if(division){
+                                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                            }
+                        }
+                    }
+                }
             case 1:
-                return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                if(subtraction){
+                    return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                }else{
+                    if(addition){
+                        return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                    }else{
+                        if(multiplication){
+                            return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                        }else{
+                            if(division){
+                                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                            }
+                        }
+                    }
+                }
             case 2:
-                return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                if(multiplication){
+                    return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                }else{
+                    if(addition){
+                        return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                    }else{
+                        if(subtraction){
+                            return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                        }else{
+                            if(division){
+                                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                            }
+                        }
+                    }
+                }
             case 3:
-                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                if(division){
+                    return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                }else{
+                    if(addition){
+                        return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                    }else{
+                        if(subtraction){
+                            return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                        }else{
+                            if(multiplication){
+                                return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                            }
+                        }
+                    }
+                }
             default:
-                return "u got lucky - wrong answer";
+                return "Enable at least one type of question.";
         }
     }
     public String typeOfQuestion(){
         Random rd = new Random();
         switch (rd.nextInt(4)){
             case 0:
-                return sumQuestion();
+                if(addition) {
+                    return sumQuestion();
+                }else{
+                    if(subtraction){
+                        return subtractQuestion();
+                    }else{
+                        if(division){
+                            return divisionQuestion();
+                        }else{
+                            if(multiplication){
+                                return multiplyQuestion();
+                            }
+                        }
+                    }
+                }
             case 1:
-                return subtractQuestion();
+                if(subtraction) {
+                    return subtractQuestion();
+                }else{
+                    if(addition){
+                        return sumQuestion();
+                    }else{
+                        if(division){
+                            return divisionQuestion();
+                        }else{
+                            if(multiplication){
+                                return multiplyQuestion();
+                            }
+                        }
+                    }
+                }
             case 2:
-                return multiplyQuestion();
+                if(multiplication){
+                    return multiplyQuestion();
+                }else{
+                    if(addition){
+                        return sumQuestion();
+                    }else{
+                        if(subtraction){
+                            return subtractQuestion();
+                        }else{
+                            if(division){
+                                return divisionQuestion();
+                            }
+                        }
+                    }
+                }
             case 3:
-                return divisionQuestion();
+                if(division){
+                    return divisionQuestion();
+                }else{
+                    if(addition){
+                        return sumQuestion();
+                    }else{
+                        if(subtraction){
+                            return subtractQuestion();
+                        }else{
+                            if(multiplication){
+                                return multiplyQuestion();
+                            }
+                        }
+                    }
+                }
             default:
-                return sumQuestion();
+                return "Enable at least one type of question.";
         }
     }
     public void generateQuestions(){

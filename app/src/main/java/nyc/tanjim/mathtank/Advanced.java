@@ -20,6 +20,9 @@ import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.InterstitialAd;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -36,6 +39,7 @@ public class Advanced extends AppCompatActivity {
     Button playAgainButton, quitButton;
     Chronometer chronometer;
     Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv;
+    InterstitialAd interstitialAd;
 
 
 
@@ -80,6 +84,9 @@ public class Advanced extends AppCompatActivity {
         adddiv = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_BY_DIVISION,false);
         submult = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_X_MULTIPLICATION,false);
         subdiv = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_BY_DIVISION,false);
+
+        Handler handler = new Handler();
+
 
         //Generate the starting question
         generateQuestion();

@@ -1,31 +1,31 @@
 {
   "project_info": {
-    "project_number": "508968661519",
-    "firebase_url": "https://math-app-8871d.firebaseio.com",
-    "project_id": "math-app-8871d",
-    "storage_bucket": "math-app-8871d.appspot.com"
+    "project_number": "302755798772",
+    "firebase_url": "https://math-tank.firebaseio.com",
+    "project_id": "math-tank",
+    "storage_bucket": "math-tank.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:508968661519:android:143258a144972dcb",
+        "mobilesdk_app_id": "1:302755798772:android:143258a144972dcb",
         "android_client_info": {
           "package_name": "nyc.tanjim.mathtank"
         }
       },
       "oauth_client": [
         {
-          "client_id": "508968661519-o451dfnhf8bppir001i4cuao6tt84ttp.apps.googleusercontent.com",
+          "client_id": "302755798772-ajdvect7lthjumo1coqejv3f5v4f9etq.apps.googleusercontent.com",
           "client_type": 3
         },
         {
-          "client_id": "508968661519-o451dfnhf8bppir001i4cuao6tt84ttp.apps.googleusercontent.com",
+          "client_id": "302755798772-ajdvect7lthjumo1coqejv3f5v4f9etq.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAhky32kzGsHy-ZIMZNjOziO8mCkzH45R4"
+          "current_key": "AIzaSyBMCaWIWUlkxQcOr6wcnlgw7Bo70dlvjhE"
         }
       ],
       "services": {
