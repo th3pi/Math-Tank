@@ -1,4 +1,4 @@
-package nyc.tanjim.mathshark;
+package nyc.tanjim.mathtank;
 
 
 import android.os.Bundle;
@@ -10,6 +10,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import android.support.v7.preference.PreferenceFragmentCompat;
+
+
 
 /**
  * A simple {@link Fragment} subclass.

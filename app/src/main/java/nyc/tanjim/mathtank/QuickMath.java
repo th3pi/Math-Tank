@@ -1,4 +1,4 @@
-package nyc.tanjim.mathshark;
+package nyc.tanjim.mathtank;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -23,7 +23,13 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
 import java.util.Random;
+
+
 
 public class QuickMath extends AppCompatActivity {
     TextView timerText, quickMathQuestion, quickMathScore, scoreSpread, winningMessage;
@@ -34,6 +40,7 @@ public class QuickMath extends AppCompatActivity {
     Vibrator vibrator;
     Animation correctAnimation;
     Boolean addition,subtraction,multiplication,division, timer;
+    AdView mAdView;
 
 
     @Override
@@ -85,8 +92,17 @@ public class QuickMath extends AppCompatActivity {
                 }
             }, 15000);
         }
-        else
+        else {
             timerText.setText(getString(R.string.timer_disabled));
+        }
+        //Initialize ads
+        MobileAds.initialize(this,getString(R.string.testAd));
+
+        //Ad load and requests
+        mAdView = findViewById(R.id.qmAd);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
+        mAdView.loadAd(adRequest);
+
     }
 
     /**

@@ -1,4 +1,4 @@
-package nyc.tanjim.mathshark;
+package nyc.tanjim.mathtank;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,11 +13,17 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.Toast;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+
+//App ID Admob: ca-app-pub-3697147059223741~6847967899
 
 public class MainMenu extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     Button quickMathButton, timeTrialsButton, advancedMathButton;
     Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
+    AdView mAdView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +53,14 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }
         }
+
+        //Initialize ads
+        MobileAds.initialize(this,getString(R.string.testAd));
+
+        //Ad load and requests
+        mAdView = findViewById(R.id.mainMenuAd);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
+        mAdView.loadAd(adRequest);
     }
 
     public void openAdvanced(View view){
@@ -60,6 +74,9 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     }
     public void openSettings(View view){
         startActivity(new Intent(this,SettingsActivity.class));
+    }
+    public void openAppInfo(View View){
+        startActivity(new Intent(this,AppInfo.class));
     }
 
     public void backgroundAnimation(){

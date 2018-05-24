@@ -53,7 +53,7 @@
             android:title="Division" />
         <SwitchPreference
             android:defaultValue="true"
-            android:key="timer_quick_timetrials"
+            android:key="timer_timetrials"
             android:title="Timer"
             android:summary="Turn on/off TimeTrials timer"/>
     </PreferenceCategory>

@@ -1,4 +1,4 @@
-package nyc.tanjim.mathshark;
+package nyc.tanjim.mathtank;
 
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -16,11 +16,16 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.Random;
+
+
 
 import static android.graphics.Color.GRAY;
 
@@ -35,7 +40,7 @@ public class TimeTrials extends AppCompatActivity {
     CountDownTimer countDownTimer;
     Animation correctAnimation, feedBackAnimation;
     Dialog scorePopUp;
-
+    AdView mAdView;
     //Boolean values to check user preference.
     Boolean addition, subtraction, multiplication, division, timer;
 
@@ -76,8 +81,8 @@ public class TimeTrials extends AppCompatActivity {
             getWindow().setStatusBarColor(GRAY);
         }
 
-        /**
-         * Required to get user's preferences
+        /*
+          Required to get user's preferences
          */
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Gets user preferences
@@ -86,34 +91,37 @@ public class TimeTrials extends AppCompatActivity {
         multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_TIMETRIALS,false);
         division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_TIMETRIALS,false);
         timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER_TIMETRIALS,false);
-
-        if(timer) {
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    countDownTimer = new CountDownTimer(9000, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            if (millisUntilFinished < 3000)
-                                timeLeftText.startAnimation(AnimationUtils.loadAnimation(TimeTrials.this, R.anim.timer_flicker));
-                            if (millisUntilFinished > 10000)
-                                timeLeftText.setText(getString(R.string.time_left, (int) millisUntilFinished / 1000));
-                            else
-                                timeLeftText.setText(getString(R.string.time_left_ten_less, (int) millisUntilFinished / 1000));
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            showPopUp();
-                        }
-                    }.start();
-                }
-            }, 1500);
-        }else{
+        if(timer)
+            timer();
+        else {
             timeLeftText.setText(getString(R.string.timer_disabled));
         }
+        //Initialize ads
+        MobileAds.initialize(this,getString(R.string.testAd));
 
+        //Ad load and requests
+        mAdView = findViewById(R.id.ttAd);
+        AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
+        mAdView.loadAd(adRequest);
+    }
+
+    public void timer(){
+        countDownTimer = new CountDownTimer(9000, 1000) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+                if (millisUntilFinished < 3000)
+                    timeLeftText.startAnimation(AnimationUtils.loadAnimation(TimeTrials.this, R.anim.timer_flicker));
+                if (millisUntilFinished > 10000)
+                    timeLeftText.setText(getString(R.string.time_left, (int) millisUntilFinished / 1000));
+                else
+                    timeLeftText.setText(getString(R.string.time_left_ten_less, (int) millisUntilFinished / 1000));
+            }
+
+            @Override
+            public void onFinish() {
+                showPopUp();
+            }
+        }.start();
     }
     public void showPopUp(){
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
@@ -176,11 +184,11 @@ public class TimeTrials extends AppCompatActivity {
     }
     public String divisionQuestion(){
         Random rd = new Random();
-        int a = rd.nextInt((50-25)+1)+25;
-        int b = rd.nextInt(12)+1;
+        int a = rd.nextInt((10)+1);
+        int b = rd.nextInt(10)+a;
         while(b % a != 0) {
-                a = rd.nextInt((50 - 25) + 1) + 25;
-                b = rd.nextInt(12) + 1;
+                a = rd.nextInt(10)+1;
+                b = rd.nextInt(10)+a;
             }
         return getString(R.string.div,b,a,b/a);
 
@@ -195,7 +203,7 @@ public class TimeTrials extends AppCompatActivity {
             case 2:
                 return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
             case 3:
-                return getString(R.string.div,rd.nextInt(60)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
             default:
                 return "u got lucky - wrong answer";
         }
@@ -219,7 +227,6 @@ public class TimeTrials extends AppCompatActivity {
         Random rd = new Random();
         wrongOrCorrect = rd.nextInt(2);
         locationOfCorrectAnswer = rd.nextInt(4);
-        int typeOfQuestion = rd.nextInt(4);
         for(int i = 0; i < 4; i++){
             if(i == locationOfCorrectAnswer){
                 questions.add(typeOfQuestion());
@@ -227,15 +234,13 @@ public class TimeTrials extends AppCompatActivity {
                 questions.add(wrongTypeOfQuestion());
             }
         }
-        Random feedbackRd = new Random();
-        feedBackNum = feedbackRd.nextInt(12);
+        feedBackNum = rd.nextInt(12);
         scoreText.setText(getString(R.string.score, score));
         button0.setText(questions.get(0));
         button1.setText(questions.get(1));
         button2.setText(questions.get(2));
         button3.setText(questions.get(3));
         questions.clear();
-
     }
 
     public void choose(View view){

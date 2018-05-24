@@ -1,12 +1,12 @@
-package nyc.tanjim.mathshark;
+package nyc.tanjim.mathtank;
 
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.preference.Preference;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
+
+
 
 public class SettingsActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String KEY_DARK_MODE_SWITCH = "dark_mode_switch";
@@ -53,4 +53,5 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
             }
         }
     }
+
 }
