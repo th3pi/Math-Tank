@@ -164,5 +164,12 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <string name="testAd">ca-app-pub-3940256099942544/6300978111</string>
+    <string name="appinfobutton">appinfoButton</string>
+    <string name="challenge_your_math_skills">Challenge your math skills</string>
+    <string name="mathtank">MathTank</string>
+    <string name="settingsbutton">settingsButton</string>
+    <string name="what_type_of_shark_are_you_today">What type of shark are you today?</string>
+    <string name="advanced_shark">Advanced Shark</string>
+    <string name="time_trials_shark">Time Trials Shark</string>
 </resources>
 

@@ -62,7 +62,6 @@ public class Advanced extends AppCompatActivity {
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
         chronometer = findViewById(R.id.simpleChronometer);
         chronometer.start();
-        bg = findViewById(R.id.advancedBg);
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
 
         //Gets user preferences

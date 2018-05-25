@@ -1,9 +1,15 @@
 package nyc.tanjim.mathtank;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
+import android.os.Binder;
 import android.os.Build;
+import android.os.IBinder;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -21,6 +27,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
+import nyc.MusicService;
+
 //App ID Admob: ca-app-pub-3697147059223741~6847967899
 
 public class MainMenu extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
@@ -28,6 +36,33 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
     AdView mAdView;
     InterstitialAd interstitialAd;
+    boolean mIsBound = false;
+    MusicService mServ;
+    private ServiceConnection Scon =new ServiceConnection(){
+
+        public void onServiceConnected(ComponentName name, IBinder
+                binder) {
+            mServ = ((MusicService.ServiceBinder) binder).getService();
+        }
+
+        public void onServiceDisconnected(ComponentName name) {
+            mServ = null;
+        }
+    };
+
+    public void doBindService(){
+        Intent bindIntent = new Intent(this,MusicService.class);
+        mIsBound = bindService(bindIntent,Scon, BIND_AUTO_CREATE);
+    }
+
+    public void doUnbindService()
+    {
+        if(mIsBound)
+        {
+            unbindService(Scon);
+            mIsBound = false;
+        }
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +113,30 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
                 openAdv();
             }
         });
+
+        //Initializes music
+        doBindService();
+        startService(new Intent(this, MusicService.class));
+    }
+
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        mServ.pauseMusic();
+//    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        mServ.resumeMusic();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mServ.stopMusic();
+        doUnbindService();
+        stopService(new Intent(this, MusicService.class));
     }
 
     public void openAdvanced(View view){
