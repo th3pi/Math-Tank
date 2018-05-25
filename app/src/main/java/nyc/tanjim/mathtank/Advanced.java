@@ -62,14 +62,14 @@ public class Advanced extends AppCompatActivity {
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
         chronometer = findViewById(R.id.simpleChronometer);
         chronometer.start();
-        bg = findViewById(R.id.bg);
+        bg = findViewById(R.id.advancedBg);
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
 
         //Gets user preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
         if(darkModePref){
-            ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
+            ConstraintLayout constraintLayout = (findViewById(R.id.advancedBg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
@@ -484,6 +484,8 @@ public class Advanced extends AppCompatActivity {
         button2.startAnimation(AnimationUtils.loadAnimation(this,R.anim.advanced_init_2));
         button3.startAnimation(AnimationUtils.loadAnimation(this,R.anim.advanced_init_3));
     }
+
+    //Generates question with format - x^2
     public void squareQuestions(){
         Random rd = new Random();
         int[] arr = {2,3,4,5,6,7,8,9,10,11,12};
@@ -507,6 +509,8 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+
+    //Generates question with format - x^3
     public void cubeQuestions(){
         Random rd = new Random();
         int[] arr = {2,3,4,5};
@@ -530,6 +534,8 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+
+    //Generates question with format - sqrt(x)
     public void sqrtQuestions(){
         Random rd = new Random();
         int a = rd.nextInt(100)+1;
@@ -555,6 +561,8 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+
+    //This is redundant until I set min API to be 21
     public void cbrtQuestions(){
         Random rd = new Random();
         int a = rd.nextInt(100)+1;
@@ -580,6 +588,7 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+    //Generates question with format - a + b + c
     public void tripleSumQuestions(){
         Random rd = new Random();
         int a = rd.nextInt(25)+20;
@@ -604,6 +613,9 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+
+
+    //Generates question with format - a - b - c
     public void tripleSubtractQuestions(){
         Random rd = new Random();
         int a = rd.nextInt((50-25)+1)+25;
@@ -628,6 +640,9 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+
+
+    //Generates question with format - (a - b) x c
     public void tripleSubMultiplyQuestions(){
         Random rd = new Random();
         int a = rd.nextInt((50-25)+1)+25;
@@ -652,6 +667,9 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+
+    //Generates question with format - (a + b) x c
+
     public void tripleSumMultiplyQuestions(){
         Random rd = new Random();
         int a = rd.nextInt((25-20)+1)+20;
@@ -677,6 +695,8 @@ public class Advanced extends AppCompatActivity {
         button3.setText(getString(R.string.box,answers.get(3)));
     }
 
+
+    //Generates question with format - (a - b) / c
     public void tripleSubDivisionQuestions(){
         Random rd = new Random();
         int a = rd.nextInt((50-25)+1)+25;
@@ -706,12 +726,17 @@ public class Advanced extends AppCompatActivity {
         button2.setText(getString(R.string.box,answers.get(2)));
         button3.setText(getString(R.string.box,answers.get(3)));
     }
+
+    //Generates question with format - (a + b) / c
+
     public void tripleSumDivisionQuestions(){
         Random rd = new Random();
         int a = rd.nextInt((25-20)+1)+20;
         int b = rd.nextInt((15-10)+1)+10;
         int c = rd.nextInt((10-1)+1)+1;
         int incorrectAnswer;
+
+        //Checks for remainder.
         while((a+b) % c != 0){
             a = rd.nextInt((50-25)+1)+25;
             b = rd.nextInt((15-10)+1)+10;

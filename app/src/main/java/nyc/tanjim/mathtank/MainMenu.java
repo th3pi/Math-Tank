@@ -36,6 +36,8 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         timeTrialsButton = findViewById(R.id.timeTrialsButton);
         advancedMathButton = findViewById(R.id.advancedMathButton);
 
+
+        //Animation for the game mode buttons
         fromLeftQuickMath = AnimationUtils.loadAnimation(this,R.anim.from_left_quick_math);
         quickMathButton.setAnimation(fromLeftQuickMath);
         fromLeftTimeTrials = AnimationUtils.loadAnimation(this,R.anim.from_left_time_trials);

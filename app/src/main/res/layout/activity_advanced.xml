@@ -2,7 +2,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/bg"
+    android:id="@+id/advancedBg"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/main_menu_gradient_1">
@@ -15,15 +15,14 @@
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:fontFamily="@font/quicksand_bold"
         android:text="\u221A420\u00B2"
         android:textColor="#fff"
         android:textSize="40dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.52"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.14"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
 
     <Chronometer
         android:id="@+id/simpleChronometer"
@@ -31,21 +30,20 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginLeft="0dp"
+        android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginStart="0dp"
+        android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:background="@drawable/timer_background_advanced"
+        android:elevation="10dp"
         android:fontFamily="@font/quicksand_bold"
+        android:gravity="center"
+        android:onClick="showPopUp"
         android:textColor="#fff"
         android:textSize="25sp"
-        android:onClick="showPopUp"
-        android:gravity="center"
-        android:elevation="10dp"
-        android:background="@drawable/timer_background_advanced"
         app:layout_constraintBottom_toTopOf="@+id/guideline3"
-        app:layout_constraintEnd_toStartOf="@+id/quiestionsView"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.constraint.Guideline
@@ -60,7 +58,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.1" />
+        app:layout_constraintGuide_percent="0.08" />
 
     <android.support.constraint.Guideline
         android:id="@+id/guideline4"
@@ -70,17 +68,18 @@
         app:layout_constraintGuide_percent="0.98" />
 
     <android.support.v7.widget.GridLayout
+        android:id="@+id/gridLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="8dp"
         app:columnCount="2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/guideline4"
         app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/quiestionsView"
+        app:layout_constraintTop_toTopOf="@+id/guideline16"
         app:rowCount="2">
 
         <Button
@@ -88,9 +87,9 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_medium"
             android:onClick="choose"
             android:tag="0"
-            android:fontFamily="@font/quicksand_medium"
             android:text="@string/box"
             android:textSize="30sp"
             android:theme="@style/button_one"
@@ -102,9 +101,9 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_medium"
             android:onClick="choose"
             android:tag="1"
-            android:fontFamily="@font/quicksand_medium"
             android:text="@string/box"
             android:textAllCaps="false"
             android:textSize="30sp"
@@ -119,9 +118,9 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_medium"
             android:onClick="choose"
             android:tag="2"
-            android:fontFamily="@font/quicksand_medium"
             android:text="@string/box"
             android:textSize="30sp"
             android:theme="@style/button_three"
@@ -135,9 +134,9 @@
             style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/quicksand_medium"
             android:onClick="choose"
             android:tag="3"
-            android:fontFamily="@font/quicksand_medium"
             android:text="@string/box"
             android:textSize="30sp"
             android:theme="@style/button_four"
@@ -151,44 +150,51 @@
         android:id="@+id/scoreView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="8dp"
         android:fontFamily="@font/quicksand_bold"
         android:text="@string/zero_score"
         android:textColor="#fff"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.794"
-        app:layout_constraintStart_toEndOf="@+id/quiestionsView"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintHorizontal_bias="0.95"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/guideline3" />
+
+    <android.support.constraint.Guideline
+        android:id="@+id/guideline16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.17" />
 
 
     <!--<LinearLayout-->
-        <!--android:id="@+id/container"-->
-        <!--android:layout_width="30dp"-->
-        <!--android:layout_height="30dp"-->
-        <!--android:layout_marginBottom="8dp"-->
-        <!--android:layout_marginEnd="8dp"-->
-        <!--android:layout_marginLeft="8dp"-->
-        <!--android:layout_marginRight="8dp"-->
-        <!--android:layout_marginStart="8dp"-->
-        <!--android:layout_marginTop="12dp"-->
-        <!--app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
-        <!--app:layout_constraintEnd_toStartOf="@+id/quiestionsView"-->
-        <!--app:layout_constraintHorizontal_bias="0.0"-->
-        <!--app:layout_constraintStart_toStartOf="parent"-->
-        <!--app:layout_constraintTop_toTopOf="parent"-->
-        <!--app:layout_constraintVertical_bias="0.7">-->
+    <!--android:id="@+id/container"-->
+    <!--android:layout_width="30dp"-->
+    <!--android:layout_height="30dp"-->
+    <!--android:layout_marginBottom="8dp"-->
+    <!--android:layout_marginEnd="8dp"-->
+    <!--android:layout_marginLeft="8dp"-->
+    <!--android:layout_marginRight="8dp"-->
+    <!--android:layout_marginStart="8dp"-->
+    <!--android:layout_marginTop="12dp"-->
+    <!--app:layout_constraintBottom_toTopOf="@+id/guideline3"-->
+    <!--app:layout_constraintEnd_toStartOf="@+id/quiestionsView"-->
+    <!--app:layout_constraintHorizontal_bias="0.0"-->
+    <!--app:layout_constraintStart_toStartOf="parent"-->
+    <!--app:layout_constraintTop_toTopOf="parent"-->
+    <!--app:layout_constraintVertical_bias="0.7">-->
 
-        <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
-            <!--&lt;!&ndash;android:id="@+id/menuButton"&ndash;&gt;-->
-            <!--&lt;!&ndash;style="@style/Widget.AppCompat.Button.Borderless"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
-            <!--&lt;!&ndash;app:srcCompat="@drawable/ic_menu_white" />&ndash;&gt;-->
+    <!--&lt;!&ndash;<ImageButton&ndash;&gt;-->
+    <!--&lt;!&ndash;android:id="@+id/menuButton"&ndash;&gt;-->
+    <!--&lt;!&ndash;style="@style/Widget.AppCompat.Button.Borderless"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_width="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;android:layout_height="wrap_content"&ndash;&gt;-->
+    <!--&lt;!&ndash;app:srcCompat="@drawable/ic_menu_white" />&ndash;&gt;-->
     <!--</LinearLayout>-->
 
 </android.support.constraint.ConstraintLayout>

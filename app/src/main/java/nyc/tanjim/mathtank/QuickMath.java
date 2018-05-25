@@ -288,7 +288,7 @@ public class QuickMath extends AppCompatActivity {
             }
         }
     }
-
+    //Creates a sum questions
     public void sumQuestion(){
         Random rd = new Random();
         int a = rd.nextInt((25-10)+1)+10;
@@ -306,6 +306,8 @@ public class QuickMath extends AppCompatActivity {
             quickMathQuestion.setText(getString(R.string.sum,a,b,incorrectAnswer));
         }
     }
+
+    //Creates a subtract question
     public void subtractQuestion(){
         Random rd = new Random();
         int c = rd.nextInt(25)+1;
@@ -313,16 +315,18 @@ public class QuickMath extends AppCompatActivity {
         int incorrectAnswer;
         wrongOrCorrect = rd.nextInt(2);
         if(wrongOrCorrect == 0 ) {
-            quickMathQuestion.setText(Integer.toString(d) + " - " + Integer.toString(c) + " = " + Integer.toString(d - c));
+            quickMathQuestion.setText(getString(R.string.sub,d,c,d-c));
         }else{
             correctAnswer = d - c;
             incorrectAnswer = rd.nextInt(20)+1;
             while(incorrectAnswer == correctAnswer){
                 incorrectAnswer = rd.nextInt(20)+1;
             }
-            quickMathQuestion.setText(Integer.toString(d) + " - " + Integer.toString(c) + " = " + Integer.toString(incorrectAnswer));
+            quickMathQuestion.setText(getString(R.string.sub,d,c,incorrectAnswer));
         }
     }
+
+    //Creates a multiply question
     public void multiplyQuestions(){
         Random rd = new Random();
         int a = rd.nextInt((12-1)+1)+1;
@@ -340,6 +344,8 @@ public class QuickMath extends AppCompatActivity {
             quickMathQuestion.setText(getString(R.string.mult,a,b,incorrectAnswer));
         }
     }
+
+    //Creates a division question
     public void divisionQuestion(){
         Random rd = new Random();
         int a = rd.nextInt((25-10)+1)+10;

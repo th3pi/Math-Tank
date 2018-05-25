@@ -30,19 +30,21 @@ import java.util.Random;
 import static android.graphics.Color.GRAY;
 
 public class TimeTrials extends AppCompatActivity {
-    TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback, scoreMessage, iqMessage;
-    TextView winningMessage;
-    Button playAgainButton, quitButton;
-    Button button0, button1, button2, button3;
+    private TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback, scoreMessage, iqMessage;
+    private TextView winningMessage;
+    private Button playAgainButton, quitButton;
+    private Button button0, button1, button2, button3;
     int a, b;
-    ArrayList<String> questions = new ArrayList<String>();
+    private ArrayList<String> questions = new ArrayList<String>();
     int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum, wrongOrCorrect;
-    CountDownTimer countDownTimer;
-    Animation correctAnimation, feedBackAnimation;
-    Dialog scorePopUp;
-    AdView mAdView;
+    private CountDownTimer countDownTimer;
+    private Animation correctAnimation, feedBackAnimation;
+    private Dialog scorePopUp;
+    private AdView mAdView;
+
+
     //Boolean values to check user preference.
-    Boolean addition, subtraction, multiplication, division, timer;
+    private Boolean addition, subtraction, multiplication, division, timer;
 
 
     @Override
