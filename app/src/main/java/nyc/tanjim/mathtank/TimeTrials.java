@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -36,11 +37,12 @@ public class TimeTrials extends AppCompatActivity {
     private Button button0, button1, button2, button3;
     int a, b;
     private ArrayList<String> questions = new ArrayList<String>();
-    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum, wrongOrCorrect;
+    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, onARoll = 0, feedBackNum, wrongOrCorrect, musicLength;
     private CountDownTimer countDownTimer;
     private Animation correctAnimation, feedBackAnimation;
     private Dialog scorePopUp;
     private AdView mAdView;
+    private MediaPlayer mediaPlayer;
 
 
     //Boolean values to check user preference.
@@ -103,6 +105,26 @@ public class TimeTrials extends AppCompatActivity {
         mAdView = findViewById(R.id.ttAd);
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
         mAdView.loadAd(adRequest);
+        mediaPlayer = MediaPlayer.create(this,R.raw.retrosoul);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mediaPlayer.isPlaying()) {
+            musicLength = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(!mediaPlayer.isPlaying()) {
+            mediaPlayer.seekTo(musicLength);
+            mediaPlayer.start();
+        }
     }
 
     public void timer(){

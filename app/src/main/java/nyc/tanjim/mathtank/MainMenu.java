@@ -119,11 +119,11 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         startService(new Intent(this, MusicService.class));
     }
 
-//    @Override
-//    protected void onPause() {
-//        super.onPause();
-//        mServ.pauseMusic();
-//    }
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        mServ.pauseMusic();
+    }
 
     @Override
     protected void onRestart() {

@@ -8,6 +8,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.TransitionDrawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
@@ -35,12 +36,13 @@ public class QuickMath extends AppCompatActivity {
     TextView timerText, quickMathQuestion, quickMathScore, scoreSpread, winningMessage;
     TextView scoreMessage, iqMessage, userFeedback;
     Button correctButton, wrongButton, playAgainButton, quitButton;
-    int correctAnswer, score, wrongOrCorrect, numberOfQuestions, feedBackNum;
+    int correctAnswer, score, wrongOrCorrect, numberOfQuestions, feedBackNum, musicLength;
     Dialog scorePopUp;
     Vibrator vibrator;
     Animation correctAnimation;
     Boolean addition,subtraction,multiplication,division, timer;
     AdView mAdView;
+    MediaPlayer mediaPlayer;
 
 
     @Override
@@ -103,8 +105,28 @@ public class QuickMath extends AppCompatActivity {
         AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
         mAdView.loadAd(adRequest);
 
+        mediaPlayer = MediaPlayer.create(this,R.raw.littleidea);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
+
+    }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mediaPlayer.isPlaying()) {
+            musicLength = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
+        }
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(!mediaPlayer.isPlaying()) {
+            mediaPlayer.seekTo(musicLength);
+            mediaPlayer.start();
+        }
+    }
     /**
     * Method to show pop up.
      * If score difference is less than 4 and number of questions answered are greater than 10

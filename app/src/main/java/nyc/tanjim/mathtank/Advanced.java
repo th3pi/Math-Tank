@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -31,7 +32,7 @@ public class Advanced extends AppCompatActivity {
     Button button0, button1, button2, button3;
     TextView questionText, scoreView, winningMessage, scoreMessage, iqMessage;
     ImageButton menuButton;
-    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0;
+    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, musicLength = 0;
     ArrayList<Integer> answers = new ArrayList<Integer>();
     ConstraintLayout bg;
     Animation buttonsInit;
@@ -40,6 +41,7 @@ public class Advanced extends AppCompatActivity {
     Chronometer chronometer;
     Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv;
     InterstitialAd interstitialAd;
+    MediaPlayer mediaPlayer, correctMedia;
 
 
 
@@ -84,12 +86,35 @@ public class Advanced extends AppCompatActivity {
         submult = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_X_MULTIPLICATION,false);
         subdiv = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_BY_DIVISION,false);
 
+        mediaPlayer = MediaPlayer.create(this,R.raw.the_duel);
+        correctMedia = MediaPlayer.create(this, R.raw.correct_bang);
+        mediaPlayer.setLooping(true);
+        mediaPlayer.start();
         Handler handler = new Handler();
 
 
         //Generate the starting question
         generateQuestion();
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(mediaPlayer.isPlaying()) {
+            musicLength = mediaPlayer.getCurrentPosition();
+            mediaPlayer.pause();
+        }
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        if(!mediaPlayer.isPlaying()) {
+            mediaPlayer.seekTo(musicLength);
+            mediaPlayer.start();
+        }
+    }
+
     public void showPopUp(View view){
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
