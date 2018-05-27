@@ -67,6 +67,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         quickMathButton = findViewById(R.id.quickMathsButton);
