@@ -143,7 +143,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
             interstitialAd.setAdListener(new AdListener() {
                 @Override
                 public void onAdClosed() {
-                    interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
+                    interstitialAd.loadAd(new AdRequest.Builder().build());
                     openAdv();
                 }
             });

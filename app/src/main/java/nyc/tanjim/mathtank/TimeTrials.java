@@ -113,7 +113,7 @@ public class TimeTrials extends AppCompatActivity {
         generateQuestions();
         //Ad load and requests
         mAdView = findViewById(R.id.ttAd);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         mediaPlayer = MediaPlayer.create(this,R.raw.retrosoul);
         mediaPlayer.setLooping(true);
