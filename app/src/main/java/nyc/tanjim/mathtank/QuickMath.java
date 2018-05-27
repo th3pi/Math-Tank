@@ -57,6 +57,7 @@ public class QuickMath extends AppCompatActivity {
         scoreSpread = findViewById(R.id.scorespread);
         scorePopUp = new Dialog(this);
         scorePopUp.setContentView(R.layout.score_popup);
+        scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
         playAgainButton = scorePopUp.findViewById(R.id.playAgainButton);
         quitButton = scorePopUp.findViewById(R.id.quitButton);
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
@@ -66,7 +67,6 @@ public class QuickMath extends AppCompatActivity {
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         correctAnimation = AnimationUtils.loadAnimation(this, R.anim.correct_animation);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
-
         //Gets user preferences
         addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ONLY_QUICKMATH,false);
         subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_QUICKMATH,false);
@@ -74,7 +74,6 @@ public class QuickMath extends AppCompatActivity {
         division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_QUICKMATH,false);
         timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER,false);
 //        timerDuration = sharedPref.getString(SettingsActivity.KEY_TIMER,"30");
-
 
         //Changes the background and status bar color when the timer hits 15 seconds
         generateQuestion();
@@ -84,7 +83,6 @@ public class QuickMath extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 ConstraintLayout constraintLayout = findViewById(R.id.quickMathBg);
                 TransitionDrawable transitionDrawable = (TransitionDrawable) constraintLayout.getBackground();
-
                 @Override
                 public void run() {
                     transitionDrawable.startTransition(10000);
@@ -148,10 +146,20 @@ public class QuickMath extends AppCompatActivity {
             winningMessage.setText(getString(R.string.need_more_practice));
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions != 0 && score != 0) {
-            iqMessage.setText(getString(R.string.shark_points, Math.round((numberOfQuestions + score) * 4)));
-        }else {
-            iqMessage.setText("");
+        if(numberOfQuestions - score >= 0 && numberOfQuestions - score < 2 && numberOfQuestions > 10) {
+            iqMessage.setText(getString(R.string.exceptional_math_skill));
+        }
+        else if(numberOfQuestions - score > 2 && numberOfQuestions - score<  3 && numberOfQuestions > 10) {
+            iqMessage.setText(getString(R.string.above_average_math_skill));
+        }else if(numberOfQuestions - score > 3 && numberOfQuestions - score < 5 && numberOfQuestions > 10 ){
+            iqMessage.setText(getString(R.string.average_math_skill));
+        }else if(numberOfQuestions - score > 5 && numberOfQuestions - score < 7 && numberOfQuestions > 10){
+            iqMessage.setText(getString(R.string.below_average_math_skill));
+        }
+        else if(numberOfQuestions < 10) {
+            iqMessage.setText(getString(R.string.number_too_low_10));
+        }else{
+            iqMessage.setText(getString(R.string.score_too_low));
         }
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MathShark</string>
+    <string name="app_name">MathTank</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -76,7 +76,15 @@
 
     <!-- Score Pop up String -->
     <string name="score_pop_score">You got %1$d right out of %2$d</string>
-    <string name="shark_points">You scored %1$d shark points</string>
+    <string name="shark_points">asd</string>
+    <string name="below_average_math_skill">Your results show below average math skills. Keep practicing!</string>
+    <string name="average_math_skill">Your results show average math skills.</string>
+    <string name="above_average_math_skill">Your results show above average math skills.</string>
+    <string name="exceptional_math_skill">Your results show exceptional math skills.</string>
+    <string name="number_too_low">Answer more than 20 questions to calibrate skill level. Try again.</string>
+    <string name="number_too_low_30">Answer more than 30 questions to calibrate skill level. Try again.</string>
+    <string name="number_too_low_10">Answer more than 10 questions to calibrate skill level. Try again.</string>
+    <string name="score_too_low">Score too low. Try again to calibrate skill level.</string>
     <string name="afk_text">Hey ya there buddy?</string>
 
     <!--User feedback strings for Time Trials-->

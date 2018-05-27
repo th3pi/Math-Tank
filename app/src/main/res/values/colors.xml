@@ -12,4 +12,5 @@
     <color name="popup_blue">#3949ab</color>
     <color name="pop_up_orange">#fc4a1a</color>
     <color name="qboard_black">#212121</color>
+    <color name="cgray">#37474f</color>
 </resources>

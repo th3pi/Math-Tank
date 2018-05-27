@@ -45,6 +45,9 @@
         <item name="android:textColorPrimary">@android:color/background_light</item>
         <item name="colorAccent">@android:color/darker_gray</item>
     </style>
+    <style name="ScorePopUpAnimation">
+        <item name="android:windowEnterAnimation">@anim/from_right_2</item>
+    </style>
 
 
 </resources>

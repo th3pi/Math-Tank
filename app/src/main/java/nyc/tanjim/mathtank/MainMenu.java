@@ -34,6 +34,8 @@ import nyc.MusicService;
 public class MainMenu extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     Button quickMathButton, timeTrialsButton, advancedMathButton;
     Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
+    Boolean darkModePref;
+    SharedPreferences sharedPref;
     AdView mAdView;
     InterstitialAd interstitialAd;
     boolean mIsBound = false;
@@ -79,21 +81,19 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         timeTrialsButton.setAnimation(fromLeftTimeTrials);
         fromLeftAdvanced = AnimationUtils.loadAnimation(this, R.anim.from_left_advanced);
         advancedMathButton.setAnimation(fromLeftAdvanced);
-
-        if(Build.VERSION.SDK_INT > Build.VERSION_CODES.N) {
-            backgroundAnimation();
-        }
         PreferenceManager.setDefaultValues(this,R.xml.preference,false);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPref.registerOnSharedPreferenceChangeListener(this);
-        Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
-        if(darkModePref){
-            ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
-            constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.question_board));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+        darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            if(darkModePref) {
+                backgroundAnimationDark();
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+            }else{
+                backgroundAnimation();
             }
         }
+
 
         //Initialize ads
         MobileAds.initialize(this,getString(R.string.testAd));
@@ -106,22 +106,23 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         interstitialAd = new InterstitialAd(this);
         interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
         interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
-        interstitialAd.setAdListener(new AdListener(){
-            @Override
-            public void onAdClosed(){
-                interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
-                openAdv();
-            }
-        });
-
+//        if(interstitialAd.isLoaded()) {
+//            interstitialAd.setAdListener(new AdListener() {
+//                @Override
+//                public void onAdClosed() {
+//                    interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
+//                    openAdv();
+//                }
+//            });
+//        }
         //Initializes music
         doBindService();
         startService(new Intent(this, MusicService.class));
     }
 
     @Override
-    protected void onUserLeaveHint() {
-        super.onUserLeaveHint();
+    protected void onPause() {
+        super.onPause();
         mServ.pauseMusic();
     }
 
@@ -140,8 +141,18 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     }
 
     public void openAdvanced(View view){
-        interstitialAd.show();
-//        startActivity(new Intent(this, AdvancedLoadingScreen.class));
+        if(interstitialAd.isLoaded()){
+            interstitialAd.show();
+            interstitialAd.setAdListener(new AdListener() {
+                @Override
+                public void onAdClosed() {
+                    interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
+                    openAdv();
+                }
+            });
+        }else{
+            startActivity(new Intent(this, AdvancedLoadingScreen.class));
+        }
     }
     public void openAdv(){
         startActivity(new Intent(this, AdvancedLoadingScreen.class));
@@ -166,6 +177,14 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
             animationDrawable.setEnterFadeDuration(5000);
             animationDrawable.setExitFadeDuration(6000);
             animationDrawable.start();
+    }
+    public void backgroundAnimationDark(){
+        ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
+        constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.animation_dark));
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(5000);
+        animationDrawable.setExitFadeDuration(6000);
+        animationDrawable.start();
     }
 
     @Override

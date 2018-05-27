@@ -11,6 +11,8 @@ import android.os.Build;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -62,6 +64,7 @@ public class TimeTrials extends AppCompatActivity {
         button3 = findViewById(R.id.button3);
         userFeedback = findViewById(R.id.userFeedback);
         scorePopUp = new Dialog(this);
+        scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
         scorePopUp.setContentView(R.layout.score_popup);
         playAgainButton = scorePopUp.findViewById(R.id.playAgainButton);
         quitButton = scorePopUp.findViewById(R.id.quitButton);
@@ -82,11 +85,18 @@ public class TimeTrials extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(GRAY);
         }
-
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        if(darkModePref){
+            ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
+            constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+            }
+        }
         /*
           Required to get user's preferences
          */
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Gets user preferences
         addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ONLY_TIMETRIALS,false);
         subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_TIMETRIALS,false);
@@ -158,10 +168,20 @@ public class TimeTrials extends AppCompatActivity {
             winningMessage.setText(getString(R.string.need_more_practice));
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions != 0 && score != 0) {
-            iqMessage.setText(getString(R.string.shark_points, Math.round((numberOfQuestions + score) * 4)));
-        }else {
-            iqMessage.setText("");
+        if(numberOfQuestions - score >= 0 && numberOfQuestions - score < 2 && numberOfQuestions > 30) {
+            iqMessage.setText(getString(R.string.exceptional_math_skill));
+        }
+        else if(numberOfQuestions - score > 2 && numberOfQuestions - score<  3 && numberOfQuestions > 30) {
+            iqMessage.setText(getString(R.string.above_average_math_skill));
+        }else if(numberOfQuestions - score > 3 && numberOfQuestions - score < 5 && numberOfQuestions > 30 ){
+            iqMessage.setText(getString(R.string.average_math_skill));
+        }else if(numberOfQuestions - score > 5 && numberOfQuestions - score < 7 && numberOfQuestions > 30){
+            iqMessage.setText(getString(R.string.below_average_math_skill));
+        }
+        else if(numberOfQuestions < 30) {
+            iqMessage.setText(getString(R.string.number_too_low_30));
+        }else{
+            iqMessage.setText(getString(R.string.score_too_low));
         }
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
@@ -206,11 +226,11 @@ public class TimeTrials extends AppCompatActivity {
     }
     public String divisionQuestion(){
         Random rd = new Random();
-        int a = rd.nextInt((10)+1);
-        int b = rd.nextInt(10)+a;
-        while(b % a != 0 || b == 0) {
+        int a = rd.nextInt(10)+1;
+        int b = rd.nextInt(50)+1;
+        while(b % a != 0) {
                 a = rd.nextInt(10)+1;
-                b = rd.nextInt(10)+a;
+                b = rd.nextInt(50)+1;
             }
         return getString(R.string.div,b,a,b/a);
 

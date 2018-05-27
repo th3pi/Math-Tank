@@ -10,7 +10,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
-
+import android.widget.Toast;
 
 
 public class QuickMathLoadingScreen extends AppCompatActivity {
@@ -26,6 +26,7 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
+            Toast.makeText(this,"Dark mode not compatible with QuickMath.",Toast.LENGTH_LONG).show();
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }
