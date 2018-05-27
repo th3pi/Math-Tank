@@ -109,7 +109,7 @@ public class TimeTrials extends AppCompatActivity {
             timeLeftText.setText(getString(R.string.timer_disabled));
         }
         //Initialize ads
-        MobileAds.initialize(this,getString(R.string.testAd));
+        MobileAds.initialize(this,getString(R.string.timeTrialsAd));
         generateQuestions();
         //Ad load and requests
         mAdView = findViewById(R.id.ttAd);

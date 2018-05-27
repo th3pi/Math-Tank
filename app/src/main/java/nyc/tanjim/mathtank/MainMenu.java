@@ -93,19 +93,16 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
                 backgroundAnimation();
             }
         }
-
-
         //Initialize ads
-        MobileAds.initialize(this,getString(R.string.testAd));
-
+        MobileAds.initialize(this,getString(R.string.mainMenuad));
         //Ad load and requests
         mAdView = findViewById(R.id.mainMenuAd);
-        AdRequest adRequest = new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build();
+        AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         //Advanced Math ad
         interstitialAd = new InterstitialAd(this);
-        interstitialAd.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
-        interstitialAd.loadAd(new AdRequest.Builder().addTestDevice("79D83184DB5A6598E2EEE48303022BE4").build());
+        interstitialAd.setAdUnitId(getString(R.string.advancedAd));
+        interstitialAd.loadAd(new AdRequest.Builder().build());
 //        if(interstitialAd.isLoaded()) {
 //            interstitialAd.setAdListener(new AdListener() {
 //                @Override
@@ -119,20 +116,20 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         doBindService();
         startService(new Intent(this, MusicService.class));
     }
-
     @Override
+
     protected void onPause() {
         super.onPause();
         mServ.pauseMusic();
     }
-
     @Override
+
     protected void onRestart() {
         super.onRestart();
         mServ.resumeMusic();
     }
-
     @Override
+
     protected void onDestroy() {
         super.onDestroy();
         mServ.stopMusic();

@@ -96,7 +96,7 @@ public class QuickMath extends AppCompatActivity {
             timerText.setText(getString(R.string.timer_disabled));
         }
         //Initialize ads
-        MobileAds.initialize(this,getString(R.string.testAd));
+        MobileAds.initialize(this,getString(R.string.quickMathad));
 
         //Ad load and requests
         mAdView = findViewById(R.id.qmAd);
