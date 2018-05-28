@@ -37,7 +37,6 @@
                 android:value="MainMenu" />
         </activity>
         <activity android:name="AppInfo"></activity>
-        <service android:name="nyc.MusicService"/>
     </application>
 
 </manifest>

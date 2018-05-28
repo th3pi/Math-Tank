@@ -27,15 +27,18 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.Random;
-
+import java.util.Set;
 
 
 import static android.graphics.Color.GRAY;
 
 public class TimeTrials extends AppCompatActivity {
-    private TextView whichOneIsCorrect, timeLeftText, scoreText, userFeedback, scoreMessage, iqMessage;
+    private TextView timeLeftText;
+    private TextView scoreText;
+    private TextView userFeedback;
+    private TextView scoreMessage;
+    private TextView iqMessage;
     private TextView winningMessage;
-    private Button playAgainButton, quitButton;
     private Button button0, button1, button2, button3;
     int a, b;
     private ArrayList<String> questions = new ArrayList<String>();
@@ -43,7 +46,6 @@ public class TimeTrials extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private Animation correctAnimation, feedBackAnimation;
     private Dialog scorePopUp;
-    private AdView mAdView;
     private MediaPlayer mediaPlayer;
 
 
@@ -55,7 +57,7 @@ public class TimeTrials extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_trials);
-        whichOneIsCorrect = findViewById(R.id.whichOneIsCorrect);
+        TextView whichOneIsCorrect = findViewById(R.id.whichOneIsCorrect);
         timeLeftText = findViewById(R.id.timeLeftText);
         scoreText = findViewById(R.id.scoreText);
         button0 = findViewById(R.id.button0);
@@ -66,8 +68,6 @@ public class TimeTrials extends AppCompatActivity {
         scorePopUp = new Dialog(this);
         scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
         scorePopUp.setContentView(R.layout.score_popup);
-        playAgainButton = scorePopUp.findViewById(R.id.playAgainButton);
-        quitButton = scorePopUp.findViewById(R.id.quitButton);
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
@@ -87,6 +87,7 @@ public class TimeTrials extends AppCompatActivity {
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        Boolean mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
             constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
@@ -112,12 +113,14 @@ public class TimeTrials extends AppCompatActivity {
         MobileAds.initialize(this,getString(R.string.timeTrialsAd));
         generateQuestions();
         //Ad load and requests
-        mAdView = findViewById(R.id.ttAd);
+        AdView mAdView = findViewById(R.id.ttAd);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
         mediaPlayer = MediaPlayer.create(this,R.raw.retrosoul);
         mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        if(!mute) {
+            mediaPlayer.start();
+        }
     }
     @Override
     protected void onPause() {

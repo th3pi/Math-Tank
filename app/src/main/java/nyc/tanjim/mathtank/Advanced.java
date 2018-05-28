@@ -26,22 +26,21 @@ import com.google.android.gms.ads.InterstitialAd;
 
 import java.util.ArrayList;
 import java.util.Random;
+import java.util.Set;
 
 
 public class Advanced extends AppCompatActivity {
-    Button button0, button1, button2, button3;
-    TextView questionText, scoreView, winningMessage, scoreMessage, iqMessage;
-    ImageButton menuButton;
-    int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, musicLength = 0;
-    ArrayList<Integer> answers = new ArrayList<Integer>();
-    ConstraintLayout bg;
-    Animation buttonsInit;
-    Dialog scorePopUp;
-    Button playAgainButton, quitButton;
-    Chronometer chronometer;
-    Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv;
-    InterstitialAd interstitialAd;
-    MediaPlayer mediaPlayer, correctMedia;
+    private Button button0, button1, button2, button3;
+    private TextView questionText, scoreView, winningMessage, scoreMessage, iqMessage;
+    private ImageButton menuButton;
+    private int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, musicLength = 0;
+    private ArrayList<Integer> answers = new ArrayList<Integer>();
+    private ConstraintLayout bg;
+    private Animation buttonsInit;
+    private Dialog scorePopUp;
+    private Chronometer chronometer;
+    private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv;
+    private MediaPlayer mediaPlayer;
 
 
 
@@ -58,8 +57,6 @@ public class Advanced extends AppCompatActivity {
         scorePopUp = new Dialog(this);
         scorePopUp.setContentView(R.layout.score_popup);
         scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
-        playAgainButton = scorePopUp.findViewById(R.id.playAgainButton);
-        quitButton = scorePopUp.findViewById(R.id.quitButton);
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
@@ -70,6 +67,7 @@ public class Advanced extends AppCompatActivity {
         //Gets user preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        Boolean mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC, false);
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.advancedBg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
@@ -88,11 +86,10 @@ public class Advanced extends AppCompatActivity {
         subdiv = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_BY_DIVISION,false);
 
         mediaPlayer = MediaPlayer.create(this,R.raw.the_duel);
-        correctMedia = MediaPlayer.create(this, R.raw.correct_bang);
         mediaPlayer.setLooping(true);
-        mediaPlayer.start();
-        Handler handler = new Handler();
-
+        if(!mute) {
+            mediaPlayer.start();
+        }
 
         //Generate the starting question
         generateQuestion();
@@ -797,19 +794,6 @@ public class Advanced extends AppCompatActivity {
     }
 
 
-
-    //Resets current session
-    public void reset(){
-        score = 0;
-        numberOfQuestions = 0;
-        scoreView.setText("0/0");
-        generateQuestion();
-        bg.setBackgroundColor(0xffffff);
-        scoreView.setTextColor(Color.GRAY);
-        questionText.setTextColor(Color.GRAY);
-        menuButton.setImageResource(R.drawable.ic_menu);
-
-    }
 
 
 }

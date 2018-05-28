@@ -33,16 +33,18 @@ import java.util.Random;
 
 
 public class QuickMath extends AppCompatActivity {
-    TextView timerText, quickMathQuestion, quickMathScore, scoreSpread, winningMessage;
-    TextView scoreMessage, iqMessage, userFeedback;
-    Button correctButton, wrongButton, playAgainButton, quitButton;
-    int correctAnswer, score, wrongOrCorrect, numberOfQuestions, feedBackNum, musicLength;
-    Dialog scorePopUp;
-    Vibrator vibrator;
-    Animation correctAnimation;
-    Boolean addition,subtraction,multiplication,division, timer;
-    AdView mAdView;
-    MediaPlayer mediaPlayer;
+    private TextView timerText, quickMathQuestion, quickMathScore, winningMessage;
+    private TextView scoreMessage, iqMessage, userFeedback;
+    private Button correctButton, wrongButton;
+    private int correctAnswer, score, wrongOrCorrect, numberOfQuestions, feedBackNum, musicLength;
+    private Dialog scorePopUp;
+    private Vibrator vibrator;
+    private Animation correctAnimation;
+    private Boolean addition;
+    private Boolean subtraction;
+    private Boolean multiplication;
+    private Boolean division;
+    private MediaPlayer mediaPlayer;
 
 
     @Override
@@ -54,12 +56,9 @@ public class QuickMath extends AppCompatActivity {
         quickMathScore = findViewById(R.id.quickMathsScore);
         correctButton = findViewById(R.id.correctButton);
         wrongButton = findViewById(R.id.wrongButton);
-        scoreSpread = findViewById(R.id.scorespread);
         scorePopUp = new Dialog(this);
         scorePopUp.setContentView(R.layout.score_popup);
         scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
-        playAgainButton = scorePopUp.findViewById(R.id.playAgainButton);
-        quitButton = scorePopUp.findViewById(R.id.quitButton);
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
@@ -72,7 +71,8 @@ public class QuickMath extends AppCompatActivity {
         subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_QUICKMATH,false);
         multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_QUICKMATH,false);
         division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_QUICKMATH,false);
-        timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER,false);
+        Boolean timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER, false);
+        Boolean mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
 //        timerDuration = sharedPref.getString(SettingsActivity.KEY_TIMER,"30");
 
         //Changes the background and status bar color when the timer hits 15 seconds
@@ -99,13 +99,15 @@ public class QuickMath extends AppCompatActivity {
         MobileAds.initialize(this,getString(R.string.quickMathad));
 
         //Ad load and requests
-        mAdView = findViewById(R.id.qmAd);
+        AdView mAdView = findViewById(R.id.qmAd);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
         mediaPlayer = MediaPlayer.create(this,R.raw.littleidea);
         mediaPlayer.setLooping(true);
-        mediaPlayer.start();
+        if(!mute) {
+            mediaPlayer.start();
+        }
 
     }
     @Override
@@ -250,7 +252,7 @@ public class QuickMath extends AppCompatActivity {
         }
     }
 
-    //Generates write or wrong question randomly
+    //Generates write or wrong question randomly depending on user preference
     public void generateQuestion(){
         Random rd = new Random();
         int questionType = rd.nextInt(4);
