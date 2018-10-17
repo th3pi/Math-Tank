@@ -50,7 +50,7 @@ public class TimeTrials extends AppCompatActivity {
 
 
     //Boolean values to check user preference.
-    private Boolean addition, subtraction, multiplication, division, timer;
+    private Boolean addition, subtraction, multiplication, division, timer, kidsmode;
 
 
     @Override
@@ -104,6 +104,7 @@ public class TimeTrials extends AppCompatActivity {
         multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_TIMETRIALS,false);
         division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_TIMETRIALS,false);
         timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER_TIMETRIALS,false);
+        kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH,false);
         if(timer)
             timer();
         else {

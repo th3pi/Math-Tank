@@ -17,7 +17,7 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/passion_one_bold"
         android:gravity="center"
-        android:text="@string/shark"
+        android:text="@string/friends"
         android:textColor="#fff"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"

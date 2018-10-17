@@ -45,7 +45,7 @@ public class AdvancedLoadingScreen extends AppCompatActivity {
                 hintText.setText(getString(R.string.difficulty));
                 break;
             case 3:
-                hintText.setText(getString(R.string.shark));
+                hintText.setText(getString(R.string.friends));
                 break;
         }
         timer = findViewById(R.id.timeText);

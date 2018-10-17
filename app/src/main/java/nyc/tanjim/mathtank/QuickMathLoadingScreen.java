@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.Random;
+
 
 public class QuickMathLoadingScreen extends AppCompatActivity {
     private static int loadingScreenTime = 4000;
@@ -30,6 +32,22 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }
+        }
+        TextView hintText = findViewById(R.id.hintText);
+        Random rd = new Random();
+        switch (rd.nextInt(4)){
+            case 0:
+                hintText.setText(getString(R.string.color));
+                break;
+            case 1:
+                hintText.setText(getString(R.string.panic));
+                break;
+            case 2:
+                hintText.setText(getString(R.string.wrongs));
+                break;
+            case 3:
+                hintText.setText(getString(R.string.friends));
+                break;
         }
         timer = findViewById(R.id.timeText);
         new Handler().postDelayed(new Runnable() {
@@ -50,7 +68,6 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
 
             }
         }.start();
-
     }
     @Override
     public void onBackPressed() {

@@ -29,7 +29,7 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.Random;
-
+import java.util.Set;
 
 
 public class QuickMath extends AppCompatActivity {
@@ -43,7 +43,7 @@ public class QuickMath extends AppCompatActivity {
     private Boolean addition;
     private Boolean subtraction;
     private Boolean multiplication;
-    private Boolean division;
+    private Boolean division, kidsmode;
     private MediaPlayer mediaPlayer;
 
 
@@ -71,6 +71,7 @@ public class QuickMath extends AppCompatActivity {
         subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_QUICKMATH,false);
         multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_QUICKMATH,false);
         division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_QUICKMATH,false);
+        kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH, false);
         Boolean timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER, false);
         Boolean mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
 //        timerDuration = sharedPref.getString(SettingsActivity.KEY_TIMER,"30");
@@ -323,8 +324,14 @@ public class QuickMath extends AppCompatActivity {
     //Creates a sum questions
     public void sumQuestion(){
         Random rd = new Random();
-        int a = rd.nextInt((25-10)+1)+10;
-        int b = rd.nextInt((25-10)+1)+10;
+        int a,b;
+        if(!kidsmode) {
+            a = rd.nextInt((25 - 10) + 1) + 10;
+            b = rd.nextInt((25 - 10) + 1) + 10;
+        }else {
+            a = rd.nextInt((12 - 1) + 1) + 1;
+            b = rd.nextInt((12 - 1) + 1) + 1;
+        }
         wrongOrCorrect = rd.nextInt(2);
         int incorrectAnswer;
         if(wrongOrCorrect == 0){
@@ -342,8 +349,14 @@ public class QuickMath extends AppCompatActivity {
     //Creates a subtract question
     public void subtractQuestion(){
         Random rd = new Random();
-        int c = rd.nextInt(25)+1;
-        int d = rd.nextInt(10)+c;
+        int c,d;
+        if(!kidsmode) {
+            c = rd.nextInt(25) + 1;
+            d = rd.nextInt(10) + c;
+        }else{
+            c = rd.nextInt(12) + 1;
+            d = rd.nextInt(1) + c;
+        }
         int incorrectAnswer;
         wrongOrCorrect = rd.nextInt(2);
         if(wrongOrCorrect == 0 ) {
@@ -361,8 +374,14 @@ public class QuickMath extends AppCompatActivity {
     //Creates a multiply question
     public void multiplyQuestions(){
         Random rd = new Random();
-        int a = rd.nextInt((12-1)+1)+1;
-        int b = rd.nextInt((12-1)+1)+1;
+        int a,b;
+        if(!kidsmode) {
+            a = rd.nextInt((12 - 1) + 1) + 1;
+            b = rd.nextInt((12 - 1) + 1) + 1;
+        }else{
+            a = rd.nextInt((9 - 1) + 1) + 1;
+            b = rd.nextInt((9 - 1) + 1) + 1;
+        }
         correctAnswer = a * b;
         wrongOrCorrect = rd.nextInt(2);
         int incorrectAnswer;
@@ -380,8 +399,14 @@ public class QuickMath extends AppCompatActivity {
     //Creates a division question
     public void divisionQuestion(){
         Random rd = new Random();
-        int a = rd.nextInt((25-10)+1)+10;
-        int b = rd.nextInt((25-10)+1)+10;
+        int a,b;
+        if(!kidsmode) {
+            a = rd.nextInt((25 - 10) + 1) + 10;
+            b = rd.nextInt((25 - 10) + 1) + 10;
+        }else{
+            a = rd.nextInt((12 - 1) + 1) + 1;
+            b = rd.nextInt((12 - 1) + 1) + 1;
+        }
         int incorrectAnswer;
         wrongOrCorrect = rd.nextInt(2);
         if(wrongOrCorrect == 0){

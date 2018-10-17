@@ -30,7 +30,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public static final String KEY_SQUARE_ROOT="sqrt";
     public static final String KEY_SQUARE="sqr";
     public static final String KEY_CUBE="cube";
-    public static final String KEY_KIDS_MODE="kids_mode";
     public static final String KEY_MUTE_MUSIC="mute_sound";
 
 
@@ -59,7 +58,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
 
         if(key.equals(KEY_KIDS_MODE_SWITCH)){
             if(sharedPreferences.getBoolean(KEY_KIDS_MODE_SWITCH,false)){
-                Toast.makeText(SettingsActivity.this,"Kids mode Activated (QuickMaths and TimeTrials only)",Toast.LENGTH_LONG).show();
+                Toast.makeText(SettingsActivity.this,"Kids mode Activated (QuickMaths only, others coming soon)",Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(SettingsActivity.this,"Kids mode Deactivated",Toast.LENGTH_SHORT).show();
             }

@@ -110,11 +110,15 @@
     <string name="score">SCORE: %1$d</string>
     <string name="title_activity_time_trials_loading_screen">TimeTrialsLoadingScreen</string>
 
+    <!--Quick Maths Loading Screen-->
+    <string name="color">Hint: Keep an eye on the background color. It indicates how much time you have remaining.</string>
+    <string name="panic">Suggestion: Don\'t panic when you see the color change. You still have about 15 seconds left.</string>
+    <string name="wrongs">Too many mistakes? What\'s stopping you from starting over? QuickMaths is always only 30 seconds long.</string>
     <!--Time trials loading screen -->
     <string name="time_resets">Hint: Time resets every time you answer correctly</string>
-    <string name="difficulty">Hint: Difficulty increases every five question</string>
+    <string name="difficulty">Hint: Difficulty varies from question to question</string>
     <string name="improve">Hint: Reduce your time taken to solve by only calculating the last digits</string>
-    <string name="shark">Hint: Shark points are a way of measuring your "IQ level". Compare to with your friends, see where you stand.</string>
+    <string name="friends">Idea: Compare results with your friends. See where you stand!</string>
 
     <!--advanced loading screen-->
     <string name="notime">Hint: Time is not your enemy in Advanced Shark</string>
