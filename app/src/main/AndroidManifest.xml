@@ -22,21 +22,22 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Advanced" />
-        <activity android:name="QuickMath" />
-        <activity android:name="QuickMathLoadingScreen" />
-        <activity android:name="TimeTrials" />
-        <activity android:name="TimeTrialsLoadingScreen" />
-        <activity android:name="AdvancedLoadingScreen" />
+        <activity android:name="Advanced" android:screenOrientation="portrait" />
+        <activity android:name="QuickMath" android:screenOrientation="portrait"/>
+        <activity android:name="QuickMathLoadingScreen" android:screenOrientation="portrait"/>
+        <activity android:name="TimeTrials" android:screenOrientation="portrait"/>
+        <activity android:name="TimeTrialsLoadingScreen" android:screenOrientation="portrait"/>
+        <activity android:name="AdvancedLoadingScreen" android:screenOrientation="portrait"/>
         <activity
             android:name="SettingsActivity"
             android:label="Settings"
+            android:screenOrientation="portrait"
             android:parentActivityName="MainMenu">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainMenu" />
         </activity>
-        <activity android:name="AppInfo"></activity>
+        <activity android:name="AppInfo"/>
     </application>
 
 </manifest>
