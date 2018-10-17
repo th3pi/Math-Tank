@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Math-shark.iml" filepath="$PROJECT_DIR$/Math-shark.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MathShark.iml" filepath="$PROJECT_DIR$/MathShark.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

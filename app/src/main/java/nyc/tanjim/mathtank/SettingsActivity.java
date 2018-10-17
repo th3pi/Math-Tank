@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 public class SettingsActivity extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     public static final String KEY_DARK_MODE_SWITCH = "dark_mode_switch";
+    public static final String KEY_KIDS_MODE_SWITCH = "kids_mode_switch";
     public static final String KEY_ADDITION_ONLY_QUICKMATH = "addition_only_quickmath";
     public static final String KEY_SUBTRACTION_ONLY_QUICKMATH = "subtraction_only_quickmath";
     public static final String KEY_MULTIPLICATION_ONLY_QUICKMATH = "multiplication_only_quickmath";
@@ -53,6 +54,14 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                 Toast.makeText(SettingsActivity.this,"Dark mode Activated",Toast.LENGTH_LONG).show();
             }else{
                 Toast.makeText(SettingsActivity.this,"Dark mode Deactivated",Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        if(key.equals(KEY_KIDS_MODE_SWITCH)){
+            if(sharedPreferences.getBoolean(KEY_KIDS_MODE_SWITCH,false)){
+                Toast.makeText(SettingsActivity.this,"Kids mode Activated (QuickMaths and TimeTrials only)",Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(SettingsActivity.this,"Kids mode Deactivated",Toast.LENGTH_SHORT).show();
             }
         }
     }

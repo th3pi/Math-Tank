@@ -6,6 +6,10 @@
             android:defaultValue="false"
             android:key="dark_mode_switch"
             android:title="Dark Mode" />
+        <SwitchPreference
+            android:defaultValue="false"
+            android:key="kids_mode_switch"
+            android:title="Kids Mode" />
     </PreferenceCategory>
     <PreferenceCategory
         android:title="Quick Math Settings"
