@@ -39,7 +39,7 @@
         android:fontFamily="@font/quicksand_regular"
         android:gravity="center"
         android:text="This app is a result of my attempt at learning android app development. I
-put some the knowledge I learned towards building a straight forward, fun and challenging game.
+put some knowledge I learned towards building a straight forward, fun and challenging game.
 I hope users can experience the love and effort I put behind this project."
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"

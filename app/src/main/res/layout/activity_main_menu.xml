@@ -189,7 +189,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/testAd"
+        ads:adUnitId="@string/mainMenuad"
         ads:layout_constraintBottom_toTopOf="@+id/imageButton"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent"

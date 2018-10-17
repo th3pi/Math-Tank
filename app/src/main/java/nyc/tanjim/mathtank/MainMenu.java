@@ -38,7 +38,6 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
         Boolean darkModePref, mute;
         SharedPreferences sharedPref;
-        AdView mAdView;
 
         quickMathButton = findViewById(R.id.quickMathsButton);
         timeTrialsButton = findViewById(R.id.timeTrialsButton);
@@ -62,7 +61,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if(darkModePref) {
                 backgroundAnimationDark();
-                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+//                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }else{
                 backgroundAnimation();
             }
@@ -74,7 +73,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
 
 
         //Ad load and requests
-        mAdView = findViewById(R.id.mainMenuAd);
+        AdView mAdView = findViewById(R.id.mainMenuAd);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
@@ -101,8 +100,8 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
             length = mediaPlayer.getCurrentPosition();
         }
     }
-    @Override
 
+    @Override
     protected void onRestart() {
         super.onRestart();
         if(!mediaPlayer.isPlaying()) {
@@ -110,8 +109,8 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
             mediaPlayer.start();
         }
     }
-    @Override
 
+    @Override
     protected void onDestroy() {
         super.onDestroy();
         mediaPlayer.stop();
@@ -159,7 +158,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     }
     public void backgroundAnimationDark(){
         ConstraintLayout constraintLayout = (findViewById(R.id.mainMenu));
-        constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.animation_dark));
+        constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.dark));
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(5000);
         animationDrawable.setExitFadeDuration(6000);

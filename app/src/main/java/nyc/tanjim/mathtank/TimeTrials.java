@@ -464,9 +464,9 @@ public class TimeTrials extends AppCompatActivity {
             handler.postDelayed(new Runnable() {
                 @Override
                 public void run() {
-                    generateQuestions();
+                    showPopUp();
                 }
-            }, 400);
+            }, 1000);
 
 
             /*

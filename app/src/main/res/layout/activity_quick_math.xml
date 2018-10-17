@@ -185,7 +185,7 @@
         android:layout_marginRight="8dp"
         android:layout_marginStart="8dp"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/testAd"
+        ads:adUnitId="@string/quickMathad"
         ads:layout_constraintBottom_toBottomOf="parent"
         ads:layout_constraintEnd_toEndOf="parent"
         ads:layout_constraintStart_toStartOf="parent">
