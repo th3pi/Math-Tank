@@ -15,6 +15,7 @@ import android.os.Handler;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ public class QuickMath extends AppCompatActivity {
     private Boolean addition;
     private Boolean subtraction;
     private Boolean multiplication;
-    private Boolean division, kidsmode;
+    private Boolean division, kidsmode,timer, mute;
     private MediaPlayer mediaPlayer;
 
 
@@ -72,8 +73,8 @@ public class QuickMath extends AppCompatActivity {
         multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_QUICKMATH,false);
         division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_QUICKMATH,false);
         kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH, false);
-        Boolean timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER, false);
-        Boolean mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
+        timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER, false);
+        mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
 //        timerDuration = sharedPref.getString(SettingsActivity.KEY_TIMER,"30");
 
         //Changes the background and status bar color when the timer hits 15 seconds
@@ -94,6 +95,14 @@ public class QuickMath extends AppCompatActivity {
             }, 15000);
         }
         else {
+            Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+            if(darkModePref){
+                ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
+                constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+                }
+            }
             timerText.setText(getString(R.string.timer_disabled));
         }
         //Initialize ads
@@ -114,7 +123,7 @@ public class QuickMath extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mediaPlayer.isPlaying()) {
+        if(mediaPlayer.isPlaying() && !mute) {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
@@ -123,10 +132,17 @@ public class QuickMath extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(!mediaPlayer.isPlaying()) {
+        if(!mediaPlayer.isPlaying() && !mute) {
             mediaPlayer.seekTo(musicLength);
             mediaPlayer.start();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
+        mediaPlayer.release();
     }
     /**
     * Method to show pop up.
@@ -199,7 +215,15 @@ public class QuickMath extends AppCompatActivity {
         userFeedback.startAnimation(AnimationUtils.loadAnimation(this,R.anim.flicker_animation));
         if(view.getTag().toString().equals(Integer.toString(wrongOrCorrect))){
             score++;
-            generateQuestion();
+            if(!timer) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        generateQuestion();
+                    }
+                },500);
+            }
             quickMathScore.setText(getString(R.string.score,score));
             numberOfQuestions++;
             if(feedBackNum == 0 || numberOfQuestions == 1){
@@ -247,7 +271,15 @@ public class QuickMath extends AppCompatActivity {
                     userFeedback.setText(getString(R.string.sad));
                     break;
             }
-            generateQuestion();
+            if(!timer) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        generateQuestion();
+                    }
+                },500);
+            }
             numberOfQuestions++;
 
         }

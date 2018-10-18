@@ -47,6 +47,7 @@ public class TimeTrials extends AppCompatActivity {
     private Animation correctAnimation, feedBackAnimation;
     private Dialog scorePopUp;
     private MediaPlayer mediaPlayer;
+    private Boolean mute;
 
 
     //Boolean values to check user preference.
@@ -87,7 +88,7 @@ public class TimeTrials extends AppCompatActivity {
         }
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
-        Boolean mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
+        mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
             constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
@@ -126,7 +127,7 @@ public class TimeTrials extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mediaPlayer.isPlaying()) {
+        if(mediaPlayer.isPlaying() && !mute) {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
@@ -135,12 +136,18 @@ public class TimeTrials extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(!mediaPlayer.isPlaying()) {
+        if(!mediaPlayer.isPlaying() && !mute) {
             mediaPlayer.seekTo(musicLength);
             mediaPlayer.start();
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
+        mediaPlayer.release();
+    }
     public void timer(){
         countDownTimer = new CountDownTimer(9000, 1000) {
             @Override

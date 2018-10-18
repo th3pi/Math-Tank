@@ -101,7 +101,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     @Override
     protected void onPause() {
         super.onPause();
-        if(mediaPlayer.isPlaying()){
+        if(mediaPlayer.isPlaying() && !mute){
             mediaPlayer.pause();
             length = mediaPlayer.getCurrentPosition();
         }

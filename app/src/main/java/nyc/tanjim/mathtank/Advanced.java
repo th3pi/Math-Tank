@@ -39,7 +39,7 @@ public class Advanced extends AppCompatActivity {
     private Animation buttonsInit;
     private Dialog scorePopUp;
     private Chronometer chronometer;
-    private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv;
+    private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute;
     private MediaPlayer mediaPlayer;
 
 
@@ -67,7 +67,7 @@ public class Advanced extends AppCompatActivity {
         //Gets user preferences
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
-        Boolean mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC, false);
+        mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC, false);
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.advancedBg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
@@ -98,7 +98,7 @@ public class Advanced extends AppCompatActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        if(mediaPlayer.isPlaying()) {
+        if(mediaPlayer.isPlaying() && !mute) {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
@@ -107,12 +107,18 @@ public class Advanced extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(!mediaPlayer.isPlaying()) {
+        if(!mediaPlayer.isPlaying() && !mute) {
             mediaPlayer.seekTo(musicLength);
             mediaPlayer.start();
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mediaPlayer.stop();
+        mediaPlayer.release();
+    }
     public void showPopUp(View view){
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
