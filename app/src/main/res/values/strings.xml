@@ -189,5 +189,8 @@
     <string name="timeTrialsAd">ca-app-pub-3697147059223741/5392405677</string>
     <string name="mainMenuad">ca-app-pub-3697147059223741/5739179592</string>
     <string name="advancedAd">ca-app-pub-3697147059223741/5707390002</string>
+
+    <!--Error-->
+    <string name="something">Sorry something went wrong. Couldn\'t calibrate skill level.</string>
 </resources>
 

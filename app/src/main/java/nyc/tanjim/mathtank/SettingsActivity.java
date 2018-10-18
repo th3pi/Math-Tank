@@ -30,7 +30,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public static final String KEY_SQUARE_ROOT="sqrt";
     public static final String KEY_SQUARE="sqr";
     public static final String KEY_CUBE="cube";
-    public static final String KEY_MUTE_MUSIC="mute_sound";
+    public static final String KEY_MUTE_MUSIC="mute_switch";
 
 
 

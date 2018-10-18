@@ -1,5 +1,6 @@
 package nyc.tanjim.mathtank;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
@@ -14,6 +15,8 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.TextView;
+import com.tjeannin.apprate.AppRate;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
@@ -25,8 +28,12 @@ import com.google.android.gms.ads.MobileAds;
 
 public class MainMenu extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private InterstitialAd interstitialAd;
+    private TextView introText;
     private MediaPlayer mediaPlayer;
-    int length;
+    private SharedPreferences prefs;
+    private SharedPreferences.Editor editor;
+    private Boolean mute;
+    int totalCount, length;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,13 +43,12 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
 
         Button quickMathButton, timeTrialsButton, advancedMathButton;
         Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
-        Boolean darkModePref, mute;
+        Boolean darkModePref;
         SharedPreferences sharedPref;
 
         quickMathButton = findViewById(R.id.quickMathsButton);
         timeTrialsButton = findViewById(R.id.timeTrialsButton);
         advancedMathButton = findViewById(R.id.advancedMathButton);
-
 
         //Animation for the game mode buttons
         fromLeftQuickMath = AnimationUtils.loadAnimation(this,R.anim.from_left_quick_math);
@@ -61,7 +67,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if(darkModePref) {
                 backgroundAnimationDark();
-//                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }else{
                 backgroundAnimation();
             }
@@ -104,7 +110,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(!mediaPlayer.isPlaying()) {
+        if(!mediaPlayer.isPlaying() && !mute) {
             mediaPlayer.seekTo(length);
             mediaPlayer.start();
         }
@@ -167,7 +173,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     //Required to implement dark mode changes without restarting the app.
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
-        if(key.equals(SettingsActivity.KEY_DARK_MODE_SWITCH)){
+        if(key.equals(SettingsActivity.KEY_DARK_MODE_SWITCH) || key.equals(SettingsActivity.KEY_MUTE_MUSIC)){
             recreate();
         }
     }
