@@ -1,7 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nyc.tanjim.mathtank">
-
+    <supports-screens
+        android:smallScreens="false"
+        android:normalScreens="true"
+        android:largeScreens="true"
+        android:xlargeScreens="true"
+        />
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -39,5 +44,6 @@
         </activity>
         <activity android:name="AppInfo"/>
     </application>
+
 
 </manifest>
