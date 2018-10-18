@@ -67,7 +67,6 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if(darkModePref) {
                 backgroundAnimationDark();
-                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }else{
                 backgroundAnimation();
             }

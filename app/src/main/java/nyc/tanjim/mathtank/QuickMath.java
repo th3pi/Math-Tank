@@ -97,7 +97,7 @@ public class QuickMath extends AppCompatActivity {
         else {
             Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
             if(darkModePref){
-                ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
+                ConstraintLayout constraintLayout = (findViewById(R.id.quickMathBg));
                 constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
@@ -152,6 +152,47 @@ public class QuickMath extends AppCompatActivity {
      * Doesn't let user tap outside pop up box
      *
     * */
+    public void showPopUp(View view){
+        if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
+            winningMessage.setText(getString(R.string.hey_there_genius));
+        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
+            winningMessage.setText(getString(R.string.unbelievable));
+        }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
+            winningMessage.setText(getString(R.string.are_you_even));
+        }else if(numberOfQuestions == 0){
+            winningMessage.setText(getString(R.string.afk_text));
+        }else {
+            winningMessage.setText(getString(R.string.need_more_practice));
+        }
+        scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
+        if(numberOfQuestions - score >= 0 && numberOfQuestions - score < 2 && numberOfQuestions > 15) {
+            iqMessage.setText(getString(R.string.exceptional_math_skill));
+        }
+        else if(numberOfQuestions - score > 0 && numberOfQuestions - score<  3 && numberOfQuestions > 10 && numberOfQuestions < 15) {
+            iqMessage.setText(getString(R.string.above_average_math_skill));
+        }else if(numberOfQuestions - score > 3 && numberOfQuestions - score < 5 && numberOfQuestions > 10 ){
+            iqMessage.setText(getString(R.string.average_math_skill));
+        }else if(numberOfQuestions - score > 5 && numberOfQuestions - score < 7 && numberOfQuestions > 10){
+            iqMessage.setText(getString(R.string.below_average_math_skill));
+        }
+        else if(numberOfQuestions < 10) {
+            iqMessage.setText(getString(R.string.number_too_low_10));
+        }else{
+            iqMessage.setText(getString(R.string.score_too_low));
+        }
+        scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        scorePopUp.setCanceledOnTouchOutside(false);
+        if(!QuickMath.this.isFinishing()) {
+            scorePopUp.show();
+        }
+        scorePopUp.setOnCancelListener(new DialogInterface.OnCancelListener() {
+            @Override
+            public void onCancel(DialogInterface dialog) {
+                finish();
+            }
+        });
+    }
+
     public void showPopUp(){
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
@@ -215,15 +256,7 @@ public class QuickMath extends AppCompatActivity {
         userFeedback.startAnimation(AnimationUtils.loadAnimation(this,R.anim.flicker_animation));
         if(view.getTag().toString().equals(Integer.toString(wrongOrCorrect))){
             score++;
-            if(!timer) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        generateQuestion();
-                    }
-                },500);
-            }
+            generateQuestion();
             quickMathScore.setText(getString(R.string.score,score));
             numberOfQuestions++;
             if(feedBackNum == 0 || numberOfQuestions == 1){
@@ -271,15 +304,7 @@ public class QuickMath extends AppCompatActivity {
                     userFeedback.setText(getString(R.string.sad));
                     break;
             }
-            if(!timer) {
-                Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        generateQuestion();
-                    }
-                },500);
-            }
+            generateQuestion();
             numberOfQuestions++;
 
         }
@@ -496,31 +521,6 @@ public class QuickMath extends AppCompatActivity {
         score = 0;
         timer();
         generateQuestion();
-    }
-    //This method creates an alert box once the timer hits zero
-
-    //this is redundant
-    public void message(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage("Your answered " + Integer.toString(score) + " correctly out of" +
-                " " + Integer.toString(numberOfQuestions)).setTitle("Congratulations!");
-        builder.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                finish();
-            }
-        });
-        builder.setNegativeButton("Restart", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                reset();
-            }
-        });
-        AlertDialog dialog = builder.create();
-        dialog.setCanceledOnTouchOutside(false);
-        if(!QuickMath.this.isFinishing()) {
-            dialog.show();
-        }
     }
 
 

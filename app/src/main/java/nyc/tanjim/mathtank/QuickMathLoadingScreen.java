@@ -25,10 +25,13 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_time_trials_loading_screen);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        Boolean quickMathTimer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER,false);
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
-            Toast.makeText(this,"Dark mode not compatible with QuickMath.",Toast.LENGTH_LONG).show();
+            if(quickMathTimer) {
+                Toast.makeText(this, "Dark mode not compatible with QuickMath.", Toast.LENGTH_LONG).show();
+            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }

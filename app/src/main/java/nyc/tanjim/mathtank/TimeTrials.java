@@ -148,6 +148,13 @@ public class TimeTrials extends AppCompatActivity {
         mediaPlayer.stop();
         mediaPlayer.release();
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
+
     public void timer(){
         countDownTimer = new CountDownTimer(9000, 1000) {
             @Override

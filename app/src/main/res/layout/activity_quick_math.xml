@@ -16,6 +16,7 @@
         android:elevation="20dp"
         android:fontFamily="@font/permanentmarker_regular"
         android:gravity="center"
+        android:onClick="showPopUp"
         android:text="2+2=5"
         android:textColor="#fff"
         android:textSize="60sp"
