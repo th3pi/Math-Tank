@@ -9,7 +9,8 @@
         <SwitchPreference
             android:defaultValue="false"
             android:key="kids_mode_switch"
-            android:title="Kids Mode" />
+            android:title="Kids Mode"
+            android:summary="@string/kidspref"/>
         <SwitchPreference
             android:defaultValue="false"
             android:key="mute_switch"

@@ -192,5 +192,9 @@
 
     <!--Error-->
     <string name="something">Sorry something went wrong. Couldn\'t calibrate skill level.</string>
+
+
+    <!--What does kids mode do-->
+    <string name="kidspref">Kids mode tones down the complexity of QuickMaths questions. Other modes are coming soon.</string>
 </resources>
 
