@@ -58,7 +58,7 @@
         android:fontFamily="@font/coming_soon_regular"
         android:text="10s"
         android:textColor="#fff"
-        android:textSize="30sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline12" />

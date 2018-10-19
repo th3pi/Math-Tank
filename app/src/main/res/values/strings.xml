@@ -144,7 +144,8 @@
     <!--quickmath timer-->
     <string name="timer_quick_math">Time Left: %1$ds</string>
     <string name="timer_quick_math_ten_less">Time Left: 0%1$ds</string>
-    <string name="timer_disabled">TAP ON QUESTION BOARD TO STOP</string>
+    <string name="timer_disabled">Timer Disabled</string>
+    <string name="taponq">TAP ON QUESTION BOARD TO STOP</string>
     <!--advanced-->
     <string name="square">%1$d\u00B2</string>
     <string name="cube">%1$d\u00B3</string>

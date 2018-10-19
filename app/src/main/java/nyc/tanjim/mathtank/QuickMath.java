@@ -103,7 +103,7 @@ public class QuickMath extends AppCompatActivity {
                     getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
                 }
             }
-            timerText.setText(getString(R.string.timer_disabled));
+            timerText.setText(getString(R.string.taponq));
         }
         //Initialize ads
         MobileAds.initialize(this,getString(R.string.quickMathad));
