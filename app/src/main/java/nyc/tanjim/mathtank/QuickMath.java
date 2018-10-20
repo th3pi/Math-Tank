@@ -257,6 +257,7 @@ public class QuickMath extends AppCompatActivity {
         if(view.getTag().toString().equals(Integer.toString(wrongOrCorrect))){
             score++;
             generateQuestion();
+            quickMathQuestion.startAnimation(AnimationUtils.loadAnimation(this,R.anim.question_flicker));
             quickMathScore.setText(getString(R.string.score,score));
             numberOfQuestions++;
             if(feedBackNum == 0 || numberOfQuestions == 1){
