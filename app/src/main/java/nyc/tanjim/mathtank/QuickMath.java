@@ -150,7 +150,7 @@ public class QuickMath extends AppCompatActivity {
                 sequence.addSequenceItem(
                     new MaterialShowcaseView.Builder(this)
                             .setTarget(correctButton)
-                            .setContentText("I'll help you with this one - since this one is correct. Tap on correct.")
+                            .setContentText("I'll help you with this one - since it's a correct equation. Tap on correct.")
                             .setMaskColour(getResources().getColor(R.color.colorAccent50))
                             .setDismissOnTargetTouch(true)
                             .setTargetTouchable(true)
@@ -160,7 +160,7 @@ public class QuickMath extends AppCompatActivity {
                 sequence.addSequenceItem(
                         new MaterialShowcaseView.Builder(this)
                                 .setTarget(wrongButton)
-                                .setContentText("I'll help you with this one - since this one is wrong. Tap on wrong.")
+                                .setContentText("I'll help you with this one - since it's a wrong equation. Tap on wrong.")
                                 .setMaskColour(getResources().getColor(R.color.colorAccent50))
                                 .setDismissOnTargetTouch(true)
                                 .setTargetTouchable(true)
