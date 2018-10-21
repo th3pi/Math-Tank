@@ -133,64 +133,70 @@ public class TimeTrials extends AppCompatActivity {
             countDownTimer.cancel();
             whichOneIsCorrect.setText("Restart to initiate timer");
             ShowcaseConfig config = new ShowcaseConfig();
-            MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "timeTrialsOnBoarding");
+            final MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "timeTrialsOnBoarding");
             config.setMaskColor(getResources().getColor(R.color.colorAccent50));
             config.setRenderOverNavigationBar(true);
             config.setShapePadding(50);
             config.setDelay(500);
             sequence.setConfig(config);
 
-            sequence.addSequenceItem(timeLeftText,"Welcome to TimeTrials! You have 8 seconds to find the correct equation. Timer resets if you find the correct one.","Next");
+            timeLeftText.post(new Runnable() {
+                @Override
+                public void run() {
+                    sequence.addSequenceItem(timeLeftText,"Welcome to TimeTrials! You have 8 seconds to find the correct equation. Timer resets if you find the correct one.","Next");
 
-            switch (locationOfCorrectAnswer){
-                case 0: sequence.addSequenceItem(
-                        new MaterialShowcaseView.Builder(this)
-                                .setTarget(button0)
-                                .setContentText("I'll help you with this one - since the correct answer is " + button0.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
-                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                                .setDismissOnTargetTouch(true)
-                                .setTargetTouchable(true)
-                                .withRectangleShape()
-                                .build()
-                );
-                    break;
-                case 1: sequence.addSequenceItem(
-                        new MaterialShowcaseView.Builder(this)
-                                .setTarget(button1)
-                                .setContentText("I'll help you with this one - since the correct answer is " + button1.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
-                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                                .setDismissOnTargetTouch(true)
-                                .setTargetTouchable(true)
-                                .withRectangleShape()
-                                .build()
-                );
-                    break;
-                case 2: sequence.addSequenceItem(
-                        new MaterialShowcaseView.Builder(this)
-                                .setTarget(button2)
-                                .setContentText("I'll help you with this one - since the correct answer is " + button2.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
-                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                                .setDismissOnTargetTouch(true)
-                                .setTargetTouchable(true)
-                                .withRectangleShape()
-                                .build()
-                );
-                    break;
-                case 3: sequence.addSequenceItem(
-                        new MaterialShowcaseView.Builder(this)
-                                .setTarget(button3)
-                                .setContentText("I'll help you with this one - since the correct answer is " + button3.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
-                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                                .setDismissOnTargetTouch(true)
-                                .setTargetTouchable(true)
-                                .withRectangleShape()
-                                .build()
-                );
-                    break;
-            }
-            sequence.addSequenceItem(userFeedback,"You will get a feedback based on your answer. Words of encouragement!","Next");
-            sequence.addSequenceItem(scoreText,"This is your... Score. Pretty simple. You're all set! Tap on a wrong equation to bring up the scoreboard.","Done");
-            sequence.start();
+                    switch (locationOfCorrectAnswer){
+                        case 0: sequence.addSequenceItem(
+                                new MaterialShowcaseView.Builder(TimeTrials.this)
+                                        .setTarget(button0)
+                                        .setContentText("I'll help you with this one - since the correct answer is " + button0.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                        .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                        .setDismissOnTargetTouch(true)
+                                        .setTargetTouchable(true)
+                                        .withRectangleShape()
+                                        .build()
+                        );
+                            break;
+                        case 1: sequence.addSequenceItem(
+                                new MaterialShowcaseView.Builder(TimeTrials.this)
+                                        .setTarget(button1)
+                                        .setContentText("I'll help you with this one - since the correct answer is " + button1.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                        .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                        .setDismissOnTargetTouch(true)
+                                        .setTargetTouchable(true)
+                                        .withRectangleShape()
+                                        .build()
+                        );
+                            break;
+                        case 2: sequence.addSequenceItem(
+                                new MaterialShowcaseView.Builder(TimeTrials.this)
+                                        .setTarget(button2)
+                                        .setContentText("I'll help you with this one - since the correct answer is " + button2.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                        .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                        .setDismissOnTargetTouch(true)
+                                        .setTargetTouchable(true)
+                                        .withRectangleShape()
+                                        .build()
+                        );
+                            break;
+                        case 3: sequence.addSequenceItem(
+                                new MaterialShowcaseView.Builder(TimeTrials.this)
+                                        .setTarget(button3)
+                                        .setContentText("I'll help you with this one - since the correct answer is " + button3.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                        .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                        .setDismissOnTargetTouch(true)
+                                        .setTargetTouchable(true)
+                                        .withRectangleShape()
+                                        .build()
+                        );
+                            break;
+                    }
+                    sequence.addSequenceItem(userFeedback,"You will get a feedback based on your answer. Words of encouragement!","Next");
+                    sequence.addSequenceItem(scoreText,"This is your... Score. Pretty simple. You're all set! Tap on a wrong equation to bring up the scoreboard.","Done");
+                    sequence.start();
+                }
+            });
+
         }
     }
     @Override

@@ -19,6 +19,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -311,6 +312,18 @@ public class QuickMath extends AppCompatActivity {
 
     //Pop up Play again button
     public void playAgain(View view){
+        SharedPreferences sharedPreferences = getSharedPreferences("highScore",MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        int largest = sharedPreferences.getInt("quickMathHighScore",0);
+        int totalAnswered = sharedPreferences.getInt("quickMathHighScoreWrong",0);
+        if(score > largest){
+            totalAnswered = numberOfQuestions;
+            largest = score;
+            editor.putInt("quickMathHighScore",largest);
+            editor.apply();
+        }
+        Log.i("HIGH SCORE",Integer.toString(largest));
+        Log.i("TOTAL ANSWERED",Integer.toString(totalAnswered));
         finish();
         startActivity(new Intent(getApplicationContext(), QuickMathLoadingScreen.class));
     }

@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nyc.tanjim.mathtank">
+
     <supports-screens
-        android:smallScreens="false"
-        android:normalScreens="true"
         android:largeScreens="true"
-        android:xlargeScreens="true"
-        />
+        android:normalScreens="true"
+        android:smallScreens="false"
+        android:xlargeScreens="true" />
+
     <uses-permission android:name="android.permission.VIBRATE" />
 
     <application
@@ -17,7 +18,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="MainMenu"
+            android:name=".MainMenu"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Launcher">
@@ -27,23 +28,38 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="Advanced" android:screenOrientation="portrait" />
-        <activity android:name="QuickMath" android:screenOrientation="portrait"/>
-        <activity android:name="QuickMathLoadingScreen" android:screenOrientation="portrait"/>
-        <activity android:name="TimeTrials" android:screenOrientation="portrait"/>
-        <activity android:name="TimeTrialsLoadingScreen" android:screenOrientation="portrait"/>
-        <activity android:name="AdvancedLoadingScreen" android:screenOrientation="portrait"/>
         <activity
-            android:name="SettingsActivity"
+            android:name=".Advanced"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QuickMath"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".QuickMathLoadingScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TimeTrials"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".TimeTrialsLoadingScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AdvancedLoadingScreen"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
             android:label="Settings"
-            android:screenOrientation="portrait"
-            android:parentActivityName="MainMenu">
+            android:parentActivityName=".MainMenu"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="MainMenu" />
         </activity>
-        <activity android:name="AppInfo"/>
+        <activity android:name=".AppInfo" />
+        <activity
+            android:name=".Scores"
+            android:label="@string/title_activity_scores"
+            android:theme="@style/AppTheme"></activity>
     </application>
-
 
 </manifest>
