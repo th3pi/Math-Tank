@@ -127,13 +127,6 @@ public class QuickMath extends AppCompatActivity {
         }
 
         if(isFirstTime()){
-//            new MaterialShowcaseView.Builder(this)
-//                    .setTarget(timerText)
-//                    .setDismissText("Next")
-//                    .setContentText("Keep an eye on the timer. Try to answer as many as you can before timer runs out.")
-//                    .setDelay(500)
-//                    .singleUse("timer")
-//                    .show();
             countDownTimer.cancel();
             timerText.setText("Restart to initiate timer.");
             ShowcaseConfig config = new ShowcaseConfig();

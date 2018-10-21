@@ -28,6 +28,10 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+
 
 public class Advanced extends AppCompatActivity {
     private Button button0, button1, button2, button3;
@@ -93,6 +97,65 @@ public class Advanced extends AppCompatActivity {
 
         //Generate the starting question
         generateQuestion();
+
+        if(isFirstTime()){
+
+            ShowcaseConfig config = new ShowcaseConfig();
+            MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "advancedOnBoarding");
+            config.setMaskColor(getResources().getColor(R.color.colorAccent50));
+            config.setRenderOverNavigationBar(true);
+            config.setShapePadding(50);
+            config.setDelay(500);
+            sequence.setConfig(config);
+
+            sequence.addSequenceItem(chronometer,"Welcome to Advanced Shark! There is no time limit here but you do have a stopwatch. You can click on it at any time to stop, restart or quit.","Next");
+            sequence.addSequenceItem(questionText,"You will be asked long and windy but NOT hard questions. Same trick applies here - Look for the pattern!","Next");
+
+            switch (locationOfCorrectAnswer){
+                case 0: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button0)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button0.getText() + ". Tap on the button.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .build()
+                );
+                break;
+                case 1: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button1)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button1.getText() + ". Tap on the button.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .build()
+                );
+                    break;
+                case 2: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button2)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button2.getText() + ". Tap on the button.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .build()
+                );
+                    break;
+                case 3: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button3)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button3.getText() + ". Tap on the button.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .build()
+                );
+                    break;
+            }
+            sequence.addSequenceItem(scoreView,"Your score is up here. You got 1 right out of 1 question. You're all set, now start training that [your brain] beast!","LET'S GO!");
+            sequence.start();
+        }
     }
 
     @Override
@@ -797,6 +860,18 @@ public class Advanced extends AppCompatActivity {
         button3.setText(getString(R.string.box,answers.get(3)));
     }
 
+    private boolean isFirstTime()
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        boolean ranBefore = preferences.getBoolean("RanBefore", false);
+        if (!ranBefore) {
+            // first time
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("RanBefore", true);
+            editor.commit();
+        }
+        return !ranBefore;
+    }
 
 
 
