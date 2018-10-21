@@ -8,13 +8,13 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
+import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -27,8 +27,11 @@ import com.google.android.gms.ads.MobileAds;
 
 import java.util.ArrayList;
 import java.util.Random;
-import java.util.Set;
 
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+import uk.co.deanwild.materialshowcaseview.shape.RectangleShape;
 
 import static android.graphics.Color.GRAY;
 
@@ -38,7 +41,7 @@ public class TimeTrials extends AppCompatActivity {
     private TextView userFeedback;
     private TextView scoreMessage;
     private TextView iqMessage;
-    private TextView winningMessage;
+    private TextView winningMessage, whichOneIsCorrect;
     private Button button0, button1, button2, button3;
     int a, b;
     private ArrayList<String> questions = new ArrayList<String>();
@@ -48,6 +51,7 @@ public class TimeTrials extends AppCompatActivity {
     private Dialog scorePopUp;
     private MediaPlayer mediaPlayer;
     private Boolean mute;
+    boolean ranBefore;
 
 
     //Boolean values to check user preference.
@@ -66,6 +70,7 @@ public class TimeTrials extends AppCompatActivity {
         button2 = findViewById(R.id.button2);
         button3 = findViewById(R.id.button3);
         userFeedback = findViewById(R.id.userFeedback);
+        whichOneIsCorrect = findViewById(R.id.whichOneIsCorrect);
         scorePopUp = new Dialog(this);
         scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
         scorePopUp.setContentView(R.layout.score_popup);
@@ -122,6 +127,70 @@ public class TimeTrials extends AppCompatActivity {
         mediaPlayer.setLooping(true);
         if(!mute) {
             mediaPlayer.start();
+        }
+
+        if(isFirstTime()){
+            countDownTimer.cancel();
+            whichOneIsCorrect.setText("Restart to initiate timer");
+            ShowcaseConfig config = new ShowcaseConfig();
+            MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "timeTrialsOnBoarding");
+            config.setMaskColor(getResources().getColor(R.color.colorAccent50));
+            config.setRenderOverNavigationBar(true);
+            config.setShapePadding(50);
+            config.setDelay(500);
+            sequence.setConfig(config);
+
+            sequence.addSequenceItem(timeLeftText,"Welcome to TimeTrials! You have 8 seconds to find the correct equation. Timer resets if you find the correct one.","Next");
+
+            switch (locationOfCorrectAnswer){
+                case 0: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button0)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button0.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .withRectangleShape()
+                                .build()
+                );
+                    break;
+                case 1: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button1)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button1.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .withRectangleShape()
+                                .build()
+                );
+                    break;
+                case 2: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button2)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button2.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .withRectangleShape()
+                                .build()
+                );
+                    break;
+                case 3: sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(button3)
+                                .setContentText("I'll help you with this one - since the correct answer is " + button3.getText() + ". Tap on the button. You lose if you don't select the correct equation.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .withRectangleShape()
+                                .build()
+                );
+                    break;
+            }
+            sequence.addSequenceItem(userFeedback,"You will get a feedback based on your answer. Words of encouragement!","Next");
+            sequence.addSequenceItem(scoreText,"This is your... Score. Pretty simple. You're all set! Tap on a wrong equation to bring up the scoreboard.","Done");
+            sequence.start();
         }
     }
     @Override
@@ -421,7 +490,7 @@ public class TimeTrials extends AppCompatActivity {
             score++;
             numberOfQuestions++;
             generateQuestions();
-            if(timer) {
+            if(timer && ranBefore) {
                 countDownTimer.start();
             }
             onARoll++;
@@ -500,6 +569,19 @@ public class TimeTrials extends AppCompatActivity {
                     Log.i("Error","Something went wrong");
             }*/
         }
+    }
+
+    private boolean isFirstTime()
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        ranBefore = preferences.getBoolean("RanBefore", false);
+        if (!ranBefore) {
+            // first time
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("RanBefore", true);
+            editor.commit();
+        }
+        return !ranBefore;
     }
 
 }

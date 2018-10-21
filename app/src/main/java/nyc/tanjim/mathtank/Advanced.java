@@ -36,7 +36,6 @@ import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 public class Advanced extends AppCompatActivity {
     private Button button0, button1, button2, button3;
     private TextView questionText, scoreView, winningMessage, scoreMessage, iqMessage;
-    private ImageButton menuButton;
     private int locationOfCorrectAnswer, score = 0, numberOfQuestions = 0, musicLength = 0;
     private ArrayList<Integer> answers = new ArrayList<Integer>();
     private ConstraintLayout bg;

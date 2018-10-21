@@ -128,16 +128,23 @@ public class QuickMath extends AppCompatActivity {
 
         if(isFirstTime()){
             countDownTimer.cancel();
-            timerText.setText("Restart to initiate timer.");
+            timerText.setText("30s");
             ShowcaseConfig config = new ShowcaseConfig();
             config.setMaskColor(getResources().getColor(R.color.colorAccent50));
             config.setRenderOverNavigationBar(true);
-            config.setShapePadding(50);
             config.setDelay(500);
 
             MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "quickMathOnBoarding");
             sequence.setConfig(config);
-            sequence.addSequenceItem(timerText,"Try to answer as many as you can before timer runs out.","Next");
+            sequence.addSequenceItem(new MaterialShowcaseView.Builder(this)
+                                                .setTarget(timerText)
+                                                .setContentText("Try to answer as many as you can before timer runs out.")
+                                                .setDismissText("Next")
+                                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                                .setDismissOnTargetTouch(true)
+                                                .setTargetTouchable(true)
+                                                .build()
+            );
             sequence.addSequenceItem(quickMathQuestion,"Analyze the question - Don't try to MATH-it. Look for the pattern. You can click on question board to stop and restart or quit at any time.","Next");
             if(wrongOrCorrect == 0)
                 sequence.addSequenceItem(
@@ -159,7 +166,7 @@ public class QuickMath extends AppCompatActivity {
                                 .setTargetTouchable(true)
                                 .build()
                 );
-            sequence.addSequenceItem(userFeedback,"You will get a feedback based on your answer. Keep an eye on the background as the color changes with timer!","Done");
+            sequence.addSequenceItem(userFeedback,"You will get a feedback based on your answer. Keep an eye on the background as the color changes with timer!","Next");
             sequence.addSequenceItem(
                     new MaterialShowcaseView.Builder(this)
                             .setTarget(quickMathQuestion)

@@ -39,7 +39,7 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.android.support:customtabs:27.1.1'
     implementation files('libs/AppRate_1.1.jar')
-    implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0@aar'
+    implementation 'com.github.deano2390:MaterialShowcaseView:1.2.0'
 }
 gradle.projectsEvaluated {
     tasks.withType(JavaCompile) {
