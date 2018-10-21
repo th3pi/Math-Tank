@@ -19,7 +19,7 @@
         android:onClick="showPopUp"
         android:text="2+2=5"
         android:textColor="#fff"
-        android:textSize="60sp"
+        android:textSize="50sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline9"

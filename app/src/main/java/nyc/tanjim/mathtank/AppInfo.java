@@ -45,4 +45,8 @@ public class AppInfo extends AppCompatActivity {
             textView6.setTextColor(getResources().getColor(R.color.white));
         }
     }
+
+    public void close(View view){
+        this.finish();
+    }
 }

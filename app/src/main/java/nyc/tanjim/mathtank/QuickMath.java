@@ -134,49 +134,67 @@ public class QuickMath extends AppCompatActivity {
             config.setRenderOverNavigationBar(true);
             config.setDelay(500);
 
-            MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "quickMathOnBoarding");
+            final MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(QuickMath.this, "quickMathOnBoarding");
             sequence.setConfig(config);
-            sequence.addSequenceItem(new MaterialShowcaseView.Builder(this)
-                                                .setTarget(timerText)
-                                                .setContentText("Try to answer as many as you can before timer runs out.")
-                                                .setDismissText("Next")
-                                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                                                .setDismissOnTargetTouch(true)
-                                                .setTargetTouchable(true)
-                                                .build()
-            );
-            sequence.addSequenceItem(quickMathQuestion,"Analyze the question - Don't try to MATH-it. Look for the pattern. You can click on question board to stop and restart or quit at any time.","Next");
-            if(wrongOrCorrect == 0)
-                sequence.addSequenceItem(
-                    new MaterialShowcaseView.Builder(this)
-                            .setTarget(correctButton)
-                            .setContentText("I'll help you with this one - since it's a correct equation. Tap on correct.")
+            timerText.post(new Runnable() {
+                @Override
+                public void run() {
+                    sequence.addSequenceItem(new MaterialShowcaseView.Builder(QuickMath.this)
+                            .setTarget(timerText)
+                            .setContentText("Try to answer as many as you can before timer runs out.")
+                            .setDismissText("Next")
                             .setMaskColour(getResources().getColor(R.color.colorAccent50))
                             .setDismissOnTargetTouch(true)
                             .setTargetTouchable(true)
                             .build()
-                );
-            else
-                sequence.addSequenceItem(
-                        new MaterialShowcaseView.Builder(this)
-                                .setTarget(wrongButton)
-                                .setContentText("I'll help you with this one - since it's a wrong equation. Tap on wrong.")
-                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                                .setDismissOnTargetTouch(true)
-                                .setTargetTouchable(true)
-                                .build()
-                );
-            sequence.addSequenceItem(userFeedback,"You will get a feedback based on your answer. Keep an eye on the background as the color changes with timer!","Next");
-            sequence.addSequenceItem(
-                    new MaterialShowcaseView.Builder(this)
-                            .setTarget(quickMathQuestion)
-                            .setContentText("Tap on question board to stop and open up the scoreboard. And you are all set!")
-                            .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                            .setDismissOnTargetTouch(true)
-                            .setTargetTouchable(true)
-                            .build()
-            );
-            sequence.start();
+                    );
+                    sequence.addSequenceItem(quickMathQuestion,"Analyze the question - Don't try to MATH-it. Look for the pattern. You can click on question board to stop and restart or quit at any time.","Next");
+                    if(wrongOrCorrect == 0)
+                        sequence.addSequenceItem(
+                                new MaterialShowcaseView.Builder(QuickMath.this)
+                                        .setTarget(correctButton)
+                                        .setContentText("I'll help you with this one - since it's a correct equation. Tap on correct.")
+                                        .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                        .withRectangleShape()
+                                        .setDismissOnTargetTouch(true)
+                                        .setTargetTouchable(true)
+                                        .build()
+                        );
+                    else
+                        sequence.addSequenceItem(
+                                new MaterialShowcaseView.Builder(QuickMath.this)
+                                        .setTarget(wrongButton)
+                                        .setContentText("I'll help you with this one - since it's a wrong equation. Tap on wrong.")
+                                        .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                        .withRectangleShape()
+                                        .setDismissOnTargetTouch(true)
+                                        .setTargetTouchable(true)
+                                        .build()
+                        );
+                    sequence.addSequenceItem(
+                            new MaterialShowcaseView.Builder(QuickMath.this)
+                                    .setTarget(userFeedback)
+                                    .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                    .setContentText("You will get a feedback based on your answer. Keep an eye on the background as the color changes with timer. Tap on \"Good Job\" to proceed.")
+                                    .setDismissOnTargetTouch(true)
+                                    .setTargetTouchable(true)
+                                    .build()
+                    );
+                    sequence.addSequenceItem(
+                            new MaterialShowcaseView.Builder(QuickMath.this)
+                                    .setTarget(quickMathQuestion)
+                                    .setContentText("Tap on question board to stop and open up the scoreboard. And you are all set!")
+                                    .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                    .setDismissOnTargetTouch(true)
+                                    .setTargetTouchable(true)
+                                    .withRectangleShape()
+                                    .build()
+                    );
+                    sequence.start();
+                }
+            });
+
+
 
         }
     }
@@ -265,18 +283,18 @@ public class QuickMath extends AppCompatActivity {
             winningMessage.setText(getString(R.string.need_more_practice));
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions > 20) {
-            if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 5) {
+        if(numberOfQuestions >= 10) {
+            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
                 iqMessage.setText(getString(R.string.exceptional_math_skill));
-            } else if (numberOfQuestions - score >= 6 && numberOfQuestions - score <= 10) {
+            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
                 iqMessage.setText(getString(R.string.above_average_math_skill));
-            } else if (numberOfQuestions - score >= 11 && numberOfQuestions - score <= 15) {
+            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
                 iqMessage.setText(getString(R.string.average_math_skill));
-            }else{
+            } else{
                 iqMessage.setText(getString(R.string.below_average_math_skill));
             }
-        }else {
-            iqMessage.setText(getString(R.string.number_too_low));
+        }else{
+            iqMessage.setText(getString(R.string.number_too_low_10));
         }
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);

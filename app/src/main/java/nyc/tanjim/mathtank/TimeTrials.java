@@ -256,20 +256,18 @@ public class TimeTrials extends AppCompatActivity {
             winningMessage.setText(getString(R.string.need_more_practice));
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions - score >= 0 && numberOfQuestions - score < 2 && numberOfQuestions > 30) {
-            iqMessage.setText(getString(R.string.exceptional_math_skill));
-        }
-        else if(numberOfQuestions - score > 2 && numberOfQuestions - score<  3 && numberOfQuestions > 30) {
-            iqMessage.setText(getString(R.string.above_average_math_skill));
-        }else if(numberOfQuestions - score > 3 && numberOfQuestions - score < 5 && numberOfQuestions > 30 ){
-            iqMessage.setText(getString(R.string.average_math_skill));
-        }else if(numberOfQuestions - score > 5 && numberOfQuestions - score < 7 && numberOfQuestions > 30){
-            iqMessage.setText(getString(R.string.below_average_math_skill));
-        }
-        else if(numberOfQuestions < 30) {
-            iqMessage.setText(getString(R.string.number_too_low_30));
+        if(numberOfQuestions >= 10) {
+            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
+                iqMessage.setText(getString(R.string.exceptional_math_skill));
+            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
+                iqMessage.setText(getString(R.string.above_average_math_skill));
+            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
+                iqMessage.setText(getString(R.string.average_math_skill));
+            } else{
+                iqMessage.setText(getString(R.string.below_average_math_skill));
+            }
         }else{
-            iqMessage.setText(getString(R.string.score_too_low));
+            iqMessage.setText(getString(R.string.number_too_low_10));
         }
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
