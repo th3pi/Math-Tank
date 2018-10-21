@@ -132,20 +132,18 @@ public class Advanced extends AppCompatActivity {
             winningMessage.setText(getString(R.string.need_more_practice));
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions - score >= 0 && numberOfQuestions - score < 2 && numberOfQuestions > 20) {
-            iqMessage.setText(getString(R.string.exceptional_math_skill));
-        }
-        else if(numberOfQuestions - score > 2 && numberOfQuestions - score<  3 && numberOfQuestions > 20) {
-            iqMessage.setText(getString(R.string.above_average_math_skill));
-        }else if(numberOfQuestions - score > 3 && numberOfQuestions - score < 5 && numberOfQuestions > 20 ){
-            iqMessage.setText(getString(R.string.average_math_skill));
-        }else if(numberOfQuestions - score > 5 && numberOfQuestions - score < 7 && numberOfQuestions > 20){
-            iqMessage.setText(getString(R.string.below_average_math_skill));
-        }
-        else if(numberOfQuestions < 20) {
+        if(numberOfQuestions > 20) {
+            if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 5) {
+                iqMessage.setText(getString(R.string.exceptional_math_skill));
+            } else if (numberOfQuestions - score >= 6 && numberOfQuestions - score <= 10) {
+                iqMessage.setText(getString(R.string.above_average_math_skill));
+            } else if (numberOfQuestions - score >= 11 && numberOfQuestions - score <= 15) {
+                iqMessage.setText(getString(R.string.average_math_skill));
+            }else{
+                iqMessage.setText(getString(R.string.below_average_math_skill));
+            }
+        }else {
             iqMessage.setText(getString(R.string.number_too_low));
-        }else{
-            iqMessage.setText(getString(R.string.score_too_low));
         }
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);

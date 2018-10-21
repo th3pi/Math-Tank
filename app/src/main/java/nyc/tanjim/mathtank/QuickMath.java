@@ -32,6 +32,9 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.Random;
 import java.util.Set;
 
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
+import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
+
 
 public class QuickMath extends AppCompatActivity {
     private TextView timerText, quickMathQuestion, quickMathScore, winningMessage;
@@ -52,6 +55,7 @@ public class QuickMath extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_math);
+
         timerText = findViewById(R.id.stopwatchText);
         quickMathQuestion = findViewById(R.id.quickMathQuestion);
         quickMathScore = findViewById(R.id.quickMathsScore);
@@ -119,6 +123,20 @@ public class QuickMath extends AppCompatActivity {
             mediaPlayer.start();
         }
 
+        if(isFirstTime()){
+            new MaterialShowcaseView.Builder(this)
+                    .setTarget(timerText)
+                    .setDismissText("Next")
+                    .setContentText("Keep an eye on the timer. Try to answer as many as you can before timer runs out.")
+                    .setDelay(500)
+                    .singleUse("timer")
+                    .show();
+
+//            ShowcaseConfig config = new ShowcaseConfig();
+//            config.setDelay(500);
+//
+//
+        }
     }
     @Override
     protected void onPause() {
@@ -155,7 +173,7 @@ public class QuickMath extends AppCompatActivity {
     public void showPopUp(View view){
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
-        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
+        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
             winningMessage.setText(getString(R.string.unbelievable));
         }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
             winningMessage.setText(getString(R.string.are_you_even));
@@ -165,20 +183,18 @@ public class QuickMath extends AppCompatActivity {
             winningMessage.setText(getString(R.string.need_more_practice));
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions - score >= 0 && numberOfQuestions - score < 2 && numberOfQuestions > 15) {
-            iqMessage.setText(getString(R.string.exceptional_math_skill));
-        }
-        else if(numberOfQuestions - score > 0 && numberOfQuestions - score<  3 && numberOfQuestions > 10 && numberOfQuestions < 15) {
-            iqMessage.setText(getString(R.string.above_average_math_skill));
-        }else if(numberOfQuestions - score > 3 && numberOfQuestions - score < 5 && numberOfQuestions > 10 ){
-            iqMessage.setText(getString(R.string.average_math_skill));
-        }else if(numberOfQuestions - score > 5 && numberOfQuestions - score < 7 && numberOfQuestions > 10){
-            iqMessage.setText(getString(R.string.below_average_math_skill));
-        }
-        else if(numberOfQuestions < 10) {
-            iqMessage.setText(getString(R.string.number_too_low_10));
+        if(numberOfQuestions >= 10) {
+            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
+                iqMessage.setText(getString(R.string.exceptional_math_skill));
+            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
+                iqMessage.setText(getString(R.string.above_average_math_skill));
+            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
+                iqMessage.setText(getString(R.string.average_math_skill));
+            } else{
+                iqMessage.setText(getString(R.string.below_average_math_skill));
+            }
         }else{
-            iqMessage.setText(getString(R.string.score_too_low));
+            iqMessage.setText(getString(R.string.number_too_low_10));
         }
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
@@ -196,7 +212,7 @@ public class QuickMath extends AppCompatActivity {
     public void showPopUp(){
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
-        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
+        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
             winningMessage.setText(getString(R.string.unbelievable));
         }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
             winningMessage.setText(getString(R.string.are_you_even));
@@ -206,20 +222,18 @@ public class QuickMath extends AppCompatActivity {
             winningMessage.setText(getString(R.string.need_more_practice));
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions - score >= 0 && numberOfQuestions - score < 2 && numberOfQuestions > 15) {
-            iqMessage.setText(getString(R.string.exceptional_math_skill));
-        }
-        else if(numberOfQuestions - score > 0 && numberOfQuestions - score<  3 && numberOfQuestions > 10 && numberOfQuestions < 15) {
-            iqMessage.setText(getString(R.string.above_average_math_skill));
-        }else if(numberOfQuestions - score > 3 && numberOfQuestions - score < 5 && numberOfQuestions > 10 ){
-            iqMessage.setText(getString(R.string.average_math_skill));
-        }else if(numberOfQuestions - score > 5 && numberOfQuestions - score < 7 && numberOfQuestions > 10){
-            iqMessage.setText(getString(R.string.below_average_math_skill));
-        }
-        else if(numberOfQuestions < 10) {
-            iqMessage.setText(getString(R.string.number_too_low_10));
-        }else{
-            iqMessage.setText(getString(R.string.score_too_low));
+        if(numberOfQuestions > 20) {
+            if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 5) {
+                iqMessage.setText(getString(R.string.exceptional_math_skill));
+            } else if (numberOfQuestions - score >= 6 && numberOfQuestions - score <= 10) {
+                iqMessage.setText(getString(R.string.above_average_math_skill));
+            } else if (numberOfQuestions - score >= 11 && numberOfQuestions - score <= 15) {
+                iqMessage.setText(getString(R.string.average_math_skill));
+            }else{
+                iqMessage.setText(getString(R.string.below_average_math_skill));
+            }
+        }else {
+            iqMessage.setText(getString(R.string.number_too_low));
         }
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
@@ -524,5 +538,17 @@ public class QuickMath extends AppCompatActivity {
         generateQuestion();
     }
 
+    private boolean isFirstTime()
+    {
+        SharedPreferences preferences = getPreferences(MODE_PRIVATE);
+        boolean ranBefore = preferences.getBoolean("RanBefore", false);
+        if (!ranBefore) {
+            // first time
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean("RanBefore", true);
+            editor.commit();
+        }
+        return !ranBefore;
+    }
 
 }
