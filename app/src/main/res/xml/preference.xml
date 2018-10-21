@@ -22,7 +22,8 @@
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="addition_only_quickmath"
-            android:title="Addition" />
+            android:title="Addition"
+            />
         <CheckBoxPreference
             android:defaultValue="true"
             android:key="subtraction_only_quickmath"

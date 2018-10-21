@@ -63,6 +63,33 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                 Toast.makeText(SettingsActivity.this,"Kids mode Deactivated",Toast.LENGTH_SHORT).show();
             }
         }
+
+        if(!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_QUICKMATH,false) && !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_QUICKMATH,false) && !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_QUICKMATH,false) && !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_QUICKMATH,false)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(KEY_ADDITION_ONLY_QUICKMATH,true);
+            editor.apply();
+            Toast.makeText(SettingsActivity.this,"Please keep at least one type enabled",Toast.LENGTH_SHORT).show();
+        }
+        if(!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_TIMETRIALS,false) && !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_TIMETRIALS,false) && !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_TIMETRIALS,false) && !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_TIMETRIALS,false)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(KEY_ADDITION_ONLY_TIMETRIALS,true);
+            editor.apply();
+            Toast.makeText(SettingsActivity.this,"Please keep at least one type enabled",Toast.LENGTH_SHORT).show();
+        }
+        if(!sharedPreferences.getBoolean(KEY_ADDITION_ADVANCED,false)
+                && !sharedPreferences.getBoolean(KEY_SUBTRACTION_ADVANCED,false)
+                && !sharedPreferences.getBoolean(KEY_ADDITION_X_MULTIPLICATION,false)
+                && !sharedPreferences.getBoolean(KEY_SUBTRACTION_X_MULTIPLICATION,false)
+                && !sharedPreferences.getBoolean(KEY_ADDITION_BY_DIVISION,false)
+                && !sharedPreferences.getBoolean(KEY_SUBTRACTION_BY_DIVISION,false)
+                && !sharedPreferences.getBoolean(KEY_SQUARE,false)
+                && !sharedPreferences.getBoolean(KEY_SQUARE_ROOT,false)
+                && !sharedPreferences.getBoolean(KEY_CUBE,false)){
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putBoolean(KEY_ADDITION_ADVANCED,true);
+            editor.apply();
+            Toast.makeText(SettingsActivity.this,"Please keep at least one type enabled",Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

@@ -2,6 +2,8 @@ package nyc.tanjim.mathtank;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
@@ -24,6 +26,14 @@ public class AppInfo extends AppCompatActivity {
         TextView versionText2 = findViewById(R.id.versionText2);
         TextView textView5 = findViewById(R.id.textView5);
         TextView textView6 = findViewById(R.id.textView6);
+        try {
+            PackageInfo pInfo = getApplicationContext().getPackageManager().getPackageInfo(getPackageName(), 0);
+            String versionName = pInfo.versionName;
+            versionText.setText(String.format("MathTank v%s",versionName));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
         if(darkModePref){

@@ -214,6 +214,7 @@ public class TimeTrials extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        scorePopUp.dismiss();
         mediaPlayer.stop();
         mediaPlayer.release();
     }
