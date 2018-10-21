@@ -32,6 +32,7 @@ import com.google.android.gms.ads.MobileAds;
 import java.util.Random;
 import java.util.Set;
 
+import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
 
@@ -49,7 +50,8 @@ public class QuickMath extends AppCompatActivity {
     private Boolean multiplication;
     private Boolean division, kidsmode,timer, mute;
     private MediaPlayer mediaPlayer;
-
+    private CountDownTimer countDownTimer;
+    private Button playAgainButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +70,7 @@ public class QuickMath extends AppCompatActivity {
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
         userFeedback = findViewById(R.id.plusOne);
+        playAgainButton = findViewById(R.id.playAgainButton);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         correctAnimation = AnimationUtils.loadAnimation(this, R.anim.correct_animation);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -124,18 +127,57 @@ public class QuickMath extends AppCompatActivity {
         }
 
         if(isFirstTime()){
-            new MaterialShowcaseView.Builder(this)
-                    .setTarget(timerText)
-                    .setDismissText("Next")
-                    .setContentText("Keep an eye on the timer. Try to answer as many as you can before timer runs out.")
-                    .setDelay(500)
-                    .singleUse("timer")
-                    .show();
+//            new MaterialShowcaseView.Builder(this)
+//                    .setTarget(timerText)
+//                    .setDismissText("Next")
+//                    .setContentText("Keep an eye on the timer. Try to answer as many as you can before timer runs out.")
+//                    .setDelay(500)
+//                    .singleUse("timer")
+//                    .show();
+            countDownTimer.cancel();
+            timerText.setText("Restart to initiate timer.");
+            ShowcaseConfig config = new ShowcaseConfig();
+            config.setMaskColor(getResources().getColor(R.color.colorAccent50));
+            config.setRenderOverNavigationBar(true);
+            config.setShapePadding(50);
+            config.setDelay(500);
 
-//            ShowcaseConfig config = new ShowcaseConfig();
-//            config.setDelay(500);
-//
-//
+            MaterialShowcaseSequence sequence = new MaterialShowcaseSequence(this, "quickMathOnBoarding");
+            sequence.setConfig(config);
+            sequence.addSequenceItem(timerText,"Try to answer as many as you can before timer runs out.","Next");
+            sequence.addSequenceItem(quickMathQuestion,"Analyze the question - Don't try to MATH-it. Look for the pattern. You can click on question board to stop and restart or quit at any time.","Next");
+            if(wrongOrCorrect == 0)
+                sequence.addSequenceItem(
+                    new MaterialShowcaseView.Builder(this)
+                            .setTarget(correctButton)
+                            .setContentText("I'll help you with this one - since this one is correct. Tap on correct.")
+                            .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                            .setDismissOnTargetTouch(true)
+                            .setTargetTouchable(true)
+                            .build()
+                );
+            else
+                sequence.addSequenceItem(
+                        new MaterialShowcaseView.Builder(this)
+                                .setTarget(wrongButton)
+                                .setContentText("I'll help you with this one - since this one is wrong. Tap on wrong.")
+                                .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                                .setDismissOnTargetTouch(true)
+                                .setTargetTouchable(true)
+                                .build()
+                );
+            sequence.addSequenceItem(userFeedback,"You will get a feedback based on your answer. Keep an eye on the background as the color changes with timer!","Done");
+            sequence.addSequenceItem(
+                    new MaterialShowcaseView.Builder(this)
+                            .setTarget(quickMathQuestion)
+                            .setContentText("Tap on question board to stop and open up the scoreboard. And you are all set!")
+                            .setMaskColour(getResources().getColor(R.color.colorAccent50))
+                            .setDismissOnTargetTouch(true)
+                            .setTargetTouchable(true)
+                            .build()
+            );
+            sequence.start();
+
         }
     }
     @Override
@@ -171,6 +213,7 @@ public class QuickMath extends AppCompatActivity {
      *
     * */
     public void showPopUp(View view){
+        countDownTimer.cancel();
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
@@ -502,7 +545,7 @@ public class QuickMath extends AppCompatActivity {
     //Timer that keeps track of time
     public void timer(){
 //        int time = Integer.parseInt(timerDuration) * 1000;
-        new CountDownTimer(30000,1000) {
+        countDownTimer = new CountDownTimer(30000,1000) {
 
             @Override
             public void onTick(long millisUntilFinished) {
