@@ -237,6 +237,7 @@ public class QuickMath extends AppCompatActivity {
      *
     * */
     public void showPopUp(View view){
+        boolean newHigh = false;
         if(addition && subtraction && multiplication && division){
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("quickMathHighScore",0);
@@ -247,20 +248,25 @@ public class QuickMath extends AppCompatActivity {
                 editor.putInt("quickMathHighScore",largest);
                 editor.putInt("quickMathHighScoreWrong",totalAnswered);
                 editor.apply();
+                newHigh = true;
             }
             editor.putInt("timesPlayed",timesPlayed).apply();
         }
         countDownTimer.cancel();
-        if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
-            winningMessage.setText(getString(R.string.hey_there_genius));
-        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
-            winningMessage.setText(getString(R.string.unbelievable));
-        }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
-            winningMessage.setText(getString(R.string.are_you_even));
-        }else if(numberOfQuestions == 0){
-            winningMessage.setText(getString(R.string.afk_text));
+        if(newHigh){
+            winningMessage.setText("NEW HIGH SCORE!");
         }else {
-            winningMessage.setText(getString(R.string.need_more_practice));
+            if (numberOfQuestions - score < 4 && numberOfQuestions > 10) {
+                winningMessage.setText(getString(R.string.hey_there_genius));
+            } else if (numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
+                winningMessage.setText(getString(R.string.unbelievable));
+            } else if (numberOfQuestions < 10 && numberOfQuestions > 1) {
+                winningMessage.setText(getString(R.string.are_you_even));
+            } else if (numberOfQuestions == 0) {
+                winningMessage.setText(getString(R.string.afk_text));
+            } else {
+                winningMessage.setText(getString(R.string.need_more_practice));
+            }
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
         if(numberOfQuestions >= 10) {
@@ -290,6 +296,7 @@ public class QuickMath extends AppCompatActivity {
     }
 
     public void showPopUp(){
+        boolean newHigh = false;
         if(addition && subtraction && multiplication && division && timer) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("quickMathHighScore", 0);
@@ -300,19 +307,24 @@ public class QuickMath extends AppCompatActivity {
                 editor.putInt("quickMathHighScore", largest);
                 editor.putInt("quickMathHighScoreWrong", totalAnswered);
                 editor.apply();
+                newHigh = true;
             }
             editor.putInt("timesPlayed", timesPlayed).apply();
         }
-        if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
-            winningMessage.setText(getString(R.string.hey_there_genius));
-        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
-            winningMessage.setText(getString(R.string.unbelievable));
-        }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
-            winningMessage.setText(getString(R.string.are_you_even));
-        }else if(numberOfQuestions == 0){
-            winningMessage.setText(getString(R.string.afk_text));
+        if(newHigh){
+            winningMessage.setText("NEW HIGH SCORE!");
         }else {
-            winningMessage.setText(getString(R.string.need_more_practice));
+            if (numberOfQuestions - score < 4 && numberOfQuestions > 10) {
+                winningMessage.setText(getString(R.string.hey_there_genius));
+            } else if (numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
+                winningMessage.setText(getString(R.string.unbelievable));
+            } else if (numberOfQuestions < 10 && numberOfQuestions > 1) {
+                winningMessage.setText(getString(R.string.are_you_even));
+            } else if (numberOfQuestions == 0) {
+                winningMessage.setText(getString(R.string.afk_text));
+            } else {
+                winningMessage.setText(getString(R.string.need_more_practice));
+            }
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
         if(numberOfQuestions >= 10) {

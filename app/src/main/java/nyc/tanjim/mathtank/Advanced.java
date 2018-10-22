@@ -200,6 +200,7 @@ public class Advanced extends AppCompatActivity {
         mediaPlayer.release();
     }
     public void showPopUp(View view){
+        boolean newHigh = false;
         if(addition && subtraction && adddiv && addmult && subdiv && submult && sqr && sqrt && cube) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("advancedHighScore", 0);
@@ -213,18 +214,23 @@ public class Advanced extends AppCompatActivity {
                 editor.putString("advancedTimeTaken", timeTaken).apply();
                 editor.putInt("advancedHighScoreTotal", numberOfQuestions).apply();
                 scoreChronometer.stop();
+                newHigh = true;
             }
         }
-        if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
-            winningMessage.setText(getString(R.string.hey_there_genius));
-        }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {
-            winningMessage.setText(getString(R.string.unbelievable));
-        }else if(numberOfQuestions < 10 && numberOfQuestions > 1){
-            winningMessage.setText(getString(R.string.are_you_even));
-        }else if(numberOfQuestions == 0){
-            winningMessage.setText(getString(R.string.afk_text));
+        if(newHigh){
+            winningMessage.setText("NEW HIGH SCORE!");
         }else {
-            winningMessage.setText(getString(R.string.need_more_practice));
+            if (numberOfQuestions - score < 4 && numberOfQuestions > 10) {
+                winningMessage.setText(getString(R.string.hey_there_genius));
+            } else if (numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
+                winningMessage.setText(getString(R.string.unbelievable));
+            } else if (numberOfQuestions < 10 && numberOfQuestions > 1) {
+                winningMessage.setText(getString(R.string.are_you_even));
+            } else if (numberOfQuestions == 0) {
+                winningMessage.setText(getString(R.string.afk_text));
+            } else {
+                winningMessage.setText(getString(R.string.need_more_practice));
+            }
         }
         scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
         if(numberOfQuestions > 20) {
