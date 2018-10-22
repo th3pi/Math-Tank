@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android" android:opacity="opaque">
+    <item android:drawable="@drawable/question_board"/>
+
+    <item android:drawable="@raw/splash"/>
+</layer-list>

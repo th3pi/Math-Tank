@@ -9,7 +9,19 @@
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 
+    <style name="AppThemeDark" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/qboard_black</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">#494949</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+
     <style name="AppTheme.Launcher">
+        <item name="android:windowBackground">@drawable/launch_screen</item>
+    </style>
+
+    <style name="AppThemeDark.Launcher">
         <item name="android:windowBackground">@drawable/launch_screen</item>
     </style>
 
@@ -17,7 +29,16 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/qboard_black</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">#373737</item>
+        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+    </style>
+    <style name="AppThemeWActionBarDark" parent="Theme.AppCompat.DayNight.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:textColor">#cfcfcf</item>
+        <item name="android:textColorPrimary">#cfcfcf</item>
+        <item name="android:textColorSecondary">#9e9e9e</item>
+        <item name="colorAccent">#cfcfcf</item>
+        <item name="android:background">@color/qboard_black</item>
         <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
     </style>
 

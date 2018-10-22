@@ -11,6 +11,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
@@ -19,6 +20,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.Chronometer;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -52,6 +54,9 @@ public class TimeTrials extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private Boolean mute;
     boolean ranBefore;
+    private SharedPreferences scorePreference;
+    private Chronometer chronometer;
+    private long elapsedMillis;
 
 
     //Boolean values to check user preference.
@@ -62,6 +67,10 @@ public class TimeTrials extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_time_trials);
+        scorePreference = getSharedPreferences("highScore",MODE_PRIVATE);
+        chronometer = new Chronometer(this);
+        chronometer.setBase(SystemClock.elapsedRealtime());
+        chronometer.start();
         TextView whichOneIsCorrect = findViewById(R.id.whichOneIsCorrect);
         timeLeftText = findViewById(R.id.timeLeftText);
         scoreText = findViewById(R.id.scoreText);
@@ -97,9 +106,11 @@ public class TimeTrials extends AppCompatActivity {
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
             constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
-            }
+            getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
+            button0.setBackground(getDrawable(R.drawable.main_menu_button_bg_dk));
+            button1.setBackground(getDrawable(R.drawable.main_menu_button_og_dk));
+            button2.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
+            button3.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
         }
         /*
           Required to get user's preferences
@@ -250,6 +261,19 @@ public class TimeTrials extends AppCompatActivity {
         }.start();
     }
     public void showPopUp(){
+        if(addition && subtraction && multiplication && division && timer) {
+            SharedPreferences.Editor editor = scorePreference.edit();
+            int largest = scorePreference.getInt("timeTrialsHighScore", 0);
+            String timeTaken = scorePreference.getString("timeTaken", "00:00");
+            if (score > largest) {
+                elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+                timeTaken = Integer.toString((int) elapsedMillis / 1000);
+                largest = score;
+                editor.putInt("timeTrialsHighScore", largest).apply();
+                editor.putString("timeTaken", timeTaken).apply();
+                chronometer.stop();
+            }
+        }
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {

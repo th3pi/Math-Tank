@@ -9,6 +9,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Handler;
+import android.os.SystemClock;
 import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -42,8 +43,10 @@ public class Advanced extends AppCompatActivity {
     private Animation buttonsInit;
     private Dialog scorePopUp;
     private Chronometer chronometer;
+    private Chronometer scoreChronometer;
     private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute;
     private MediaPlayer mediaPlayer;
+    private SharedPreferences scorePreference;
 
 
 
@@ -51,6 +54,10 @@ public class Advanced extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced);
+        scorePreference = getSharedPreferences("highScore",MODE_PRIVATE);
+        scoreChronometer = new Chronometer(this);
+        scoreChronometer.setBase(SystemClock.elapsedRealtime());
+        scoreChronometer.start();
         button0 = findViewById(R.id.button0);
         button1 = findViewById(R.id.button1);
         button2 = findViewById(R.id.button2);
@@ -74,9 +81,11 @@ public class Advanced extends AppCompatActivity {
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.advancedBg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
-            }
+            button0.setBackground(getDrawable(R.drawable.main_menu_button_bg_dk));
+            button1.setBackground(getDrawable(R.drawable.main_menu_button_og_dk));
+            button2.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
+            button3.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
         }
         sqr = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE,false);
         sqrt = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE_ROOT,false);
@@ -191,6 +200,21 @@ public class Advanced extends AppCompatActivity {
         mediaPlayer.release();
     }
     public void showPopUp(View view){
+        if(addition && subtraction && adddiv && addmult && subdiv && submult && sqr && sqrt && cube) {
+            SharedPreferences.Editor editor = scorePreference.edit();
+            int largest = scorePreference.getInt("advancedHighScore", 0);
+            String timeTaken;
+            long elapsedMillis;
+            if (score > largest) {
+                largest = score;
+                elapsedMillis = SystemClock.elapsedRealtime() - scoreChronometer.getBase();
+                timeTaken = Integer.toString((int) elapsedMillis / 1000);
+                editor.putInt("advancedHighScore", largest).apply();
+                editor.putString("advancedTimeTaken", timeTaken).apply();
+                editor.putInt("advancedHighScoreTotal", numberOfQuestions).apply();
+                scoreChronometer.stop();
+            }
+        }
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5 && numberOfQuestions > 10) {

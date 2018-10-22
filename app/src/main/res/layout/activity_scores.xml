@@ -4,17 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/scoresBg"
+    android:background="@drawable/main_menu_gradient_1"
     tools:context=".Scores">
     <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/main_menu_gradient_1"
         tools:context=".Scores">
 
         <TextView
-            android:id="@+id/textView"
+            android:id="@+id/highScoreTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -23,7 +24,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:fontFamily="@font/passion_one_bold"
-            android:text="High Scores"
+            android:text="@string/highscore"
             android:textColor="#fff"
             android:textSize="60sp"
             android:textStyle="bold"
@@ -45,7 +46,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/main_menu_button_bg"
-            android:text="Quickmath High Score: 12"
+            android:text="@string/quickMathHighScore"
             android:fontFamily="@font/quicksand_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:padding="15dp"
@@ -63,7 +64,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="0dp"
-            android:text="SCORE: 12"
+            android:text="@string/qScore"
             android:background="@drawable/main_menu_button_bg"
             android:fontFamily="@font/quicksand_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -81,7 +82,7 @@
             android:layout_marginLeft="0dp"
             android:layout_marginEnd="8dp"
             android:layout_marginRight="0dp"
-            android:text="SCORE: 12"
+            android:text="@string/timesPlayed"
             android:background="@drawable/main_menu_button_bg"
             android:fontFamily="@font/quicksand_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
@@ -111,7 +112,7 @@
             android:fontFamily="@font/quicksand_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:padding="15dp"
-            android:text="TimeTrials Score"
+            android:text="@string/timeTrialsHighScore"
             android:textSize="20sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -165,7 +166,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginRight="8dp"
             android:background="@drawable/main_menu_button_rd"
-            android:text="Advanced Score"
+            android:text="@string/advancedHighScore"
             android:fontFamily="@font/quicksand_regular"
             android:foreground="?attr/selectableItemBackgroundBorderless"
             android:padding="15dp"
@@ -215,7 +216,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.03" />
+            app:layout_constraintGuide_percent="0.05" />
 
 
 

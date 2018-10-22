@@ -37,12 +37,15 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        setTheme(R.style.AppThemeWActionBar);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if(prefs.getBoolean(KEY_DARK_MODE_SWITCH,false)){
+            setTheme(R.style.AppThemeWActionBarDark);
+        }else{
+            setTheme(R.style.AppThemeWActionBar);
+        }
         getSupportFragmentManager().beginTransaction()
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         prefs.registerOnSharedPreferenceChangeListener(this);
     }
 
@@ -89,6 +92,43 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
             editor.putBoolean(KEY_ADDITION_ADVANCED,true);
             editor.apply();
             Toast.makeText(SettingsActivity.this,"Please keep at least one type enabled",Toast.LENGTH_SHORT).show();
+        }
+        if(key.equals(KEY_ADDITION_ONLY_QUICKMATH) || key.equals(KEY_SUBTRACTION_ONLY_QUICKMATH) || key.equals(KEY_MULTIPLICATION_ONLY_QUICKMATH) || key.equals(KEY_DIVISION_ONLY_QUICKMATH)) {
+            if (!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_QUICKMATH, false)) {
+                Toast.makeText(SettingsActivity.this, "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(key.equals(KEY_ADDITION_ONLY_TIMETRIALS) || key.equals(KEY_SUBTRACTION_ONLY_TIMETRIALS) || key.equals(KEY_MULTIPLICATION_ONLY_TIMETRIALS) || key.equals(KEY_DIVISION_ONLY_TIMETRIALS)) {
+            if (!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_TIMETRIALS, false)) {
+                Toast.makeText(SettingsActivity.this, "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT).show();
+            }
+        }
+        if(key.equals(KEY_ADDITION_ADVANCED)
+                || key.equals(KEY_SUBTRACTION_ADVANCED)
+                || key.equals(KEY_ADDITION_X_MULTIPLICATION)
+                || key.equals(KEY_SUBTRACTION_X_MULTIPLICATION)
+                || key.equals(KEY_ADDITION_BY_DIVISION)
+                || key.equals(KEY_SUBTRACTION_BY_DIVISION)
+                || key.equals(KEY_SQUARE)
+                || key.equals(KEY_SQUARE_ROOT)
+                || key.equals(KEY_CUBE)){
+            if(!sharedPreferences.getBoolean(KEY_ADDITION_ADVANCED,false)
+                    || !sharedPreferences.getBoolean(KEY_SUBTRACTION_ADVANCED,false)
+                    || !sharedPreferences.getBoolean(KEY_ADDITION_X_MULTIPLICATION,false)
+                    || !sharedPreferences.getBoolean(KEY_SUBTRACTION_X_MULTIPLICATION,false)
+                    || !sharedPreferences.getBoolean(KEY_ADDITION_BY_DIVISION,false)
+                    || !sharedPreferences.getBoolean(KEY_SUBTRACTION_BY_DIVISION,false)
+                    || !sharedPreferences.getBoolean(KEY_SQUARE,false)
+                    || !sharedPreferences.getBoolean(KEY_SQUARE_ROOT,false)
+                    || !sharedPreferences.getBoolean(KEY_CUBE,false)){
+                Toast.makeText(SettingsActivity.this,"Score ranking disabled: Enable all types of question to re-enable it.",Toast.LENGTH_SHORT).show();
+            }
+        }
+        
+        if(key.equals(KEY_TIMER) || key.equals(KEY_TIMER_TIMETRIALS)){
+            if(!sharedPreferences.getBoolean(KEY_TIMER,false) || !sharedPreferences.getBoolean(KEY_TIMER_TIMETRIALS,false)){
+                Toast.makeText(SettingsActivity.this,"Score ranking disabled: Enable timer to re-enable it.",Toast.LENGTH_SHORT).show();
+            }
         }
     }
 

@@ -70,6 +70,10 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             if(darkModePref) {
                 backgroundAnimationDark();
+                quickMathButton.setBackground(getDrawable(R.drawable.main_menu_button_bg_dk));
+                timeTrialsButton.setBackground(getDrawable(R.drawable.main_menu_button_og_dk));
+                advancedMathButton.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
+                highScoreButton.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
             }else{
                 backgroundAnimation();
             }

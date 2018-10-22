@@ -110,6 +110,8 @@ public class QuickMath extends AppCompatActivity {
             if(darkModePref){
                 ConstraintLayout constraintLayout = (findViewById(R.id.quickMathBg));
                 constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
+                correctButton.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+                wrongButton.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                     getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
                 }
@@ -235,17 +237,19 @@ public class QuickMath extends AppCompatActivity {
      *
     * */
     public void showPopUp(View view){
-        SharedPreferences.Editor editor = scorePreference.edit();
-        int largest = scorePreference.getInt("quickMathHighScore",0);
-        int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
-        if(score > largest){
-            totalAnswered = numberOfQuestions;
-            largest = score;
-            editor.putInt("quickMathHighScore",largest);
-            editor.putInt("quickMathHighScoreWrong",totalAnswered);
-            editor.apply();
+        if(addition && subtraction && multiplication && division){
+            SharedPreferences.Editor editor = scorePreference.edit();
+            int largest = scorePreference.getInt("quickMathHighScore",0);
+            int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
+            if(score > largest){
+                totalAnswered = numberOfQuestions;
+                largest = score;
+                editor.putInt("quickMathHighScore",largest);
+                editor.putInt("quickMathHighScoreWrong",totalAnswered);
+                editor.apply();
+            }
+            editor.putInt("timesPlayed",timesPlayed).apply();
         }
-        editor.putInt("timesPlayed",timesPlayed).apply();
         countDownTimer.cancel();
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
@@ -286,17 +290,19 @@ public class QuickMath extends AppCompatActivity {
     }
 
     public void showPopUp(){
-        SharedPreferences.Editor editor = scorePreference.edit();
-        int largest = scorePreference.getInt("quickMathHighScore",0);
-        int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
-        if(score > largest){
-            totalAnswered = numberOfQuestions;
-            largest = score;
-            editor.putInt("quickMathHighScore",largest);
-            editor.putInt("quickMathHighScoreWrong",totalAnswered);
-            editor.apply();
+        if(addition && subtraction && multiplication && division && timer) {
+            SharedPreferences.Editor editor = scorePreference.edit();
+            int largest = scorePreference.getInt("quickMathHighScore", 0);
+            int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong", 0);
+            if (score > largest) {
+                totalAnswered = numberOfQuestions;
+                largest = score;
+                editor.putInt("quickMathHighScore", largest);
+                editor.putInt("quickMathHighScoreWrong", totalAnswered);
+                editor.apply();
+            }
+            editor.putInt("timesPlayed", timesPlayed).apply();
         }
-        editor.putInt("timesPlayed",timesPlayed).apply();
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {

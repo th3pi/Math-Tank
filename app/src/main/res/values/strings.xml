@@ -199,5 +199,18 @@
     <!--What does kids mode do-->
     <string name="kidspref">Kids mode tones down the complexity of QuickMaths questions. Other modes are coming soon.</string>
     <string name="title_activity_scores">Scores</string>
+
+    <!--high score page-->
+    <string name="highscore">HIGH SCORES</string>
+    <string name="quickMathHighScore">Quick math stats</string>
+    <string name="timeTrialsHighScore">TimeTrials Stats</string>
+    <string name="advancedHighScore">Advanced Stats</string>
+    <string name="qScore">Highest: %1$d of %2$d</string>
+    <string name="aScore">Highest: %1$d of %2$d</string>
+    <string name="timesPlayed">Times played: %1$d</string>
+    <string name="tScore">Highest: %1$d</string>
+    <string name="timeTaken">Time taken: %1$s seconds</string>
+    <string name="aTimeTaken">Time taken: %1$s seconds</string>
+
 </resources>
 
