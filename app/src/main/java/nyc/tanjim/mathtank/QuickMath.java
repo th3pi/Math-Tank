@@ -42,7 +42,7 @@ public class QuickMath extends AppCompatActivity {
     private TextView timerText, quickMathQuestion, quickMathScore, winningMessage;
     private TextView scoreMessage, iqMessage, userFeedback;
     private Button correctButton, wrongButton;
-    private int correctAnswer, score, wrongOrCorrect, numberOfQuestions, feedBackNum, musicLength;
+    private int correctAnswer, score, wrongOrCorrect, numberOfQuestions, feedBackNum, musicLength, timesPlayed;
     private Dialog scorePopUp;
     private Vibrator vibrator;
     private Animation correctAnimation;
@@ -53,12 +53,15 @@ public class QuickMath extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private CountDownTimer countDownTimer;
     private Button playAgainButton;
+    private SharedPreferences scorePreference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_math);
-
+        scorePreference = getSharedPreferences("highScore",MODE_PRIVATE);
+        timesPlayed = scorePreference.getInt("timesPlayed",0);
+        timesPlayed++;
         timerText = findViewById(R.id.stopwatchText);
         quickMathQuestion = findViewById(R.id.quickMathQuestion);
         quickMathScore = findViewById(R.id.quickMathsScore);
@@ -232,6 +235,17 @@ public class QuickMath extends AppCompatActivity {
      *
     * */
     public void showPopUp(View view){
+        SharedPreferences.Editor editor = scorePreference.edit();
+        int largest = scorePreference.getInt("quickMathHighScore",0);
+        int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
+        if(score > largest){
+            totalAnswered = numberOfQuestions;
+            largest = score;
+            editor.putInt("quickMathHighScore",largest);
+            editor.putInt("quickMathHighScoreWrong",totalAnswered);
+            editor.apply();
+        }
+        editor.putInt("timesPlayed",timesPlayed).apply();
         countDownTimer.cancel();
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
@@ -272,6 +286,17 @@ public class QuickMath extends AppCompatActivity {
     }
 
     public void showPopUp(){
+        SharedPreferences.Editor editor = scorePreference.edit();
+        int largest = scorePreference.getInt("quickMathHighScore",0);
+        int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
+        if(score > largest){
+            totalAnswered = numberOfQuestions;
+            largest = score;
+            editor.putInt("quickMathHighScore",largest);
+            editor.putInt("quickMathHighScoreWrong",totalAnswered);
+            editor.apply();
+        }
+        editor.putInt("timesPlayed",timesPlayed).apply();
         if(numberOfQuestions - score < 4 && numberOfQuestions > 10){
             winningMessage.setText(getString(R.string.hey_there_genius));
         }else if(numberOfQuestions - score > 0 && numberOfQuestions - score < 5) {
@@ -308,22 +333,11 @@ public class QuickMath extends AppCompatActivity {
                 finish();
             }
         });
+
     }
 
     //Pop up Play again button
     public void playAgain(View view){
-        SharedPreferences sharedPreferences = getSharedPreferences("highScore",MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        int largest = sharedPreferences.getInt("quickMathHighScore",0);
-        int totalAnswered = sharedPreferences.getInt("quickMathHighScoreWrong",0);
-        if(score > largest){
-            totalAnswered = numberOfQuestions;
-            largest = score;
-            editor.putInt("quickMathHighScore",largest);
-            editor.apply();
-        }
-        Log.i("HIGH SCORE",Integer.toString(largest));
-        Log.i("TOTAL ANSWERED",Integer.toString(totalAnswered));
         finish();
         startActivity(new Intent(getApplicationContext(), QuickMathLoadingScreen.class));
     }

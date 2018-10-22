@@ -28,6 +28,7 @@ import com.google.android.gms.ads.MobileAds;
 
 public class MainMenu extends AppCompatActivity implements SharedPreferences.OnSharedPreferenceChangeListener {
     private InterstitialAd interstitialAd;
+    private Button highScoreButton;
     private TextView introText;
     private MediaPlayer mediaPlayer;
     private SharedPreferences prefs;
@@ -49,6 +50,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         quickMathButton = findViewById(R.id.quickMathsButton);
         timeTrialsButton = findViewById(R.id.timeTrialsButton);
         advancedMathButton = findViewById(R.id.advancedMathButton);
+        highScoreButton = findViewById(R.id.highScoreButton);
 
         //Animation for the game mode buttons
         fromLeftQuickMath = AnimationUtils.loadAnimation(this,R.anim.from_left_quick_math);
@@ -57,6 +59,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         timeTrialsButton.setAnimation(fromLeftTimeTrials);
         fromLeftAdvanced = AnimationUtils.loadAnimation(this, R.anim.from_left_advanced);
         advancedMathButton.setAnimation(fromLeftAdvanced);
+        highScoreButton.setAnimation(fromLeftAdvanced);
         PreferenceManager.setDefaultValues(this,R.xml.preference,false);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         sharedPref.registerOnSharedPreferenceChangeListener(this);
@@ -175,5 +178,9 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         if(key.equals(SettingsActivity.KEY_DARK_MODE_SWITCH) || key.equals(SettingsActivity.KEY_MUTE_MUSIC)){
             recreate();
         }
+    }
+
+    public void openHighScore(View view){
+        startActivity(new Intent(this, Scores.class));
     }
 }

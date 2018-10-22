@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        ads:layout_constraintGuide_percent="0.32"
+        ads:layout_constraintGuide_percent="0.30"
         app:layout_constraintGuide_begin="153dp" />
 
     <Button
@@ -205,5 +205,29 @@
         android:orientation="horizontal"
         ads:layout_constraintGuide_percent="0.05"
         app:layout_constraintGuide_begin="20dp" />
+
+    <Button
+        android:id="@+id/highScoreButton"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:background="@drawable/main_menu_button_gr"
+        android:fontFamily="@font/quicksand_regular"
+        android:foreground="?attr/selectableItemBackgroundBorderless"
+        android:onClick="openHighScore"
+        android:text="@string/high_score"
+        android:textSize="15sp"
+        android:typeface="sans"
+        ads:layout_constraintBottom_toTopOf="@+id/mainMenuAd"
+        ads:layout_constraintEnd_toEndOf="parent"
+        ads:layout_constraintHorizontal_bias="0.0"
+        ads:layout_constraintStart_toStartOf="parent"
+        ads:layout_constraintTop_toBottomOf="@+id/advancedMathButton"
+        ads:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>
