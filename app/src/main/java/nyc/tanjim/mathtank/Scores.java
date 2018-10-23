@@ -107,4 +107,8 @@ public class Scores extends AppCompatActivity {
         });
     }
 
+    public void openScoredHow(View view){
+        startActivity(new Intent(this,scoredHow.class));
+    }
+
 }

@@ -59,7 +59,8 @@
         <activity
             android:name=".Scores"
             android:label="@string/title_activity_scores"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity android:name=".scoredHow"></activity>
     </application>
 
 </manifest>

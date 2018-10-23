@@ -113,7 +113,7 @@
     <!--Quick Maths Loading Screen-->
     <string name="color">Hint: Keep an eye on the background color. It indicates how much time you have remaining.</string>
     <string name="panic">Suggestion: Don\'t panic when you see the color change. You still have about 15 seconds left.</string>
-    <string name="wrongs">Too many mistakes? What\'s stopping you from starting over? QuickMaths is always only 30 seconds long.</string>
+    <string name="wrongs">Too many mistakes? What\'s stopping you from starting over? Quick maths is always only 30 seconds long.</string>
     <!--Time trials loading screen -->
     <string name="time_resets">Hint: Time resets every time you answer correctly</string>
     <string name="difficulty">Hint: Difficulty varies from question to question</string>
@@ -191,13 +191,15 @@
     <string name="timeTrialsAd">ca-app-pub-3697147059223741/5392405677</string>
     <string name="mainMenuad">ca-app-pub-3697147059223741/5739179592</string>
     <string name="advancedAd">ca-app-pub-3697147059223741/5707390002</string>
+    <string name="scoresAd">ca-app-pub-3697147059223741/2090227205</string>
+    <string name="scoredHowAd">ca-app-pub-3697147059223741/2435225026</string>
 
     <!--Error-->
     <string name="something">Sorry something went wrong. Couldn\'t calibrate skill level.</string>
 
 
     <!--What does kids mode do-->
-    <string name="kidspref">Kids mode tones down the complexity of QuickMaths questions. Other modes are coming soon.</string>
+    <string name="kidspref">Kids mode tones down the complexity of Quick maths questions. Other modes are coming soon.</string>
     <string name="title_activity_scores">Scores</string>
 
     <!--high score page-->
@@ -211,6 +213,15 @@
     <string name="tScore">Highest: %1$d</string>
     <string name="timeTaken">Time taken: %1$s seconds</string>
     <string name="aTimeTaken">Time taken: %1$d seconds</string>
-
+    <string name="learnhowwe"><u>Learn how we score you</u></string>
+    
+    <!--scoredhow strings-->
+    <string name="quickmath">Quick Math</string>
+    <string name="timetrials">Timetrials</string>
+    <string name="advanced">Advanced</string>
+    <string name="quickmathrules">You\'re scored based on the difference between quantity, answers correct and wrong. You\'re not scored when: any type of questions are disabled, timer is disabled or kids mode is enabled.</string>
+    <string name="timetrialsrules">Timetrials scoring is based on the how many you got right and within what time. The elo is calculated by dividing how much you scored by how much time you took (in seconds). Same rules apply here.
+    All types of questions need to remain enabled, timer enabled and kids mode disabled.</string>
+    <string name="advancederules">Advanced is a mixture of Quick math and Timetrials. You are scored based off of the difference between total answered, total correct and how much time you took to get there. A score will not be counted as the new high score if either of the validations are not true.</string>
 </resources>
 
