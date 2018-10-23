@@ -86,7 +86,14 @@ public class QuickMath extends AppCompatActivity {
         kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH, false);
         timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER, false);
         mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
+        final Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
 //        timerDuration = sharedPref.getString(SettingsActivity.KEY_TIMER,"30");
+        if(darkModePref){
+            ConstraintLayout constraintLayout = findViewById(R.id.quickMathBg);
+            constraintLayout.setBackground(getDrawable(R.drawable.transit_1));
+            correctButton.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+            wrongButton.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
+        }
 
         //Changes the background and status bar color when the timer hits 15 seconds
         generateQuestion();
@@ -102,11 +109,13 @@ public class QuickMath extends AppCompatActivity {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         getWindow().setStatusBarColor(Color.RED);
                     }
+                    if(darkModePref){
+                        getWindow().setStatusBarColor(Color.GRAY);
+                    }
                 }
             }, 15000);
         }
         else {
-            Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
             if(darkModePref){
                 ConstraintLayout constraintLayout = (findViewById(R.id.quickMathBg));
                 constraintLayout.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.color.qboard_black));
@@ -241,7 +250,7 @@ public class QuickMath extends AppCompatActivity {
             countDownTimer.cancel();
         }
         boolean newHigh = false;
-        if(addition && subtraction && multiplication && division){
+        if(addition && subtraction && multiplication && division && !kidsmode){
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("quickMathHighScore",0);
             int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);

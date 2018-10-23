@@ -262,7 +262,7 @@ public class TimeTrials extends AppCompatActivity {
     }
     public void showPopUp(){
         boolean newHigh = false;
-        if(addition && subtraction && multiplication && division && timer) {
+        if(addition && subtraction && multiplication && division && timer && !kidsmode) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("timeTrialsHighScore", 0);
             String timeTaken = scorePreference.getString("timeTaken", "00:00");

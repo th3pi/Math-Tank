@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
-    android:layout_width="375dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:paddingBottom="16dp"
     android:paddingTop="16dp"
@@ -12,15 +12,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:background="@color/cgray">
+        android:background="@color/cgray"
+        >
         <TextView
             android:id="@+id/winningMessage"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Congratulations!"
             android:layout_gravity="center"
+            android:gravity="center"
             android:textColor="#fff"
-            android:textSize="35sp"
+            android:textSize="30sp"
             android:fontFamily="@font/permanentmarker_regular"
             />
     </LinearLayout>
@@ -57,7 +59,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_gravity="center"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp">
         <Button
             android:id="@+id/playAgainButton"
             android:fontFamily="@font/permanentmarker_regular"

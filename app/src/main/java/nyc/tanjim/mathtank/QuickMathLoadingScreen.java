@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import java.util.Random;
 
+import es.dmoral.toasty.Toasty;
+
 
 public class QuickMathLoadingScreen extends AppCompatActivity {
     private static int loadingScreenTime = 4000;
@@ -29,9 +31,6 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
-            if(quickMathTimer) {
-                Toast.makeText(this, "Dark mode not compatible with QuickMath.", Toast.LENGTH_LONG).show();
-            }
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }
@@ -71,6 +70,10 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
 
             }
         }.start();
+
+        if(SettingsActivity.rankingDisabled){
+            Toasty.error(QuickMathLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
+        }
     }
     @Override
     public void onBackPressed() {

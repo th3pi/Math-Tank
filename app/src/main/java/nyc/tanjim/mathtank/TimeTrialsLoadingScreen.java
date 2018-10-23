@@ -11,8 +11,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
+
+import es.dmoral.toasty.Toasty;
 
 public class TimeTrialsLoadingScreen extends AppCompatActivity {
     private static int loadingScreenTime = 4000;
@@ -66,6 +69,10 @@ public class TimeTrialsLoadingScreen extends AppCompatActivity {
 
             }
         }.start();
+
+        if(SettingsActivity.rankingDisabled){
+            Toasty.error(TimeTrialsLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
+        }
     }
     @Override
     public void onBackPressed() {

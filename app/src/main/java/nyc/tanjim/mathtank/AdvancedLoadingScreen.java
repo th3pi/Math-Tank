@@ -10,9 +10,11 @@ import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.Random;
 
+import es.dmoral.toasty.Toasty;
 
 
 public class AdvancedLoadingScreen extends AppCompatActivity {
@@ -67,6 +69,10 @@ public class AdvancedLoadingScreen extends AppCompatActivity {
 
             }
         }.start();
+
+        if(SettingsActivity.rankingDisabled){
+            Toasty.error(AdvancedLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
+        }
     }
     @Override
     public void onBackPressed()

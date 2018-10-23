@@ -44,7 +44,7 @@ public class Advanced extends AppCompatActivity {
     private Dialog scorePopUp;
     private Chronometer chronometer;
     private Chronometer scoreChronometer;
-    private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute;
+    private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute, kidsmode;
     private MediaPlayer mediaPlayer;
     private SharedPreferences scorePreference;
 
@@ -96,6 +96,7 @@ public class Advanced extends AppCompatActivity {
         adddiv = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_BY_DIVISION,false);
         submult = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_X_MULTIPLICATION,false);
         subdiv = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_BY_DIVISION,false);
+        kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH,false);
 
         mediaPlayer = MediaPlayer.create(this,R.raw.the_duel);
         mediaPlayer.setLooping(true);
@@ -201,7 +202,7 @@ public class Advanced extends AppCompatActivity {
     }
     public void showPopUp(View view){
         boolean newHigh = false;
-        if(addition && subtraction && adddiv && addmult && subdiv && submult && sqr && sqrt && cube) {
+        if(addition && subtraction && adddiv && addmult && subdiv && submult && sqr && sqrt && cube && !kidsmode) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("advancedHighScore", 0);
             int largestDifference = scorePreference.getInt("advancedDifference",100);
