@@ -211,7 +211,7 @@
     <string name="aScore">Highest: %1$d of %2$d</string>
     <string name="timesPlayed">Times played: %1$d</string>
     <string name="tScore">Highest: %1$d</string>
-    <string name="timeTaken">Time taken: %1$s seconds</string>
+    <string name="timeTaken">Time taken: %1$d seconds</string>
     <string name="aTimeTaken">Time taken: %1$d seconds</string>
     <string name="learnhowwe"><u>Learn how we score you</u></string>
     

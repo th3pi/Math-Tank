@@ -53,7 +53,7 @@ public class Scores extends AppCompatActivity {
         int advancedHighScore = preferences.getInt("advancedHighScore",0);
         int advancedHighScoreTotal = preferences.getInt("advancedHighScoreTotal",0);
         int advancedTimeTaken = preferences.getInt("madvancedTimeTaken",1200);
-        String timeTrialsTimeTaken = preferences.getString("timeTaken","00:00");
+        int timeTrialsTimeTaken = preferences.getInt("tTimeTaken",1200);
         qScore.setText(getString(R.string.qScore,quickTimeHighScore,quickTimeHighScoreTotal));
         timesPlayed.setText(getString(R.string.timesPlayed,timesPlayedText));
         tScore.setText(getString(R.string.tScore,timeTrialsHighScore));
@@ -79,11 +79,19 @@ public class Scores extends AppCompatActivity {
             }
         }
 
-        touchToReset(qScore,editor,quickMathScore,"quickMathDifference","quickMathHighScore","quickMathHighScoreWrong", "Quick Math Stats");
-        touchToReset(aScore,editor,advancedScore,"advancedDifference","advancedHighScore","advancedHighScoreTotal", "Advanced Stats");
+        if(timeTrialsTimeTaken == 1200){
+            timeTaken.setText(getString(R.string.timeTaken,0));
+        }
+        if(advancedTimeTaken == 1200){
+            aTimeTaken.setText(getString(R.string.aTimeTaken,0));
+        }
+
+        touchToReset(quickMathScore,editor,quickMathScore,"quickMathDifference","quickMathHighScore","quickMathHighScoreWrong", "Quick Math Stats");
+        touchToReset(advancedScore,editor,advancedScore,"advancedDifference","advancedHighScore","advancedHighScoreTotal", "Advanced Stats");
+        touchToReset(timeTrialsScore,editor,timeTrialsScore,null,"timeTrialsHighScore",null, "Timetrials Stats");
     }
 
-    private void touchToReset(TextView viewToBeListened, final SharedPreferences.Editor edit, final TextView title, final String firstParameter, final String secondParameter, final String thirdParameter, final String titleText){
+    private void touchToReset(TextView viewToBeListened, final SharedPreferences.Editor edit, final TextView title, final String difference, final String highScore, final String total, final String titleText){
         viewToBeListened.setOnClickListener(new View.OnClickListener() {
             int touchFive = 5;
             @Override
@@ -95,10 +103,15 @@ public class Scores extends AppCompatActivity {
                 if(touchFive == 0){
                     if(titleText.equals("Advanced Stats")){
                         edit.putInt("madvancedTimeTaken",1200).apply();
+                    }else if(titleText.equals("Timetrials Stats")){
+                        edit.putInt("tTimeTaken",1200).apply();
+                        edit.putFloat("hiddenElo",0).apply();
                     }
-                    edit.putInt(firstParameter,100).apply();
-                    edit.putInt(secondParameter,0).apply();
-                    edit.putInt(thirdParameter,0).apply();
+                    if(!titleText.equals("Timetrials Stats")) {
+                        edit.putInt(difference, 100).apply();
+                        edit.putInt(total,0).apply();
+                    }
+                    edit.putInt(highScore,0).apply();
                     title.setText(titleText);
                     Toasty.success(Scores.this,"Score reset successful",Toast.LENGTH_SHORT,true).show();
                     recreate();

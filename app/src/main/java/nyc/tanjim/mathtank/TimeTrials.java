@@ -16,6 +16,7 @@ import android.preference.PreferenceManager;
 import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -262,16 +263,24 @@ public class TimeTrials extends AppCompatActivity {
     }
     public void showPopUp(){
         boolean newHigh = false;
+        countDownTimer.cancel();
         if(addition && subtraction && multiplication && division && timer && !kidsmode) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("timeTrialsHighScore", 0);
-            String timeTaken = scorePreference.getString("timeTaken", "00:00");
-            if (score > largest) {
-                elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-                timeTaken = Integer.toString((int) elapsedMillis / 1000);
+            int largestTimeTaken = scorePreference.getInt("tTimeTaken", 1200);
+            elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+            int timeTaken = (int) elapsedMillis / 1000;
+            float hiddenElo = (float) score / timeTaken;
+            float elo = scorePreference.getFloat("hiddenElo",0);
+            Log.i("SCORE", Integer.toString(score));
+            Log.i("TIME TAKEN", Integer.toString(timeTaken));
+            Log.i("HIDDEN ELO", Float.toString(hiddenElo));
+            if (hiddenElo > elo) {
                 largest = score;
+                editor.putFloat("hiddenElo",hiddenElo).apply();
                 editor.putInt("timeTrialsHighScore", largest).apply();
-                editor.putString("timeTaken", timeTaken).apply();
+                editor.putInt("tTimeTaken", timeTaken).apply();
+                Log.i("HIDDEN ELO", Float.toString(scorePreference.getFloat("hiddenElo",0)));
                 chronometer.stop();
                 newHigh = true;
             }
