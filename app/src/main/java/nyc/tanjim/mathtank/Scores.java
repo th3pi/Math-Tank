@@ -1,5 +1,6 @@
 package nyc.tanjim.mathtank;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,9 +11,14 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import es.dmoral.toasty.Toasty;
 
 public class Scores extends AppCompatActivity {
 
@@ -39,13 +45,14 @@ public class Scores extends AppCompatActivity {
         timeTaken = findViewById(R.id.timeTaken);
         aTimeTaken = findViewById(R.id.aTimeTaken);
         SharedPreferences preferences = getSharedPreferences("highScore",MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
         int quickTimeHighScore = preferences.getInt("quickMathHighScore",0);
         int quickTimeHighScoreTotal = preferences.getInt("quickMathHighScoreWrong",0);
         int timesPlayedText = preferences.getInt("timesPlayed",0);
         int timeTrialsHighScore = preferences.getInt("timeTrialsHighScore",0);
         int advancedHighScore = preferences.getInt("advancedHighScore",0);
         int advancedHighScoreTotal = preferences.getInt("advancedHighScoreTotal",0);
-        String advancedTimeTaken = preferences.getString("advancedTimeTaken","00:00");
+        int advancedTimeTaken = preferences.getInt("madvancedTimeTaken",1200);
         String timeTrialsTimeTaken = preferences.getString("timeTaken","00:00");
         qScore.setText(getString(R.string.qScore,quickTimeHighScore,quickTimeHighScoreTotal));
         timesPlayed.setText(getString(R.string.timesPlayed,timesPlayedText));
@@ -71,6 +78,33 @@ public class Scores extends AppCompatActivity {
                 getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
             }
         }
+
+        touchToReset(qScore,editor,quickMathScore,"quickMathDifference","quickMathHighScore","quickMathHighScoreWrong", "Quick Math Stats");
+        touchToReset(aScore,editor,advancedScore,"advancedDifference","advancedHighScore","advancedHighScoreTotal", "Advanced Stats");
+    }
+
+    private void touchToReset(TextView viewToBeListened, final SharedPreferences.Editor edit, final TextView title, final String firstParameter, final String secondParameter, final String thirdParameter, final String titleText){
+        viewToBeListened.setOnClickListener(new View.OnClickListener() {
+            int touchFive = 5;
+            @Override
+            public void onClick(View v) {
+                --touchFive;
+                if(touchFive >= 0) {
+                    title.setText("Tap " + Integer.toString(touchFive) + " more time to reset");
+                }
+                if(touchFive == 0){
+                    if(titleText.equals("Advanced Stats")){
+                        edit.putInt("madvancedTimeTaken",1200).apply();
+                    }
+                    edit.putInt(firstParameter,100).apply();
+                    edit.putInt(secondParameter,0).apply();
+                    edit.putInt(thirdParameter,0).apply();
+                    title.setText(titleText);
+                    Toasty.success(Scores.this,"Score reset successful",Toast.LENGTH_SHORT,true).show();
+                    recreate();
+                }
+            }
+        });
     }
 
 }

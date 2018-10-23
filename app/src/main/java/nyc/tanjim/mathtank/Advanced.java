@@ -204,14 +204,16 @@ public class Advanced extends AppCompatActivity {
         if(addition && subtraction && adddiv && addmult && subdiv && submult && sqr && sqrt && cube) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("advancedHighScore", 0);
-            String timeTaken;
-            long elapsedMillis;
-            if (score > largest) {
+            int largestDifference = scorePreference.getInt("advancedDifference",100);
+            int difference = numberOfQuestions - score;
+            int largestTimeTaken = scorePreference.getInt("madvancedTimeTaken",1200);
+            long elapsedMillis = SystemClock.elapsedRealtime() - scoreChronometer.getBase();
+            int timeTaken = (int) elapsedMillis / 1000;
+            if (score >= largest && difference <= largestDifference && timeTaken <= largestTimeTaken) {
                 largest = score;
-                elapsedMillis = SystemClock.elapsedRealtime() - scoreChronometer.getBase();
-                timeTaken = Integer.toString((int) elapsedMillis / 1000);
+                editor.putInt("advancedDifference", difference).apply();
                 editor.putInt("advancedHighScore", largest).apply();
-                editor.putString("advancedTimeTaken", timeTaken).apply();
+                editor.putInt("madvancedTimeTaken", timeTaken).apply();
                 editor.putInt("advancedHighScoreTotal", numberOfQuestions).apply();
                 scoreChronometer.stop();
                 newHigh = true;

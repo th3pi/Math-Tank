@@ -237,14 +237,20 @@ public class QuickMath extends AppCompatActivity {
      *
     * */
     public void showPopUp(View view){
+        if(timer) {
+            countDownTimer.cancel();
+        }
         boolean newHigh = false;
         if(addition && subtraction && multiplication && division){
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("quickMathHighScore",0);
             int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
-            if(score > largest){
+            int largestDifference = scorePreference.getInt("quickMathDifference",100);
+            int difference = numberOfQuestions - score;
+            if(score > largest && difference <= largestDifference){
                 totalAnswered = numberOfQuestions;
                 largest = score;
+                editor.putInt("quickMathDifference",difference);
                 editor.putInt("quickMathHighScore",largest);
                 editor.putInt("quickMathHighScoreWrong",totalAnswered);
                 editor.apply();
@@ -252,7 +258,6 @@ public class QuickMath extends AppCompatActivity {
             }
             editor.putInt("timesPlayed",timesPlayed).apply();
         }
-        countDownTimer.cancel();
         if(newHigh){
             winningMessage.setText("NEW HIGH SCORE!");
         }else {

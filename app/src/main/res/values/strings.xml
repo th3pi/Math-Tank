@@ -210,7 +210,7 @@
     <string name="timesPlayed">Times played: %1$d</string>
     <string name="tScore">Highest: %1$d</string>
     <string name="timeTaken">Time taken: %1$s seconds</string>
-    <string name="aTimeTaken">Time taken: %1$s seconds</string>
+    <string name="aTimeTaken">Time taken: %1$d seconds</string>
 
 </resources>
 
