@@ -54,6 +54,7 @@ public class QuickMath extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private Button playAgainButton;
     private SharedPreferences scorePreference;
+    SharedPreferences sharedPref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +78,7 @@ public class QuickMath extends AppCompatActivity {
         playAgainButton = findViewById(R.id.playAgainButton);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         correctAnimation = AnimationUtils.loadAnimation(this, R.anim.correct_animation);
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         //Gets user preferences
         addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ONLY_QUICKMATH,false);
         subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_QUICKMATH,false);
@@ -154,15 +155,7 @@ public class QuickMath extends AppCompatActivity {
             timerText.post(new Runnable() {
                 @Override
                 public void run() {
-                    sequence.addSequenceItem(new MaterialShowcaseView.Builder(QuickMath.this)
-                            .setTarget(timerText)
-                            .setContentText("Try to answer as many as you can before timer runs out.")
-                            .setDismissText("Next")
-                            .setMaskColour(getResources().getColor(R.color.colorAccent50))
-                            .setDismissOnTargetTouch(true)
-                            .setTargetTouchable(true)
-                            .build()
-                    );
+                    sequence.addSequenceItem(timerText,"Try to answer as many questions as you can before the timer runs out.","Next");
                     sequence.addSequenceItem(quickMathQuestion,"Analyze the question - Don't try to MATH-it. Look for the pattern. You can click on question board to stop and restart or quit at any time.","Next");
                     if(wrongOrCorrect == 0)
                         sequence.addSequenceItem(
@@ -211,6 +204,16 @@ public class QuickMath extends AppCompatActivity {
 
 
 
+        }
+    }
+
+    public void muteTemp(View view){
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+            sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();
+        }else{
+            mediaPlayer.start();
+            sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,false).apply();
         }
     }
     @Override

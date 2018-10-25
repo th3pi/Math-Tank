@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.drawable.AnimationDrawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Build;
 import android.preference.PreferenceManager;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import com.tjeannin.apprate.AppRate;
 
@@ -23,6 +25,8 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+
+import java.util.Set;
 
 //App ID Admob: ca-app-pub-3697147059223741~6847967899
 
@@ -35,6 +39,9 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
     private SharedPreferences.Editor editor;
     private Boolean mute;
     int totalCount, length;
+    Boolean muteTemp = false;
+    SharedPreferences sharedPref;
+    ImageButton muteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,12 +52,14 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         Button quickMathButton, timeTrialsButton, advancedMathButton;
         Animation fromLeftQuickMath, fromLeftTimeTrials, fromLeftAdvanced;
         Boolean darkModePref;
-        SharedPreferences sharedPref;
+        boolean muteTemp = false;
 
         quickMathButton = findViewById(R.id.quickMathsButton);
         timeTrialsButton = findViewById(R.id.timeTrialsButton);
         advancedMathButton = findViewById(R.id.advancedMathButton);
         highScoreButton = findViewById(R.id.highScoreButton);
+        TextView logo = findViewById(R.id.logo);
+        muteButton = findViewById(R.id.muteButton);
 
         //Animation for the game mode buttons
         fromLeftQuickMath = AnimationUtils.loadAnimation(this,R.anim.from_left_quick_math);
@@ -102,6 +111,31 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         if(!mute) {
             mediaPlayer.start();
         }
+
+//        logo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                if(sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false) || mediaPlayer.isPlaying()){
+//                    mediaPlayer.pause();
+//                }else{
+//                    mediaPlayer.start();
+//                }
+//            }
+//        });
+        muteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(mediaPlayer.isPlaying()){
+                    mediaPlayer.pause();
+                    sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();
+                    muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
+                }else{
+                    mediaPlayer.start();
+                    sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,false).apply();
+                    muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
+                }
+            }
+        });
     }
 
     @Override
@@ -111,6 +145,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
             mediaPlayer.pause();
             length = mediaPlayer.getCurrentPosition();
         }
+
     }
 
     @Override
