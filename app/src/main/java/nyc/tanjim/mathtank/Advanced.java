@@ -47,6 +47,7 @@ public class Advanced extends AppCompatActivity {
     private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute, kidsmode;
     private MediaPlayer mediaPlayer;
     private SharedPreferences scorePreference;
+    SharedPreferences sharedPref;
 
 
 
@@ -75,7 +76,7 @@ public class Advanced extends AppCompatActivity {
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
 
         //Gets user preferences
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
         mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC, false);
         if(darkModePref){
@@ -173,6 +174,19 @@ public class Advanced extends AppCompatActivity {
                     sequence.start();
                 }
             });
+        }
+    }
+
+    public void muteTemp(View view){
+        ImageButton muteButton = findViewById(R.id.muteButton);
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+            sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();
+            muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
+        }else{
+            mediaPlayer.start();
+            sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,false).apply();
+            muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
         }
     }
 

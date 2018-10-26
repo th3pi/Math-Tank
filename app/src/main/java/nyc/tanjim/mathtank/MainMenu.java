@@ -128,11 +128,11 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
                 if(mediaPlayer.isPlaying()){
                     mediaPlayer.pause();
                     sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();
-                    muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
+                    muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
                 }else{
                     mediaPlayer.start();
                     sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,false).apply();
-                    muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
+                    muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
                 }
             }
         });

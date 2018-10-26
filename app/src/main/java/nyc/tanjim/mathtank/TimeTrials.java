@@ -22,6 +22,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Chronometer;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -58,6 +59,7 @@ public class TimeTrials extends AppCompatActivity {
     private SharedPreferences scorePreference;
     private Chronometer chronometer;
     private long elapsedMillis;
+    SharedPreferences sharedPref;
 
 
     //Boolean values to check user preference.
@@ -101,7 +103,7 @@ public class TimeTrials extends AppCompatActivity {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getWindow().setStatusBarColor(GRAY);
         }
-        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
         mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
         if(darkModePref){
@@ -209,6 +211,19 @@ public class TimeTrials extends AppCompatActivity {
                 }
             });
 
+        }
+    }
+
+    public void muteTemp(View view){
+        ImageButton muteButton = findViewById(R.id.muteButton);
+        if(mediaPlayer.isPlaying()){
+            mediaPlayer.pause();
+            sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();
+            muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
+        }else{
+            mediaPlayer.start();
+            sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,false).apply();
+            muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
         }
     }
     @Override
@@ -330,6 +345,8 @@ public class TimeTrials extends AppCompatActivity {
         finish();
         startActivity(new Intent(getApplicationContext(), TimeTrialsLoadingScreen.class));
     }
+
+
 
     //Pop up quit button
     public  void quit(View view){

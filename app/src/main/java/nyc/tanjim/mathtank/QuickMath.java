@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.google.android.gms.ads.AdRequest;
@@ -208,12 +209,15 @@ public class QuickMath extends AppCompatActivity {
     }
 
     public void muteTemp(View view){
+        ImageButton muteButton = findViewById(R.id.muteButton);
         if(mediaPlayer.isPlaying()){
             mediaPlayer.pause();
             sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();
+            muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
         }else{
             mediaPlayer.start();
             sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,false).apply();
+            muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
         }
     }
     @Override
