@@ -32,6 +32,7 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public static final String KEY_SQUARE="sqr";
     public static final String KEY_CUBE="cube";
     public static final String KEY_MUTE_MUSIC="mute_switch";
+    public static final String KEY_FLASHING_TEXT="flashing_text";
     public static boolean rankingDisabled = false;
 
 

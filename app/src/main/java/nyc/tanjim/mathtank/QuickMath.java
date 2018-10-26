@@ -50,7 +50,7 @@ public class QuickMath extends AppCompatActivity {
     private Boolean addition;
     private Boolean subtraction;
     private Boolean multiplication;
-    private Boolean division, kidsmode,timer, mute;
+    private Boolean division, kidsmode,timer, mute, flashingText;
     private MediaPlayer mediaPlayer;
     private CountDownTimer countDownTimer;
     private Button playAgainButton;
@@ -90,6 +90,7 @@ public class QuickMath extends AppCompatActivity {
         kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH, false);
         timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER, false);
         mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
+        flashingText = sharedPref.getBoolean(SettingsActivity.KEY_FLASHING_TEXT,true);
         final Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
 //        timerDuration = sharedPref.getString(SettingsActivity.KEY_TIMER,"30");
         if(darkModePref){
@@ -398,11 +399,15 @@ public class QuickMath extends AppCompatActivity {
      * Feeds feedback to user depending on right or wrong answer
      * */
     public void choose(View view){
-        userFeedback.startAnimation(AnimationUtils.loadAnimation(this,R.anim.flicker_animation));
+        if(flashingText) {
+            userFeedback.startAnimation(AnimationUtils.loadAnimation(this, R.anim.flicker_animation));
+        }
         if(view.getTag().toString().equals(Integer.toString(wrongOrCorrect))){
             score++;
             generateQuestion();
-            quickMathQuestion.startAnimation(AnimationUtils.loadAnimation(this,R.anim.question_flicker));
+            if(flashingText) {
+                quickMathQuestion.startAnimation(AnimationUtils.loadAnimation(this, R.anim.question_flicker));
+            }
             quickMathScore.setText(getString(R.string.score,score));
             numberOfQuestions++;
             if(feedBackNum == 0 || numberOfQuestions == 1){
@@ -644,13 +649,20 @@ public class QuickMath extends AppCompatActivity {
                     //Timer flickering gets faster as time runs out
                     //Adds a 0 before last digit
                     timerText.setText(getString(R.string.timer_quick_math_ten_less,(int) millisUntilFinished / 1000));
-                    timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_2));
+                    //Flickers only if its enabled in the settings.
+                    if(flashingText) {
+                        timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_2));
+                    }
                 }else if(millisUntilFinished < 5000 && millisUntilFinished > 3000){
                     timerText.setText(getString(R.string.timer_quick_math_ten_less,(int) millisUntilFinished / 1000));
-                    timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_1));
+                    if(flashingText) {
+                        timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation_1));
+                    }
                 }else {
                     timerText.setText(getString(R.string.timer_quick_math_ten_less,(int) millisUntilFinished / 1000));
-                    timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation));
+                    if(flashingText) {
+                        timerText.startAnimation(AnimationUtils.loadAnimation(QuickMath.this, R.anim.flicker_animation));
+                    }
                 }
             }
             @Override

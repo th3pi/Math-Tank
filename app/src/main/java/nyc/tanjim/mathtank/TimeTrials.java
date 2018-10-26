@@ -54,7 +54,7 @@ public class TimeTrials extends AppCompatActivity {
     private Animation correctAnimation, feedBackAnimation;
     private Dialog scorePopUp;
     private MediaPlayer mediaPlayer;
-    private Boolean mute;
+    private Boolean mute, flashingText;
     boolean ranBefore;
     private SharedPreferences scorePreference;
     private Chronometer chronometer;
@@ -127,6 +127,7 @@ public class TimeTrials extends AppCompatActivity {
         division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_TIMETRIALS,false);
         timer = sharedPref.getBoolean(SettingsActivity.KEY_TIMER_TIMETRIALS,false);
         kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH,false);
+        flashingText = sharedPref.getBoolean(SettingsActivity.KEY_FLASHING_TEXT,true);
         if(timer)
             timer();
         else {
@@ -267,7 +268,9 @@ public class TimeTrials extends AppCompatActivity {
             @Override
             public void onTick(long millisUntilFinished) {
                 if (millisUntilFinished < 3000)
-                    timeLeftText.startAnimation(AnimationUtils.loadAnimation(TimeTrials.this, R.anim.timer_flicker));
+                    if(flashingText) {
+                        timeLeftText.startAnimation(AnimationUtils.loadAnimation(TimeTrials.this, R.anim.timer_flicker));
+                    }
                 if (millisUntilFinished > 10000)
                     timeLeftText.setText(getString(R.string.time_left, (int) millisUntilFinished / 1000));
                 else
@@ -550,7 +553,9 @@ public class TimeTrials extends AppCompatActivity {
     }
 
     public void choose(View view){
-        userFeedback.startAnimation(feedBackAnimation);
+        if(flashingText) {
+            userFeedback.startAnimation(feedBackAnimation);
+        }
         if(view.getTag().toString().equals(Integer.toString(locationOfCorrectAnswer))){
             score++;
             numberOfQuestions++;

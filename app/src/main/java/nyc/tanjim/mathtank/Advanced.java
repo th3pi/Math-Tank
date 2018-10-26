@@ -44,7 +44,7 @@ public class Advanced extends AppCompatActivity {
     private Dialog scorePopUp;
     private Chronometer chronometer;
     private Chronometer scoreChronometer;
-    private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute, kidsmode;
+    private Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute, kidsmode, flashingText;
     private MediaPlayer mediaPlayer;
     private SharedPreferences scorePreference;
     SharedPreferences sharedPref;
@@ -100,6 +100,7 @@ public class Advanced extends AppCompatActivity {
         submult = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_X_MULTIPLICATION,false);
         subdiv = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_BY_DIVISION,false);
         kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH,false);
+        flashingText = sharedPref.getBoolean(SettingsActivity.KEY_FLASHING_TEXT,true);
 
         mediaPlayer = MediaPlayer.create(this,R.raw.the_duel);
         mediaPlayer.setLooping(true);
@@ -314,7 +315,9 @@ public class Advanced extends AppCompatActivity {
             }, 1000);
         }
         scoreView.setText(getString(R.string.advanced_score,score,numberOfQuestions));
-        questionText.startAnimation(AnimationUtils.loadAnimation(this,R.anim.question_flicker));
+        if(flashingText) {
+            questionText.startAnimation(AnimationUtils.loadAnimation(this, R.anim.question_flicker));
+        }
         answers.clear();
     }
     public void generateQuestion(){

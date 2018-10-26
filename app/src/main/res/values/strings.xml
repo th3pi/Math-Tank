@@ -202,6 +202,9 @@
     <string name="kidspref">Kids mode tones down the complexity of Quick maths questions. Other modes are coming soon.</string>
     <string name="title_activity_scores">Scores</string>
 
+    <!--Settings texts-->
+    <string name="flashing_text">Useful for good awareness. Should be disabled if you have history of epilepsy.</string>
+
     <!--high score page-->
     <string name="highscore">HIGH SCORES</string>
     <string name="quickMathHighScore">Quick math stats</string>
