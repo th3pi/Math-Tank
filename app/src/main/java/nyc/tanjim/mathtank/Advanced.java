@@ -48,6 +48,7 @@ public class Advanced extends AppCompatActivity {
     private MediaPlayer mediaPlayer;
     private SharedPreferences scorePreference;
     SharedPreferences sharedPref;
+    ImageButton muteButton;
 
 
 
@@ -72,6 +73,7 @@ public class Advanced extends AppCompatActivity {
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
         chronometer = findViewById(R.id.simpleChronometer);
+        muteButton = findViewById(R.id.muteButton);
         chronometer.start();
         buttonsInit = AnimationUtils.loadAnimation(this,R.anim.advanced_init);
 
@@ -103,6 +105,9 @@ public class Advanced extends AppCompatActivity {
         mediaPlayer.setLooping(true);
         if(!mute) {
             mediaPlayer.start();
+            muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
+        }else{
+            muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
         }
 
         //Generate the starting question
@@ -178,7 +183,6 @@ public class Advanced extends AppCompatActivity {
     }
 
     public void muteTemp(View view){
-        ImageButton muteButton = findViewById(R.id.muteButton);
         if(mediaPlayer.isPlaying()){
             mediaPlayer.pause();
             sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();

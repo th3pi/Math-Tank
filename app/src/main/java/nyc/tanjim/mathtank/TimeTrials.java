@@ -60,6 +60,7 @@ public class TimeTrials extends AppCompatActivity {
     private Chronometer chronometer;
     private long elapsedMillis;
     SharedPreferences sharedPref;
+    ImageButton muteButton;
 
 
     //Boolean values to check user preference.
@@ -89,6 +90,7 @@ public class TimeTrials extends AppCompatActivity {
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
+        muteButton = findViewById(R.id.muteButton);
 
         //Variables to hold animation values.
         correctAnimation = AnimationUtils.loadAnimation(this,R.anim.correct_animation);
@@ -141,6 +143,9 @@ public class TimeTrials extends AppCompatActivity {
         mediaPlayer.setLooping(true);
         if(!mute) {
             mediaPlayer.start();
+            muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
+        }else{
+            muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
         }
 
         if(isFirstTime()){
@@ -215,7 +220,6 @@ public class TimeTrials extends AppCompatActivity {
     }
 
     public void muteTemp(View view){
-        ImageButton muteButton = findViewById(R.id.muteButton);
         if(mediaPlayer.isPlaying()){
             mediaPlayer.pause();
             sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();

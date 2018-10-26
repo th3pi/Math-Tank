@@ -110,7 +110,11 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         mediaPlayer.setLooping(true);
         if(!mute) {
             mediaPlayer.start();
+            muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
+        }else{
+            muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
         }
+
 
 //        logo.setOnClickListener(new View.OnClickListener() {
 //            @Override

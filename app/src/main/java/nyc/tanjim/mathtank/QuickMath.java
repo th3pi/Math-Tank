@@ -56,6 +56,7 @@ public class QuickMath extends AppCompatActivity {
     private Button playAgainButton;
     private SharedPreferences scorePreference;
     SharedPreferences sharedPref;
+    ImageButton muteButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +78,7 @@ public class QuickMath extends AppCompatActivity {
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
         userFeedback = findViewById(R.id.plusOne);
         playAgainButton = findViewById(R.id.playAgainButton);
+        muteButton = findViewById(R.id.muteButton);
         vibrator = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
         correctAnimation = AnimationUtils.loadAnimation(this, R.anim.correct_animation);
         sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
@@ -141,6 +143,9 @@ public class QuickMath extends AppCompatActivity {
         mediaPlayer.setLooping(true);
         if(!mute) {
             mediaPlayer.start();
+            muteButton.setImageResource(R.drawable.ic_volume_up_black_24dp);
+        }else{
+            muteButton.setImageResource(R.drawable.ic_volume_off_black_24dp);
         }
 
         if(isFirstTime()){
@@ -209,7 +214,6 @@ public class QuickMath extends AppCompatActivity {
     }
 
     public void muteTemp(View view){
-        ImageButton muteButton = findViewById(R.id.muteButton);
         if(mediaPlayer.isPlaying()){
             mediaPlayer.pause();
             sharedPref.edit().putBoolean(SettingsActivity.KEY_MUTE_MUSIC,true).apply();
