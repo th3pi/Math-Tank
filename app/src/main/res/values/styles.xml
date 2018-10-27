@@ -38,8 +38,7 @@
         <item name="android:textColorPrimary">#cfcfcf</item>
         <item name="android:textColorSecondary">#9e9e9e</item>
         <item name="colorAccent">#cfcfcf</item>
-        <item name="android:background">#494949</item>
-        <item name="preferenceTheme">@style/PreferenceThemeOverlay</item>
+        <item name="android:background">@color/qboard_black</item>
     </style>
 
     <style name="customfontstyle" parent="@android:style/TextAppearance.Small">
