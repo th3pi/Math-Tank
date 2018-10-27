@@ -232,6 +232,7 @@ public class QuickMath extends AppCompatActivity {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
+        scorePopUp.dismiss();
     }
 
     @Override
@@ -241,6 +242,7 @@ public class QuickMath extends AppCompatActivity {
             mediaPlayer.seekTo(musicLength);
             mediaPlayer.start();
         }
+        scorePopUp.dismiss();
     }
 
     @Override
@@ -248,7 +250,9 @@ public class QuickMath extends AppCompatActivity {
         super.onDestroy();
         mediaPlayer.stop();
         mediaPlayer.release();
+        scorePopUp.dismiss();
     }
+
     /**
     * Method to show pop up.
      * If score difference is less than 4 and number of questions answered are greater than 10
