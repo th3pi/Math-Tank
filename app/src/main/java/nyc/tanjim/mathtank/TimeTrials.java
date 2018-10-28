@@ -395,64 +395,160 @@ public class TimeTrials extends AppCompatActivity {
         switch (rd.nextInt(4)){
             case 0:
                 if(addition){
-                    return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                    int a = rd.nextInt(15)+1;
+                    int b = rd.nextInt(12)+1;
+                    int c = rd.nextInt(40)+1;
+                    while(c == a+b){
+                        c = rd.nextInt(40)+1;
+                    }
+                    return getString(R.string.sum,a,b,c);
                 }else{
                     if(subtraction){
-                        return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                        int a = rd.nextInt(15)+1;
+                        int b = rd.nextInt((10-5)+1)+5;
+                        int c = rd.nextInt(15)+1;
+                        while(c == a-b){
+                            c = rd.nextInt(15)+1;
+                        }
+                        return getString(R.string.sub,a,b,c);
                     }else{
                         if(multiplication){
-                            return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                            int a = rd.nextInt(12)+1;
+                            int b = rd.nextInt(12)+1;
+                            int c = rd.nextInt(50)+1;
+                            while(c == a*b){
+                                c = rd.nextInt(50)+1;
+                            }
+                            return getString(R.string.mult,a,b,c);
                         }else{
                             if(division){
-                                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                                int a = rd.nextInt(25)+1;
+                                int b = rd.nextInt(12)+1;
+                                int c = rd.nextInt(12)+1;
+                                while(c == a/b){
+                                    c = rd.nextInt(12)+1;
+                                }
+                                return getString(R.string.div,a,b,c);
                             }
                         }
                     }
                 }
             case 1:
                 if(subtraction){
-                    return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                    int a = rd.nextInt(15)+1;
+                    int b = rd.nextInt((10-5)+1)+5;
+                    int c = rd.nextInt(15)+1;
+                    while(c == a-b){
+                        c = rd.nextInt(15)+1;
+                    }
+                    return getString(R.string.sub,a,b,c);
                 }else{
                     if(addition){
-                        return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                        int a = rd.nextInt(15)+1;
+                        int b = rd.nextInt(12)+1;
+                        int c = rd.nextInt(40)+1;
+                        while(c == a+b){
+                            c = rd.nextInt(40)+1;
+                        }
+                        return getString(R.string.sum,a,b,c);
                     }else{
                         if(multiplication){
-                            return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                            int a = rd.nextInt(12)+1;
+                            int b = rd.nextInt(12)+1;
+                            int c = rd.nextInt(50)+1;
+                            while(c == a*b){
+                                c = rd.nextInt(50)+1;
+                            }
+                            return getString(R.string.mult,a,b,c);
                         }else{
                             if(division){
-                                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                                int a = rd.nextInt(25)+1;
+                                int b = rd.nextInt(12)+1;
+                                int c = rd.nextInt(12)+1;
+                                while(c == a/b){
+                                    c = rd.nextInt(12)+1;
+                                }
+                                return getString(R.string.div,a,b,c);
                             }
                         }
                     }
                 }
             case 2:
                 if(multiplication){
-                    return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                    int a = rd.nextInt(12)+1;
+                    int b = rd.nextInt(12)+1;
+                    int c = rd.nextInt(50)+1;
+                    while(c == a*b){
+                        c = rd.nextInt(50)+1;
+                    }
+                    return getString(R.string.mult,a,b,c);
                 }else{
                     if(addition){
-                        return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                        int a = rd.nextInt(15)+1;
+                        int b = rd.nextInt(12)+1;
+                        int c = rd.nextInt(40)+1;
+                        while(c == a+b){
+                            c = rd.nextInt(40)+1;
+                        }
+                        return getString(R.string.sum,a,b,c);
                     }else{
                         if(subtraction){
-                            return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                            int a = rd.nextInt(15)+1;
+                            int b = rd.nextInt((10-5)+1)+5;
+                            int c = rd.nextInt(15)+1;
+                            while(c == a-b){
+                                c = rd.nextInt(15)+1;
+                            }
+                            return getString(R.string.sub,a,b,c);
                         }else{
                             if(division){
-                                return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                                int a = rd.nextInt(25)+1;
+                                int b = rd.nextInt(12)+1;
+                                int c = rd.nextInt(12)+1;
+                                while(c == a/b){
+                                    c = rd.nextInt(12)+1;
+                                }
+                                return getString(R.string.div,a,b,c);
                             }
                         }
                     }
                 }
             case 3:
                 if(division){
-                    return getString(R.string.div,rd.nextInt(25)+1,rd.nextInt(12)+1,rd.nextInt(12)+1);
+                    int a = rd.nextInt(25)+1;
+                    int b = rd.nextInt(12)+1;
+                    int c = rd.nextInt(12)+1;
+                    while(c == a/b){
+                        c = rd.nextInt(12)+1;
+                    }
+                    return getString(R.string.div,a,b,c);
                 }else{
                     if(addition){
-                        return getString(R.string.sum, rd.nextInt(15)+1,rd.nextInt(12)+1,rd.nextInt(40)+1);
+                        int a = rd.nextInt(15)+1;
+                        int b = rd.nextInt(12)+1;
+                        int c = rd.nextInt(40)+1;
+                        while(c == a+b){
+                            c = rd.nextInt(40)+1;
+                        }
+                        return getString(R.string.sum,a,b,c);
                     }else{
                         if(subtraction){
-                            return getString(R.string.sub,rd.nextInt(15)+1,rd.nextInt((10-5)+1)+5,rd.nextInt(15)+1);
+                            int a = rd.nextInt(15)+1;
+                            int b = rd.nextInt((10-5)+1)+5;
+                            int c = rd.nextInt(15)+1;
+                            while(c == a-b){
+                                c = rd.nextInt(15)+1;
+                            }
+                            return getString(R.string.sub,a,b,c);
                         }else{
                             if(multiplication){
-                                return getString(R.string.mult,rd.nextInt(12)+1,rd.nextInt(12)+1,rd.nextInt(50)+1);
+                                int a = rd.nextInt(12)+1;
+                                int b = rd.nextInt(12)+1;
+                                int c = rd.nextInt(50)+1;
+                                while(c == a*b){
+                                    c = rd.nextInt(50)+1;
+                                }
+                                return getString(R.string.mult,a,b,c);
                             }
                         }
                     }
