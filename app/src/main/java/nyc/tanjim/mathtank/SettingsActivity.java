@@ -33,7 +33,9 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public static final String KEY_CUBE="cube";
     public static final String KEY_MUTE_MUSIC="mute_switch";
     public static final String KEY_FLASHING_TEXT="flashing_text";
-    public static boolean rankingDisabled = false;
+    public static boolean kidsModeNotDisabled = false;
+    public static boolean timerDisabled = false;
+    public static boolean typeDisabled = false;
 
 
 
@@ -66,11 +68,13 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
 
         if(key.equals(KEY_KIDS_MODE_SWITCH)){
             if(sharedPreferences.getBoolean(KEY_KIDS_MODE_SWITCH,false)){
-                rankingDisabled = true;
+                kidsModeNotDisabled = true;
                 Toasty.warning(getApplicationContext(), "Score ranking disabled: Cannot rank when kids mode is enabled.", Toast.LENGTH_SHORT,true).show();
             }else{
-                rankingDisabled = false;
-                Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT,true).show();
+                kidsModeNotDisabled = false;
+                if(!timerDisabled && !typeDisabled) {
+                    Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT, true).show();
+                }
             }
         }
 
@@ -103,19 +107,23 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         if(key.equals(KEY_ADDITION_ONLY_QUICKMATH) || key.equals(KEY_SUBTRACTION_ONLY_QUICKMATH) || key.equals(KEY_MULTIPLICATION_ONLY_QUICKMATH) || key.equals(KEY_DIVISION_ONLY_QUICKMATH)) {
             if (!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_QUICKMATH, false)) {
                 Toasty.warning(getApplicationContext(), "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT,true).show();
-                rankingDisabled = true;
+                typeDisabled = true;
             }else{
-                rankingDisabled = false;
-                Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT,true).show();
+                typeDisabled = false;
+                if(!kidsModeNotDisabled && !timerDisabled) {
+                    Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT, true).show();
+                }
             }
         }
         if(key.equals(KEY_ADDITION_ONLY_TIMETRIALS) || key.equals(KEY_SUBTRACTION_ONLY_TIMETRIALS) || key.equals(KEY_MULTIPLICATION_ONLY_TIMETRIALS) || key.equals(KEY_DIVISION_ONLY_TIMETRIALS)) {
             if (!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_TIMETRIALS, false)) {
                 Toasty.warning(getApplicationContext(), "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT,true).show();
-                rankingDisabled = true;
+                typeDisabled = true;
             }else{
-                rankingDisabled = false;
-                Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT,true).show();
+                typeDisabled = false;
+                if(!kidsModeNotDisabled && !timerDisabled) {
+                    Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT, true).show();
+                }
 
             }
         }
@@ -138,10 +146,12 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                     || !sharedPreferences.getBoolean(KEY_SQUARE_ROOT,false)
                     || !sharedPreferences.getBoolean(KEY_CUBE,false)){
                 Toasty.warning(getApplicationContext(), "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT,true).show();
-                rankingDisabled = true;
+                typeDisabled = true;
             }else{
-                rankingDisabled = false;
-                Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT,true).show();
+                typeDisabled = false;
+                if(!kidsModeNotDisabled && !timerDisabled) {
+                    Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT, true).show();
+                }
 
             }
         }
@@ -149,16 +159,13 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         if(key.equals(KEY_TIMER) || key.equals(KEY_TIMER_TIMETRIALS)){
             if(!sharedPreferences.getBoolean(KEY_TIMER,false) || !sharedPreferences.getBoolean(KEY_TIMER_TIMETRIALS,false)){
                 Toasty.warning(getApplicationContext(), "Score ranking disabled: Timer needs to remain enabled.", Toast.LENGTH_SHORT,true).show();
-                rankingDisabled = true;
+                timerDisabled = true;
             }else{
-                rankingDisabled = false;
-                Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT,true).show();
-
+                timerDisabled = false;
+                if(!kidsModeNotDisabled && !typeDisabled) {
+                    Toasty.success(getApplicationContext(), "Score ranking has been re-enabled.", Toast.LENGTH_SHORT, true).show();
+                }
             }
         }
-    }
-
-    public boolean isRankingDisabled() {
-        return rankingDisabled;
     }
 }

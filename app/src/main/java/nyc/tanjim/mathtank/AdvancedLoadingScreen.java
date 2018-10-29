@@ -70,7 +70,7 @@ public class AdvancedLoadingScreen extends AppCompatActivity {
             }
         }.start();
 
-        if(SettingsActivity.rankingDisabled){
+        if(SettingsActivity.kidsModeNotDisabled || SettingsActivity.typeDisabled || SettingsActivity.timerDisabled){
             Toasty.error(AdvancedLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
         }
     }

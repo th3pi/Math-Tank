@@ -21,6 +21,7 @@ import android.widget.Button;
 import android.widget.Chronometer;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
@@ -29,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
 
+import es.dmoral.toasty.Toasty;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseSequence;
 import uk.co.deanwild.materialshowcaseview.MaterialShowcaseView;
 import uk.co.deanwild.materialshowcaseview.ShowcaseConfig;
@@ -202,6 +204,7 @@ public class Advanced extends AppCompatActivity {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
+        finish();
     }
 
     @Override
@@ -218,6 +221,12 @@ public class Advanced extends AppCompatActivity {
         super.onDestroy();
         mediaPlayer.stop();
         mediaPlayer.release();
+    }
+
+    @Override
+    protected void onUserLeaveHint() {
+        super.onUserLeaveHint();
+        Toasty.warning(getApplicationContext(),"Exiting Quick math - you cannot leave the app while in a session", Toast.LENGTH_LONG,true).show();
     }
     public void showPopUp(View view){
         boolean newHigh = false;

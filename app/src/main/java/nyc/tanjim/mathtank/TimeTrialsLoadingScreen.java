@@ -70,7 +70,7 @@ public class TimeTrialsLoadingScreen extends AppCompatActivity {
             }
         }.start();
 
-        if(SettingsActivity.rankingDisabled){
+        if(SettingsActivity.kidsModeNotDisabled || SettingsActivity.typeDisabled || SettingsActivity.timerDisabled){
             Toasty.error(TimeTrialsLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
         }
     }

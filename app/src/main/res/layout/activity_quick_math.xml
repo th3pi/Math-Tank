@@ -34,7 +34,6 @@
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
         android:fontFamily="@font/amaticsc_bold"
-        android:onClick="muteTemp"
         android:text="0:00"
         android:textColor="#fff"
         android:textSize="40sp"
