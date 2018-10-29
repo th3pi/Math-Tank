@@ -27,6 +27,7 @@ public class AdvancedLoadingScreen extends AppCompatActivity {
         setContentView(R.layout.activity_time_trials_loading_screen);
         SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
         Boolean darkModePref = sharedPref.getBoolean(SettingsActivity.KEY_DARK_MODE_SWITCH, false);
+        Boolean sqrt,sqr,cube,addition,subtraction,addmult,submult,adddiv,subdiv, mute, kidsmode, flashingText;
         if(darkModePref){
             ConstraintLayout constraintLayout = (findViewById(R.id.timetrialsbg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
@@ -70,7 +71,17 @@ public class AdvancedLoadingScreen extends AppCompatActivity {
             }
         }.start();
 
-        if(SettingsActivity.kidsModeNotDisabled || SettingsActivity.typeDisabled || SettingsActivity.timerDisabled){
+        sqr = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE,false);
+        sqrt = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE_ROOT,false);
+        cube = sharedPref.getBoolean(SettingsActivity.KEY_CUBE,false);
+        addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ADVANCED, false);
+        subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ADVANCED,false);
+        addmult = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_X_MULTIPLICATION,false);
+        adddiv = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_BY_DIVISION,false);
+        submult = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_X_MULTIPLICATION,false);
+        subdiv = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_BY_DIVISION,false);
+        kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH,false);
+        if(!addition || !subtraction || !adddiv || !addmult || !subdiv || !submult || !sqr || !sqrt || !cube || kidsmode) {
             Toasty.error(AdvancedLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
         }
     }

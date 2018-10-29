@@ -1,5 +1,6 @@
 package nyc.tanjim.mathtank;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -36,6 +37,8 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
     public static boolean kidsModeNotDisabled = false;
     public static boolean timerDisabled = false;
     public static boolean typeDisabled = false;
+    public static boolean rankingDisabled = false;
+    private Toast toast;
 
 
 
@@ -56,6 +59,14 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
 
     @Override
     public void onSharedPreferenceChanged(SharedPreferences sharedPreferences, String key) {
+        if(typeDisabled && kidsModeNotDisabled && timerDisabled){
+            rankingDisabled = true;
+            sharedPreferences.edit().putBoolean("ranking",rankingDisabled).apply();
+        }else{
+            rankingDisabled = false;
+            sharedPreferences.edit().putBoolean("ranking",rankingDisabled).apply();
+        }
+
         if(key.equals(KEY_DARK_MODE_SWITCH)){
             if(sharedPreferences.getBoolean(KEY_DARK_MODE_SWITCH,false)){
                 Toast.makeText(getApplicationContext(),"Dark mode Activated",Toast.LENGTH_LONG).show();
@@ -106,7 +117,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         }
         if(key.equals(KEY_ADDITION_ONLY_QUICKMATH) || key.equals(KEY_SUBTRACTION_ONLY_QUICKMATH) || key.equals(KEY_MULTIPLICATION_ONLY_QUICKMATH) || key.equals(KEY_DIVISION_ONLY_QUICKMATH)) {
             if (!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_QUICKMATH, false) || !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_QUICKMATH, false)) {
-                Toasty.warning(getApplicationContext(), "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT,true).show();
                 typeDisabled = true;
             }else{
                 typeDisabled = false;
@@ -117,7 +127,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         }
         if(key.equals(KEY_ADDITION_ONLY_TIMETRIALS) || key.equals(KEY_SUBTRACTION_ONLY_TIMETRIALS) || key.equals(KEY_MULTIPLICATION_ONLY_TIMETRIALS) || key.equals(KEY_DIVISION_ONLY_TIMETRIALS)) {
             if (!sharedPreferences.getBoolean(KEY_ADDITION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_SUBTRACTION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_MULTIPLICATION_ONLY_TIMETRIALS, false) || !sharedPreferences.getBoolean(KEY_DIVISION_ONLY_TIMETRIALS, false)) {
-                Toasty.warning(getApplicationContext(), "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT,true).show();
                 typeDisabled = true;
             }else{
                 typeDisabled = false;
@@ -145,7 +154,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
                     || !sharedPreferences.getBoolean(KEY_SQUARE,false)
                     || !sharedPreferences.getBoolean(KEY_SQUARE_ROOT,false)
                     || !sharedPreferences.getBoolean(KEY_CUBE,false)){
-                Toasty.warning(getApplicationContext(), "Score ranking disabled: Enable all types of question to re-enable it.", Toast.LENGTH_SHORT,true).show();
                 typeDisabled = true;
             }else{
                 typeDisabled = false;
@@ -158,7 +166,6 @@ public class SettingsActivity extends AppCompatActivity implements SharedPrefere
         
         if(key.equals(KEY_TIMER) || key.equals(KEY_TIMER_TIMETRIALS)){
             if(!sharedPreferences.getBoolean(KEY_TIMER,false) || !sharedPreferences.getBoolean(KEY_TIMER_TIMETRIALS,false)){
-                Toasty.warning(getApplicationContext(), "Score ranking disabled: Timer needs to remain enabled.", Toast.LENGTH_SHORT,true).show();
                 timerDisabled = true;
             }else{
                 timerDisabled = false;

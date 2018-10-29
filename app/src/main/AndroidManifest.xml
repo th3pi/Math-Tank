@@ -33,8 +33,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".QuickMath"
-            android:screenOrientation="portrait"
-            android:noHistory="true"/>
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".QuickMathLoadingScreen"
             android:screenOrientation="portrait" />

@@ -19,6 +19,7 @@ import es.dmoral.toasty.Toasty;
 
 public class TimeTrialsLoadingScreen extends AppCompatActivity {
     private static int loadingScreenTime = 4000;
+    private Boolean addition, subtraction, multiplication, division, timerr, kidsmode;
     TextView timer;
 
     @Override
@@ -69,8 +70,13 @@ public class TimeTrialsLoadingScreen extends AppCompatActivity {
 
             }
         }.start();
-
-        if(SettingsActivity.kidsModeNotDisabled || SettingsActivity.typeDisabled || SettingsActivity.timerDisabled){
+        addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ONLY_TIMETRIALS,false);
+        subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_TIMETRIALS,false);
+        multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_TIMETRIALS,false);
+        division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_TIMETRIALS,false);
+        timerr = sharedPref.getBoolean(SettingsActivity.KEY_TIMER_TIMETRIALS,false);
+        kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH,false);
+        if(!addition || !subtraction || !multiplication || !division || !timerr || kidsmode) {
             Toasty.error(TimeTrialsLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
         }
     }

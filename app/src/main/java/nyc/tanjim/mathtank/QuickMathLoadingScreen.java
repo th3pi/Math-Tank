@@ -20,7 +20,10 @@ import es.dmoral.toasty.Toasty;
 public class QuickMathLoadingScreen extends AppCompatActivity {
     private static int loadingScreenTime = 4000;
     TextView timer;
-
+    private Boolean addition;
+    private Boolean subtraction;
+    private Boolean multiplication;
+    private Boolean division, kidsmode, mute, flashingText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +74,14 @@ public class QuickMathLoadingScreen extends AppCompatActivity {
             }
         }.start();
 
-        if(SettingsActivity.kidsModeNotDisabled || SettingsActivity.typeDisabled || SettingsActivity.timerDisabled){
+        addition = sharedPref.getBoolean(SettingsActivity.KEY_ADDITION_ONLY_QUICKMATH,false);
+        subtraction = sharedPref.getBoolean(SettingsActivity.KEY_SUBTRACTION_ONLY_QUICKMATH,false);
+        multiplication = sharedPref.getBoolean(SettingsActivity.KEY_MULTIPLICATION_ONLY_QUICKMATH,false);
+        division = sharedPref.getBoolean(SettingsActivity.KEY_DIVISION_ONLY_QUICKMATH,false);
+        kidsmode = sharedPref.getBoolean(SettingsActivity.KEY_KIDS_MODE_SWITCH, false);
+        mute = sharedPref.getBoolean(SettingsActivity.KEY_MUTE_MUSIC,false);
+        flashingText = sharedPref.getBoolean(SettingsActivity.KEY_FLASHING_TEXT,true);
+        if(!addition || !subtraction || !multiplication || !division || kidsmode) {
             Toasty.error(QuickMathLoadingScreen.this,"High Score ranking disabled- check your settings",Toast.LENGTH_LONG,true).show();
         }
     }

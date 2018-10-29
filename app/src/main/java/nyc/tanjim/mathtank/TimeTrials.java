@@ -240,7 +240,12 @@ public class TimeTrials extends AppCompatActivity {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
-        finish();
+        if(addition && subtraction && multiplication && division && timer && !kidsmode) {
+            finish();
+        }
+        if(timer){
+            finish();
+        }
     }
 
     @Override
@@ -263,7 +268,12 @@ public class TimeTrials extends AppCompatActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        Toasty.warning(getApplicationContext(),"Exiting Timetrials - you cannot leave the app while in a session", Toast.LENGTH_LONG,true).show();
+        if(addition && subtraction && multiplication && division && timer && !kidsmode) {
+            Toasty.warning(getApplicationContext(), "Exiting Timetrials - you cannot leave the app while in a session", Toast.LENGTH_LONG, true).show();
+        }
+        if(timer){
+            Toasty.warning(getApplicationContext(), "Exiting Timetrials - you cannot leave the app while timer is on", Toast.LENGTH_LONG, true).show();
+        }
     }
 
     @Override
@@ -303,9 +313,9 @@ public class TimeTrials extends AppCompatActivity {
             int timeTaken = (int) elapsedMillis / 1000;
             float hiddenElo = (float) score / timeTaken;
             float elo = scorePreference.getFloat("hiddenElo",0);
-            Log.i("SCORE", Integer.toString(score));
-            Log.i("TIME TAKEN", Integer.toString(timeTaken));
-            Log.i("HIDDEN ELO", Float.toString(hiddenElo));
+//            Log.i("SCORE", Integer.toString(score));
+//            Log.i("TIME TAKEN", Integer.toString(timeTaken));
+//            Log.i("HIDDEN ELO", Float.toString(hiddenElo));
             if (hiddenElo > elo) {
                 largest = score;
                 editor.putFloat("hiddenElo",hiddenElo).apply();

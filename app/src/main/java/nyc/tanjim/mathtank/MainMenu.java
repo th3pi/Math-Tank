@@ -18,6 +18,8 @@ import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import com.tjeannin.apprate.AppRate;
 
 import com.google.android.gms.ads.AdListener;
@@ -27,6 +29,8 @@ import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
 import java.util.Set;
+
+import es.dmoral.toasty.Toasty;
 
 //App ID Admob: ca-app-pub-3697147059223741~6847967899
 
@@ -58,7 +62,7 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
         timeTrialsButton = findViewById(R.id.timeTrialsButton);
         advancedMathButton = findViewById(R.id.advancedMathButton);
         highScoreButton = findViewById(R.id.highScoreButton);
-        TextView logo = findViewById(R.id.logo);
+        introText = findViewById(R.id.introText);
         muteButton = findViewById(R.id.muteButton);
 
         //Animation for the game mode buttons
@@ -87,7 +91,6 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
                 backgroundAnimation();
             }
         }
-
 
         //Initialize ads
         MobileAds.initialize(this,getString(R.string.mainMenuad));
@@ -170,18 +173,18 @@ public class MainMenu extends AppCompatActivity implements SharedPreferences.OnS
 
     public void openAdvanced(View view){
         //Is executed only if ad is loaded. Otherwise starts Advanced directly
-        if(interstitialAd.isLoaded()){
-            interstitialAd.show();
-            interstitialAd.setAdListener(new AdListener() {
-                @Override
-                public void onAdClosed() {
-                    interstitialAd.loadAd(new AdRequest.Builder().build());
-                    openAdv();
-                }
-            });
-        }else{
+//        if(interstitialAd.isLoaded()){
+//            interstitialAd.show();
+//            interstitialAd.setAdListener(new AdListener() {
+//                @Override
+//                public void onAdClosed() {
+//                    interstitialAd.loadAd(new AdRequest.Builder().build());
+//                    openAdv();
+//                }
+//            });
+//        }else{
             startActivity(new Intent(this, AdvancedLoadingScreen.class));
-        }
+//        }
     }
     public void openAdv(){
         startActivity(new Intent(this, AdvancedLoadingScreen.class));

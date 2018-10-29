@@ -204,13 +204,15 @@ public class Advanced extends AppCompatActivity {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
-        finish();
+        if(addition && subtraction && adddiv && addmult && subdiv && submult && sqr && sqrt && cube && !kidsmode) {
+            finish();
+        }
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(!mediaPlayer.isPlaying() && !mute) {
+        if(!mediaPlayer.isPlaying() && mute) {
             mediaPlayer.seekTo(musicLength);
             mediaPlayer.start();
         }
@@ -226,7 +228,9 @@ public class Advanced extends AppCompatActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        Toasty.warning(getApplicationContext(),"Exiting Advanced - you cannot leave the app while in a session", Toast.LENGTH_LONG,true).show();
+        if(addition && subtraction && adddiv && addmult && subdiv && submult && sqr && sqrt && cube && !kidsmode) {
+            Toasty.warning(getApplicationContext(),"Exiting Advanced - you cannot leave the app while in a session", Toast.LENGTH_LONG,true).show();
+        }
     }
     public void showPopUp(View view){
         boolean newHigh = false;

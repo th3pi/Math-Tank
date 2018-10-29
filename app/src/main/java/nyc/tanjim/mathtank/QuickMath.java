@@ -234,7 +234,12 @@ public class QuickMath extends AppCompatActivity {
             musicLength = mediaPlayer.getCurrentPosition();
             mediaPlayer.pause();
         }
-        finish();
+        if(addition && subtraction && multiplication && division && timer && !kidsmode){
+            finish();
+        }
+        if(timer){
+            finish();
+        }
         scorePopUp.dismiss();
     }
 
@@ -259,7 +264,12 @@ public class QuickMath extends AppCompatActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        Toasty.warning(getApplicationContext(),"Exiting Quick math - you cannot leave the app while in a session", Toast.LENGTH_LONG,true).show();
+        if(addition && subtraction && multiplication && division && !kidsmode && timer) {
+            Toasty.warning(getApplicationContext(), "Exiting Quick math - you cannot leave the app while in a session", Toast.LENGTH_LONG, true).show();
+        }
+        if(timer){
+            Toasty.warning(getApplicationContext(), "Exiting Quick math - you cannot leave the app if the timer is on", Toast.LENGTH_LONG, true).show();
+        }
     }
 
     /**
@@ -275,7 +285,7 @@ public class QuickMath extends AppCompatActivity {
             countDownTimer.cancel();
         }
         boolean newHigh = false;
-        if(addition && subtraction && multiplication && division && !kidsmode){
+        if(addition && subtraction && multiplication && division && !kidsmode && timer){
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("quickMathHighScore",0);
             int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
@@ -336,19 +346,22 @@ public class QuickMath extends AppCompatActivity {
 
     public void showPopUp(){
         boolean newHigh = false;
-        if(addition && subtraction && multiplication && division && timer) {
+        if(addition && subtraction && multiplication && division && !kidsmode){
             SharedPreferences.Editor editor = scorePreference.edit();
-            int largest = scorePreference.getInt("quickMathHighScore", 0);
-            int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong", 0);
-            if (score > largest) {
+            int largest = scorePreference.getInt("quickMathHighScore",0);
+            int totalAnswered = scorePreference.getInt("quickMathHighScoreWrong",0);
+            int largestDifference = scorePreference.getInt("quickMathDifference",100);
+            int difference = numberOfQuestions - score;
+            if(score > largest && difference <= largestDifference){
                 totalAnswered = numberOfQuestions;
                 largest = score;
-                editor.putInt("quickMathHighScore", largest);
-                editor.putInt("quickMathHighScoreWrong", totalAnswered);
+                editor.putInt("quickMathDifference",difference);
+                editor.putInt("quickMathHighScore",largest);
+                editor.putInt("quickMathHighScoreWrong",totalAnswered);
                 editor.apply();
                 newHigh = true;
             }
-            editor.putInt("timesPlayed", timesPlayed).apply();
+            editor.putInt("timesPlayed",timesPlayed).apply();
         }
         if(newHigh){
             winningMessage.setText("NEW HIGH SCORE!");
@@ -411,7 +424,7 @@ public class QuickMath extends AppCompatActivity {
      * score text updates
      * Feeds feedback to user depending on right or wrong answer
      * */
-    public void choose(View view){
+    public void choose(final View view){
         if(flashingText) {
             userFeedback.startAnimation(AnimationUtils.loadAnimation(this, R.anim.flicker_animation));
         }
@@ -472,6 +485,13 @@ public class QuickMath extends AppCompatActivity {
             numberOfQuestions++;
 
         }
+        view.setEnabled(false);
+        view.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                view.setEnabled(true);
+            }
+        },500);
     }
 
     //Generates write or wrong question randomly depending on user preference
