@@ -226,7 +226,7 @@ public class Advanced extends AppCompatActivity {
     @Override
     protected void onUserLeaveHint() {
         super.onUserLeaveHint();
-        Toasty.warning(getApplicationContext(),"Exiting Quick math - you cannot leave the app while in a session", Toast.LENGTH_LONG,true).show();
+        Toasty.warning(getApplicationContext(),"Exiting Advanced - you cannot leave the app while in a session", Toast.LENGTH_LONG,true).show();
     }
     public void showPopUp(View view){
         boolean newHigh = false;
