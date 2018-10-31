@@ -304,7 +304,9 @@ public class TimeTrials extends AppCompatActivity {
     }
     public void showPopUp(){
         boolean newHigh = false;
-        countDownTimer.cancel();
+        if(timer) {
+            countDownTimer.cancel();
+        }
         if(addition && subtraction && multiplication && division && timer && !kidsmode) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("timeTrialsHighScore", 0);

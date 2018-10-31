@@ -6,8 +6,8 @@ android {
         applicationId "nyc.tanjim.mathtank"
         minSdkVersion 21
         targetSdkVersion 27
-        versionCode 12
-        versionName "1.0.1.1"
+        versionCode 13
+        versionName "1.0.1.2"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         vectorDrawables.useSupportLibrary = true
     }
