@@ -87,8 +87,9 @@ public class TimeTrials extends AppCompatActivity {
         userFeedback = findViewById(R.id.userFeedback);
         whichOneIsCorrect = findViewById(R.id.whichOneIsCorrect);
         scorePopUp = new Dialog(this);
-        scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
         scorePopUp.setContentView(R.layout.score_popup);
+        scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
+        scorePopUp.getWindow().setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.MATCH_PARENT);
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
@@ -118,6 +119,8 @@ public class TimeTrials extends AppCompatActivity {
             button1.setBackground(getDrawable(R.drawable.main_menu_button_og_dk));
             button2.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
             button3.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+            iqMessage.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+            scoreMessage.setBackground(getDrawable(R.drawable.main_menu_button_bg_dk));
         }
         /*
           Required to get user's preferences
@@ -307,12 +310,12 @@ public class TimeTrials extends AppCompatActivity {
         if(timer) {
             countDownTimer.cancel();
         }
+        elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
+        int timeTaken = (int) elapsedMillis / 1000;
         if(addition && subtraction && multiplication && division && timer && !kidsmode) {
             SharedPreferences.Editor editor = scorePreference.edit();
             int largest = scorePreference.getInt("timeTrialsHighScore", 0);
             int largestTimeTaken = scorePreference.getInt("tTimeTaken", 1200);
-            elapsedMillis = SystemClock.elapsedRealtime() - chronometer.getBase();
-            int timeTaken = (int) elapsedMillis / 1000;
             float hiddenElo = (float) score / timeTaken;
             float elo = scorePreference.getFloat("hiddenElo",0);
 //            Log.i("SCORE", Integer.toString(score));
@@ -343,20 +346,23 @@ public class TimeTrials extends AppCompatActivity {
                 winningMessage.setText(getString(R.string.need_more_practice));
             }
         }
-        scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions >= 10) {
-            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
-                iqMessage.setText(getString(R.string.exceptional_math_skill));
-            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
-                iqMessage.setText(getString(R.string.above_average_math_skill));
-            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
-                iqMessage.setText(getString(R.string.average_math_skill));
-            } else{
-                iqMessage.setText(getString(R.string.below_average_math_skill));
-            }
-        }else{
-            iqMessage.setText(getString(R.string.number_too_low_10));
-        }
+        scoreMessage.setText(Integer.toString(score));
+//        if(numberOfQuestions >= 10) {
+//            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
+//                iqMessage.setText(getString(R.string.exceptional_math_skill));
+//            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
+//                iqMessage.setText(getString(R.string.above_average_math_skill));
+//            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
+//                iqMessage.setText(getString(R.string.average_math_skill));
+//            } else{
+//                iqMessage.setText(getString(R.string.below_average_math_skill));
+//            }
+//        }else{
+//            iqMessage.setText(getString(R.string.number_too_low_10));
+//        }
+        TextView typeText = scorePopUp.findViewById(R.id.typeText);
+        typeText.setText("Time taken in seconds");
+        iqMessage.setText(Integer.toString(timeTaken));
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
         if(!TimeTrials.this.isFinishing()) {

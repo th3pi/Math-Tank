@@ -26,6 +26,8 @@ import android.widget.Toast;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.Set;
@@ -71,6 +73,7 @@ public class Advanced extends AppCompatActivity {
         scorePopUp = new Dialog(this);
         scorePopUp.setContentView(R.layout.score_popup);
         scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
+        scorePopUp.getWindow().setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.MATCH_PARENT);
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
@@ -90,6 +93,8 @@ public class Advanced extends AppCompatActivity {
             button1.setBackground(getDrawable(R.drawable.main_menu_button_og_dk));
             button2.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
             button3.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+            iqMessage.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+            scoreMessage.setBackground(getDrawable(R.drawable.main_menu_button_bg_dk));
             getWindow().setStatusBarColor(getResources().getColor(R.color.qboard_black));
         }
         sqr = sharedPref.getBoolean(SettingsActivity.KEY_SQUARE,false);
@@ -267,20 +272,21 @@ public class Advanced extends AppCompatActivity {
                 winningMessage.setText(getString(R.string.need_more_practice));
             }
         }
-        scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions > 20) {
-            if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 5) {
-                iqMessage.setText(getString(R.string.exceptional_math_skill));
-            } else if (numberOfQuestions - score >= 6 && numberOfQuestions - score <= 10) {
-                iqMessage.setText(getString(R.string.above_average_math_skill));
-            } else if (numberOfQuestions - score >= 11 && numberOfQuestions - score <= 15) {
-                iqMessage.setText(getString(R.string.average_math_skill));
-            }else{
-                iqMessage.setText(getString(R.string.below_average_math_skill));
-            }
-        }else {
-            iqMessage.setText(getString(R.string.number_too_low));
-        }
+        scoreMessage.setText(Integer.toString(score));
+//        if(numberOfQuestions >= 10) {
+//            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
+//                iqMessage.setText(getString(R.string.exceptional_math_skill));
+//            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
+//                iqMessage.setText(getString(R.string.above_average_math_skill));
+//            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
+//                iqMessage.setText(getString(R.string.average_math_skill));
+//            } else{
+//                iqMessage.setText(getString(R.string.below_average_math_skill));
+//            }
+//        }else{
+//            iqMessage.setText(getString(R.string.number_too_low_10));
+//        }
+        iqMessage.setText(Integer.toString(numberOfQuestions));
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
         scorePopUp.show();

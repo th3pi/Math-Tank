@@ -75,6 +75,7 @@ public class QuickMath extends AppCompatActivity {
         scorePopUp = new Dialog(this);
         scorePopUp.setContentView(R.layout.score_popup);
         scorePopUp.getWindow().getAttributes().windowAnimations = R.style.ScorePopUpAnimation;
+        scorePopUp.getWindow().setLayout(ConstraintLayout.LayoutParams.MATCH_PARENT,ConstraintLayout.LayoutParams.MATCH_PARENT);
         winningMessage = scorePopUp.findViewById(R.id.winningMessage);
         scoreMessage = scorePopUp.findViewById(R.id.scoreMessage);
         iqMessage = scorePopUp.findViewById(R.id.iqMessage);
@@ -100,6 +101,8 @@ public class QuickMath extends AppCompatActivity {
             constraintLayout.setBackground(getDrawable(R.drawable.transit_1));
             correctButton.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
             wrongButton.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
+            iqMessage.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
+            scoreMessage.setBackground(getDrawable(R.drawable.main_menu_button_bg_dk));
         }
 
         //Changes the background and status bar color when the timer hits 15 seconds
@@ -317,20 +320,21 @@ public class QuickMath extends AppCompatActivity {
                 winningMessage.setText(getString(R.string.need_more_practice));
             }
         }
-        scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions >= 10) {
-            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
-                iqMessage.setText(getString(R.string.exceptional_math_skill));
-            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
-                iqMessage.setText(getString(R.string.above_average_math_skill));
-            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
-                iqMessage.setText(getString(R.string.average_math_skill));
-            } else{
-                iqMessage.setText(getString(R.string.below_average_math_skill));
-            }
-        }else{
-            iqMessage.setText(getString(R.string.number_too_low_10));
-        }
+        scoreMessage.setText(Integer.toString(score));
+//        if(numberOfQuestions >= 10) {
+//            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
+//                iqMessage.setText(getString(R.string.exceptional_math_skill));
+//            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
+//                iqMessage.setText(getString(R.string.above_average_math_skill));
+//            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
+//                iqMessage.setText(getString(R.string.average_math_skill));
+//            } else{
+//                iqMessage.setText(getString(R.string.below_average_math_skill));
+//            }
+//        }else{
+//            iqMessage.setText(getString(R.string.number_too_low_10));
+//        }
+        iqMessage.setText(Integer.toString(numberOfQuestions));
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
         if(!QuickMath.this.isFinishing()) {
@@ -378,20 +382,21 @@ public class QuickMath extends AppCompatActivity {
                 winningMessage.setText(getString(R.string.need_more_practice));
             }
         }
-        scoreMessage.setText(getString(R.string.score_pop_score, score, numberOfQuestions));
-        if(numberOfQuestions >= 10) {
-            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
-                iqMessage.setText(getString(R.string.exceptional_math_skill));
-            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
-                iqMessage.setText(getString(R.string.above_average_math_skill));
-            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
-                iqMessage.setText(getString(R.string.average_math_skill));
-            } else{
-                iqMessage.setText(getString(R.string.below_average_math_skill));
-            }
-        }else{
-            iqMessage.setText(getString(R.string.number_too_low_10));
-        }
+        scoreMessage.setText(Integer.toString(score));
+//        if(numberOfQuestions >= 10) {
+//            if (numberOfQuestions - score >= 0 && numberOfQuestions - score < 2) {
+//                iqMessage.setText(getString(R.string.exceptional_math_skill));
+//            } else if (numberOfQuestions - score >= 0 && numberOfQuestions - score <= 3) {
+//                iqMessage.setText(getString(R.string.above_average_math_skill));
+//            } else if (numberOfQuestions - score >= 3 && numberOfQuestions - score <= 5) {
+//                iqMessage.setText(getString(R.string.average_math_skill));
+//            } else{
+//                iqMessage.setText(getString(R.string.below_average_math_skill));
+//            }
+//        }else{
+//            iqMessage.setText(getString(R.string.number_too_low_10));
+//        }
+        iqMessage.setText(Integer.toString(numberOfQuestions));
         scorePopUp.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         scorePopUp.setCanceledOnTouchOutside(false);
         if(!QuickMath.this.isFinishing()) {
