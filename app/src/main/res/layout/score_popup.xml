@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -7,13 +8,13 @@
     android:paddingTop="16dp"
     android:background="@drawable/popup_background"
     android:layout_gravity="center">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="vertical"
-        android:background="@color/cgray"
-        >
+        android:background="@color/cgray">
         <TextView
             android:id="@+id/winningMessage"
             android:layout_width="match_parent"
@@ -27,33 +28,27 @@
             />
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center">
-        <TextView
-            android:id="@+id/scoreMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="You got 25 out 40 right."
-            android:textColor="#fff"
-            android:layout_gravity="center"
-            android:textSize="30sp"
-            android:fontFamily="@font/amaticsc_bold"/>
-        <TextView
-            android:id="@+id/iqMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_marginTop="16dp"
-            android:text="Your IQ is 148!"
-            android:textColor="#fff"
-            android:layout_gravity="center"
-            android:textSize="30sp"
-            android:fontFamily="@font/amaticsc_bold"/>
-    </LinearLayout>
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </TableLayout>
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -69,7 +64,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/green_popup_button_style"
-            android:layout_marginRight="30dp"
             android:onClick="playAgain"/>
         <Button
             android:id="@+id/quitButton"

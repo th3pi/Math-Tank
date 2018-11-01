@@ -12,6 +12,7 @@ import android.support.constraint.ConstraintLayout;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,7 +20,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
-
+import com.google.ads.consent.*;
 import com.tjeannin.apprate.AppRate;
 
 import com.google.android.gms.ads.AdListener;
@@ -28,6 +29,8 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Set;
 
 import es.dmoral.toasty.Toasty;
