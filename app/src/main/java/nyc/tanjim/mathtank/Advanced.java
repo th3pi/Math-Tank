@@ -90,7 +90,7 @@ public class Advanced extends AppCompatActivity {
             ConstraintLayout constraintLayout = (findViewById(R.id.advancedBg));
             constraintLayout.setBackgroundColor(getResources().getColor(R.color.qboard_black));
             button0.setBackground(getDrawable(R.drawable.main_menu_button_bg_dk));
-            button1.setBackground(getDrawable(R.drawable.main_menu_button_og_dk));
+            button1.setBackground(getDrawable(R.drawable.main_menu_button_og_dk_2));
             button2.setBackground(getDrawable(R.drawable.main_menu_button_rd_dk));
             button3.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
             iqMessage.setBackground(getDrawable(R.drawable.main_menu_button_gr_dk));
