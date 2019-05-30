@@ -2,6 +2,8 @@
 
 #### is an android quiz game based on Java. My first android application. The idea of it is to improve quick math skills, to train user's brain to solve math problems quickly and easily - by looking for patterns.
 
+# Download: https://play.google.com/store/apps/details?id=nyc.tanjim.mathtank
+
 # Features!
 
   - User friendly colorful UI
